@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="view" minHeight="350.0" minWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivos">
+            <items>
+              <MenuItem fx:id="newMenu" mnemonicParsing="false" onAction="#onNewMenuAction" text="Nuevo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="openMenu" mnemonicParsing="false" onAction="#onOpenMenuAction" text="Abrir...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="saveMenu" mnemonicParsing="false" onAction="#onSaveMenuAction" text="Guardar">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="saveAsMenu" mnemonicParsing="false" onAction="#onSaveAsMenuAction" text="Guardar como.." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="exitMenu" mnemonicParsing="false" onAction="#onExitMenuAction" text="Close">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Tema">
+            <items>
+              <MenuItem fx:id="changeThemeMenu" mnemonicParsing="false" onAction="#onChangeThemeMenuAction" text="Cambiar tema" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Acerca de...">
+            <items>
+              <MenuItem fx:id="aboutAppMenu" mnemonicParsing="false" onAction="#onAboutAppMenuAction" text="Acerca de la App" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TabPane fx:id="alimentAppTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="informationTab" text="Información" />
+          <Tab fx:id="myDataTab" text="Mis datos" />
+            <Tab fx:id="myMenusTab" text="Mis menús" />
+            <Tab fx:id="myDietsTab" text="Mis dietas" />
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
