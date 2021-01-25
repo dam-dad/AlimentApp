@@ -57,6 +57,8 @@ public class MainController implements Initializable {
 	
 	//Controllers
 	MyMenusController myMenusController = new MyMenusController();
+	DatosController  datosController= new DatosController();
+	InfoController infoController = new InfoController();
 
 	public MainController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
@@ -67,6 +69,8 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		myMenusTab.setContent(myMenusController.getView());
+		myDataTab.setContent(datosController.getView());
+		informationTab.setContent(infoController.getView());
 	}
 
 	// Funciones menu

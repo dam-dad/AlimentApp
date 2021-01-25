@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <HBox alignment="TOP_RIGHT" prefHeight="62.0" prefWidth="602.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="editarButton" mnemonicParsing="false" text="Editar perfil" />
+            <Button fx:id="guardarButton" mnemonicParsing="false" text="Guardar" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="302.0" prefWidth="613.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="228.00001220703126" minWidth="10.0" prefWidth="108.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="485.7999755859375" minWidth="10.0" prefWidth="332.0" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="391.2" minWidth="10.0" prefWidth="171.60002441406255" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="36.79999389648437" minHeight="10.0" prefHeight="33.60001220703124" vgrow="NEVER" />
+            <RowConstraints maxHeight="62.39998168945314" minHeight="10.0" prefHeight="26.399987792968744" vgrow="NEVER" />
+            <RowConstraints maxHeight="76.00000610351563" minHeight="10.0" prefHeight="36.00001831054689" vgrow="NEVER" />
+            <RowConstraints maxHeight="76.8000244140625" minHeight="10.0" prefHeight="32.79998168945312" vgrow="NEVER" />
+            <RowConstraints maxHeight="79.20001831054685" minHeight="10.0" prefHeight="36.00000610351563" vgrow="NEVER" />
+            <RowConstraints maxHeight="64.79999389648435" minHeight="10.0" prefHeight="33.59998779296876" vgrow="NEVER" />
+          <RowConstraints maxHeight="64.0000061035156" minHeight="10.0" prefHeight="61.60001220703123" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Nombre:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Label text="Datos básicos:" GridPane.halignment="RIGHT" />
+            <Label text="Apellidos:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label text="Edad:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label text="Sexo:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <Separator prefWidth="440.0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+            <TextField fx:id="nombreText" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="apellidosText" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="edadText" maxWidth="25.0" prefWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <HBox prefHeight="46.0" prefWidth="340.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <RadioButton fx:id="hombreRButton" mnemonicParsing="false" text="Hombre" />
+                  <RadioButton fx:id="mujerRButton" mnemonicParsing="false" text="Mujer" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </HBox>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Calculadora IMC:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Button fx:id="cambiarButton" mnemonicParsing="false" prefWidth="128.0" text="Cambiar avatar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+            <VBox prefHeight="76.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="7">
+               <children>
+                  <HBox prefHeight="29.0" prefWidth="90.0" spacing="5.0">
+                     <children>
+                        <Label text="Peso:">
+                           <HBox.margin>
+                              <Insets left="6.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="pesoText" prefWidth="30.0" />
+                        <Label text="cm">
+                           <HBox.margin>
+                              <Insets top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="34.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="Altura:" />
+                        <TextField fx:id="alturaText" prefWidth="30.0" />
+                        <Label text="kg">
+                           <HBox.margin>
+                              <Insets top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <Label text="IMC:">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets left="15.0" top="15.0" />
+               </GridPane.margin>
+            </VBox>
+            <Label fx:id="resultLabel" text="Bajo peso/Normal/Sobrepeso/Obeso" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Label GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <ProgressBar prefWidth="200.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <Label text="&quot;Estás a X de tu peso ideal&quot;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+</BorderPane>
