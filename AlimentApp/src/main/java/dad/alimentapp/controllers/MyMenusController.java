@@ -4,16 +4,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.main.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class MyMenusController implements Initializable {
 
@@ -132,8 +137,9 @@ public class MyMenusController implements Initializable {
 
 	@FXML
 	private Button generateDietButton;
-	
-	
+
+	GenerateMenuController menuController;
+	GenerateDietController dietController = new GenerateDietController();
 
 	public MyMenusController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MyMenus.fxml"));
@@ -143,7 +149,7 @@ public class MyMenusController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
+
 	}
 
 	@FXML
@@ -157,13 +163,13 @@ public class MyMenusController implements Initializable {
 	}
 
 	@FXML
-	void onGenerateDietButtonAction(ActionEvent event) {
-
+	void onGenerateDietButtonAction(ActionEvent event) throws IOException {
+		newSceneGenerateDiet();
 	}
 
 	@FXML
-	void onGenerateMenuButtonAction(ActionEvent event) {
-
+	void onGenerateMenuButtonAction(ActionEvent event) throws IOException {
+		newSceneGenerateMenu();
 	}
 
 	@FXML
@@ -184,6 +190,44 @@ public class MyMenusController implements Initializable {
 	@FXML
 	void onSaveMenuButtonAction(ActionEvent event) {
 
+	}
+
+	private void newSceneGenerateMenu() {
+		try {
+			menuController = new GenerateMenuController();
+
+			Stage secondaryStage = new Stage();
+			Scene escena = new Scene(menuController.getView());
+
+			secondaryStage.setScene(escena);
+			secondaryStage.setTitle("Generar Menu");
+			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.initModality(Modality.WINDOW_MODAL);
+			secondaryStage.initOwner(App.getPrimaryStage());
+			secondaryStage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void newSceneGenerateDiet() {
+		try {
+			dietController = new GenerateDietController();
+
+			Stage secondaryStage = new Stage();
+			Scene escena = new Scene(dietController.getView());
+
+			secondaryStage.setScene(escena);
+			secondaryStage.setTitle("Generar Dieta");
+			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.initModality(Modality.WINDOW_MODAL);
+			secondaryStage.initOwner(App.getPrimaryStage());
+			secondaryStage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public HBox getView() {

@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class InicioSesionController implements Initializable {
+public class SignInController implements Initializable {
 
 	@FXML
 	private VBox view;
@@ -39,7 +39,7 @@ public class InicioSesionController implements Initializable {
 	@FXML
 	private Button cancelButton;
 
-	public InicioSesionController() throws IOException {
+	public SignInController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/InicioSesionView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -59,5 +59,9 @@ public class InicioSesionController implements Initializable {
 	@FXML
 	void onSinginButtonAction(ActionEvent event) {
 
+	}
+
+	public VBox getView() {
+		return view;
 	}
 }
