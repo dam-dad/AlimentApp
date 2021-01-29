@@ -57,7 +57,7 @@ public class MainController implements Initializable {
 	
 	//Controllers
 	MyMenusController myMenusController = new MyMenusController();
-	DatosController  datosController= new DatosController();
+	DataController  datosController= new DataController();
 	InfoController infoController = new InfoController();
 
 	public MainController() throws IOException {

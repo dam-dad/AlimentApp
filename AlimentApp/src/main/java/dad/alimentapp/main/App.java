@@ -3,6 +3,7 @@ package dad.alimentapp.main;
 import dad.alimentapp.controllers.MainController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -17,11 +18,11 @@ public class App extends Application {
 		
 		controller = new MainController();
 		
-		Scene escena = new Scene(controller.getView());
+		Scene escena = new Scene(controller.getView(),900,750);
 		
 		primaryStage.setScene(escena);
 		primaryStage.setTitle("AlimentApp");
-		//primaryStage.getIcons().add(new Image("/images/"));
+		primaryStage.getIcons().add(new Image("/images/icon.png"));
 		primaryStage.show();
 		
 	}
