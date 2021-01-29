@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,278 +14,320 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="view" alignment="CENTER" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="productNameLabel" text="Nombre Producto">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="productImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
-            <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
+            <GridPane alignment="CENTER" maxHeight="350.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
-                  <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="50.0" prefHeight="50.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Kcal:">
+                  <Button fx:id="previousButton" mnemonicParsing="false" onAction="#onPreviousButtonAction">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Previous-32px.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNextButtonAction" GridPane.columnIndex="4">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Next-32px.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="weekdayLabel" text="Label" GridPane.columnIndex="2">
                      <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font></Label>
-                  <Label text="Proteínas:" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font></Label>
-                  <Label text="Hidratos:" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font></Label>
-                  <Label text="Grasas:" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font></Label>
-                  <Label fx:id="kcalLabel" text="Label" GridPane.columnIndex="1">
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="proteinsLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label text="Label" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Italic" size="13.0" />
-                     </font></Label>
-                  <Label fx:id="hydratesLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Italic" size="13.0" />
-                     </font></Label>
-                  <Label fx:id="fatsLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Italic" size="13.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Desayuno">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="breakfastButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onBreakfastButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/note-add-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Media-Mañana">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="midMorningButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onMidMorningButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/note-add-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Almuerzo">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="lunchButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onLaunchButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/note-add-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Merienda">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="snackButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onSnackButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/note-add-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Cena">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="dinnerButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onDinnerButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/note-add-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
             </GridPane>
-            <VBox alignment="CENTER">
-               <children>
-                  <Label alignment="TOP_LEFT" text="Descripción:">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="descriptionLabel" text="Label" />
-               </children>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
-         </padding>
-      </VBox>
-      <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
-         <children>
-            <Label alignment="CENTER" text="Produtos">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
+            <Separator prefWidth="200.0">
                <VBox.margin>
-                  <Insets bottom="10.0" top="5.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
-            </Label>
-            <ComboBox fx:id="mealsComboBox" promptText="Tipo de comida" />
-            <ListView fx:id="productsList" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <HBox alignment="CENTER" spacing="20.0">
+            </Separator>
+            <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="addButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonAction" text="Agregar">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="removeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveButtonAction" text="Quitar">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Button>
+                  <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
+                     <children>
+                        <Label text="Kcal:">
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Proteinas:">
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Hidratos:">
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Grasas:">
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Fibras:">
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" HBox.hgrow="SOMETIMES">
+                     <children>
+                        <Label fx:id="kcalTotLabel" text="Label">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="proteinTotLabel" text="Label">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="hydratesTotLabel" text="Label">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fatsTotLabel" text="Label">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fibresTotLabel" text="Label">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </VBox>
+                  <PieChart fx:id="menuChart" legendSide="LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" title="MENÚ" HBox.hgrow="SOMETIMES">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </PieChart>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                  <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="SOMETIMES">
+                     <children>
+                        <Button fx:id="generateDietButton" mnemonicParsing="false" onAction="#onGenerateDietButtonAction" text="Generar Dieta" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font></Button>
+                        <Button fx:id="saveDietButton" mnemonicParsing="false" onAction="#onSaveDietButtonAction" text="Guardar Dieta" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font></Button>
+                        <Button fx:id="generateMenuButton" mnemonicParsing="false" onAction="#onGenerateMenuButtonAction" text="Generar Menú" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font></Button>
+                        <Button fx:id="saveMenuButton" mnemonicParsing="false" onAction="#onSaveMenuButtonAction" text="Guardar Menú" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font></Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </VBox>
                </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </HBox>
          </children>
          <HBox.margin>
-            <Insets />
-         </HBox.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
-      <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-         <children>
-            <GridPane hgap="5.0" VBox.vgrow="ALWAYS">
-              <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="NEVER" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Misc-Back-icon%20(1).png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNextButtonAction" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Misc-Forward-icon%20(1).png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Label fx:id="dayLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="Desayuno" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Media-Mañana" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Almuerzo" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Merienda" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Cena" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Separator prefHeight="15.0" prefWidth="300.0" GridPane.columnSpan="4" GridPane.rowIndex="6" />
-                  <Label text="Kcal:" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Proteinas:" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Hidratos:" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="9">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Grasas:" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="10">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="kcalTotLabel" text="Label" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="7" />
-                  <Label fx:id="proteinsTotLabel" text="Label" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-                  <Label fx:id="hydratesTotLabel" text="Label" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="9" />
-                  <Label fx:id="fatsTotLabel" text="Label" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="10" />
-                  <Label fx:id="productDLabel" text="Label" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Label fx:id="productD2Label" text="Label" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <Label fx:id="productD3Label" text="Label" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                  <Label fx:id="productMaLabel" text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <Label fx:id="productMa2Label" text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <Label fx:id="productMa3Label" text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                  <Label fx:id="productALabel" text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <Label fx:id="productA2Label" text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <Label fx:id="productA3Label" text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                  <Label fx:id="productMeLabel" text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <Label fx:id="productMe2Label" text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <Label fx:id="productMe3Label" text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                  <Label fx:id="productCLabel" text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <Label fx:id="productC2Label" text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                  <Label fx:id="productC3Label" text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-               </children>
-            </GridPane>
-            <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
-               <children>
-                  <Button fx:id="saveMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveMenuButtonAction" text="Guardar Menu" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="saveDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveDietButtonAction" text="Guardar Dieta" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox spacing="5.0" VBox.vgrow="NEVER">
-               <children>
-                  <Button fx:id="generateMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGenerateMenuButtonAction" text="Generar Menu" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="generateDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGenerateDietButtonAction" text="Generar Dieta" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" right="5.0" />
-               </padding>
-            </HBox>
-         </children>
-         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
+         </HBox.margin>
       </VBox>
    </children>
    <padding>
