@@ -76,7 +76,8 @@ public class MyMenusController implements Initializable {
 	@FXML
 	private Button generateMenuButton;
 
-	@FXML
+	GenerateMenuController menuController;
+	GenerateDietController dietController = new GenerateDietController();
 	private Button saveMenuButton;
 
 	// CONTROLLERS
@@ -108,7 +109,7 @@ public class MyMenusController implements Initializable {
 		menuChart.setLabelLineLength(20);
 		menuChart.setLegendSide(Side.LEFT);
 	}
-	
+
 	private void newSceneProduct() {
 		try {
 			productController = new ProductController();
@@ -127,7 +128,7 @@ public class MyMenusController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void onBreakfastButtonAction(ActionEvent event) {
 		newSceneProduct();
@@ -139,13 +140,13 @@ public class MyMenusController implements Initializable {
 	}
 
 	@FXML
-	void onGenerateDietButtonAction(ActionEvent event) {
-
+	void onGenerateDietButtonAction(ActionEvent event) throws IOException {
+		newSceneGenerateDiet();
 	}
 
 	@FXML
-	void onGenerateMenuButtonAction(ActionEvent event) {
-
+	void onGenerateMenuButtonAction(ActionEvent event) throws IOException {
+		newSceneGenerateMenu();
 	}
 
 	@FXML
@@ -176,6 +177,44 @@ public class MyMenusController implements Initializable {
 	@FXML
 	void onSaveMenuButtonAction(ActionEvent event) {
 
+	}
+
+	private void newSceneGenerateMenu() {
+		try {
+			menuController = new GenerateMenuController();
+
+			Stage secondaryStage = new Stage();
+			Scene escena = new Scene(menuController.getView());
+
+			secondaryStage.setScene(escena);
+			secondaryStage.setTitle("Generar Menu");
+			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.initModality(Modality.WINDOW_MODAL);
+			secondaryStage.initOwner(App.getPrimaryStage());
+			secondaryStage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void newSceneGenerateDiet() {
+		try {
+			dietController = new GenerateDietController();
+
+			Stage secondaryStage = new Stage();
+			Scene escena = new Scene(dietController.getView());
+
+			secondaryStage.setScene(escena);
+			secondaryStage.setTitle("Generar Dieta");
+			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.initModality(Modality.WINDOW_MODAL);
+			secondaryStage.initOwner(App.getPrimaryStage());
+			secondaryStage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

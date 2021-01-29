@@ -57,7 +57,7 @@ public class MainController implements Initializable {
 	
 	//Controllers
 	MyMenusController myMenusController = new MyMenusController();
-	DataController  datosController= new DataController();
+	DataController  dataController= new DataController();
 	InfoController infoController = new InfoController();
 
 	public MainController() throws IOException {
@@ -69,7 +69,7 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		myMenusTab.setContent(myMenusController.getView());
-		myDataTab.setContent(datosController.getView());
+		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 	}
 

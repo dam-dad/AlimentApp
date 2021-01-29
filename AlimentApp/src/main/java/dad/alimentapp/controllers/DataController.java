@@ -32,106 +32,99 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.converter.NumberStringConverter;
 
 public class DataController implements Initializable {
-	
-	
-	//view
-	   @FXML
-	    private BorderPane view;
 
-	    @FXML
-	    private Button editButton;
+	// view
+	@FXML
+	private BorderPane view;
 
-	    @FXML
-	    private Button saveButton;
+	@FXML
+	private Button editButton;
 
-	    @FXML
-	    private TextField nameText;
+	@FXML
+	private Button saveButton;
 
-	    @FXML
-	    private TextField surnameText;
+	@FXML
+	private TextField nameText;
 
-	    @FXML
-	    private TextField ageText;
+	@FXML
+	private TextField surnameText;
 
-	    @FXML
-	    private RadioButton manRadio;
+	@FXML
+	private TextField ageText;
 
-	    @FXML
-	    private RadioButton womanRadio;
+	@FXML
+	private RadioButton manRadio;
 
-	    @FXML
-	    private ImageView avatarImageView;
+	@FXML
+	private RadioButton womanRadio;
 
-	    @FXML
-	    private Button changeButton;
+	@FXML
+	private ImageView avatarImageView;
 
-	    @FXML
-	    private TextField weightText;
+	@FXML
+	private Button changeButton;
 
-	    @FXML
-	    private TextField heighText;
+	@FXML
+	private TextField weightText;
 
-	    @FXML
-	    private Label imcLabel;
+	@FXML
+	private TextField heighText;
 
-	    @FXML
-	    private Label indeximcLabel;
+	@FXML
+	private Label imcLabel;
 
-	    @FXML
-	    private Button saveRegisterButton;
+	@FXML
+	private Label indeximcLabel;
 
-	    @FXML
-	    private Button historicButton;
+	@FXML
+	private Button saveRegisterButton;
 
-	    @FXML
-	    private ProgressBar imcProgress;
-	    
-	    @FXML
-	    private ImageView imcImageView;
-	    
-	    
-	    //model
-	    private StringProperty pesoStringProperty = new SimpleStringProperty();
-		private DoubleProperty pesoProperty = new SimpleDoubleProperty();
-		
-		private StringProperty alturaStringProperty = new SimpleStringProperty();
-		private DoubleProperty alturaProperty = new SimpleDoubleProperty();
-		
-		private StringProperty imcStringProperty = new SimpleStringProperty();
-		private DoubleProperty imcProperty = new SimpleDoubleProperty();
-		
-		private StringProperty resProperty= new SimpleStringProperty();
-    
-    
-    public DataController() throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DataView.fxml"));
+	@FXML
+	private Button historicButton;
+
+	@FXML
+	private ProgressBar imcProgress;
+
+	@FXML
+	private ImageView imcImageView;
+
+	// model
+	private StringProperty pesoStringProperty = new SimpleStringProperty();
+	private DoubleProperty pesoProperty = new SimpleDoubleProperty();
+
+	private StringProperty alturaStringProperty = new SimpleStringProperty();
+	private DoubleProperty alturaProperty = new SimpleDoubleProperty();
+
+	private StringProperty imcStringProperty = new SimpleStringProperty();
+	private DoubleProperty imcProperty = new SimpleDoubleProperty();
+
+	private StringProperty resProperty = new SimpleStringProperty();
+
+	public DataController() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DataView.fxml"));
 		loader.setController(this);
 		loader.load();
-    }
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		changeButton.setOnAction(e->onChangeButtonAction());
-		
+
+		changeButton.setOnAction(e -> onChangeButtonAction());
+
 		pesoStringProperty.bindBidirectional(weightText.textProperty());
 		Bindings.bindBidirectional(pesoStringProperty, pesoProperty, new NumberStringConverter());
 		pesoProperty.addListener((o, ov, nv) -> onCalculoIndice());
-		
+
 		alturaStringProperty.bindBidirectional(heighText.textProperty());
 		Bindings.bindBidirectional(alturaStringProperty, alturaProperty, new NumberStringConverter());
 		alturaProperty.addListener((o, ov, nv) -> onCalculoIndice());
-		
+
 		imcStringProperty.bindBidirectional(imcLabel.textProperty());
 		resProperty.bindBidirectional(indeximcLabel.textProperty());
 		imcProperty.addListener((o, ov, nv) -> onCalculoRes());
-		
-		
-		
+
 	}
-	
-	
-	
+
 	private void onCalculoRes() {
 		if (imcProperty.get() == 0) {
 			imcStringProperty.set("(peso * altura^ 2)");
@@ -141,64 +134,57 @@ public class DataController implements Initializable {
 			if (imcProperty.get() < 18.5) {
 				resProperty.set("Bajo peso");
 				imcImageView.setImage(new Image("images/imcWeight/under_weight.png"));
-			}
-			else if (imcProperty.get() >= 18.5 && imcProperty.get() < 25.0 ) {
+			} else if (imcProperty.get() >= 18.5 && imcProperty.get() < 25.0) {
 				resProperty.set("Normal");
 				imcImageView.setImage(new Image("images/imcWeight/normal_weight.png"));
-				
-			}
-			else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
+
+			} else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
 				resProperty.set("Sobrepeso");
 				imcImageView.setImage(new Image("images/imcWeight/over_weight.png"));
-			}
-			else {
+			} else {
 				resProperty.set("Obeso");
 				imcImageView.setImage(new Image("images/imcWeight/obese_weight.png"));
 			}
 		}
-		
+
 	}
 
 	private void onCalculoIndice() {
-		
+
 		if ((pesoProperty.get() == 0) || (alturaProperty.get() == 0))
 			imcProperty.set(0);
 		else {
-	
+
 			Double imc = (pesoProperty.get() / (Math.pow(alturaProperty.get(), 2)));
-			imcProperty.set(imc*10000);
+			imcProperty.set(imc * 10000);
+
+		}
 
 	}
-		
-	}
 
-	//MÉTODO PARA CAMBIAR EL  AVATAR DEL USUARIO
+	// MÉTODO PARA CAMBIAR EL AVATAR DEL USUARIO
 	private void onChangeButtonAction() {
 		FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Cambiar de avatar");
-    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Imagen .png (*.PNG)", "*.PNG"));
-    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Imagen .jpg (*.JPG)", "*.JPG"));
-    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Todos los archivos (*.*)", "*.*"));
-    	File imageFile= fileChooser.showOpenDialog(App.getPrimaryStage());
-    	
-    	if(imageFile!=null) {
-    		  try {
-                  BufferedImage bufferedImage = ImageIO.read(imageFile);
-                  Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                  avatarImageView.setImage(image);
-              } catch (IOException ex) {
-                  //TODO implementar alert
-              }
-    	}
-    	
-	
+		fileChooser.setTitle("Cambiar de avatar");
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Imagen .png (*.PNG)", "*.PNG"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Imagen .jpg (*.JPG)", "*.JPG"));
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Todos los archivos (*.*)", "*.*"));
+		File imageFile = fileChooser.showOpenDialog(App.getPrimaryStage());
+
+		if (imageFile != null) {
+			try {
+				BufferedImage bufferedImage = ImageIO.read(imageFile);
+				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+				avatarImageView.setImage(image);
+			} catch (IOException ex) {
+				// TODO implementar alert
+			}
+		}
+
 	}
 
-	
-	
 	public BorderPane getView() {
 		return view;
 	}
-	
 
 }
