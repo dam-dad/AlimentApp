@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -73,9 +76,6 @@ public class MyMenusController implements Initializable {
 	@FXML
 	private Button generateMenuButton;
 
-	@FXML
-	private Button generateDietButton;
-
 	GenerateMenuController menuController;
 	GenerateDietController dietController = new GenerateDietController();
 	private Button saveMenuButton;
@@ -109,7 +109,7 @@ public class MyMenusController implements Initializable {
 		menuChart.setLabelLineLength(20);
 		menuChart.setLegendSide(Side.LEFT);
 	}
-	
+
 	private void newSceneProduct() {
 		try {
 			productController = new ProductController();
@@ -128,7 +128,7 @@ public class MyMenusController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void onBreakfastButtonAction(ActionEvent event) {
 		newSceneProduct();
@@ -179,7 +179,6 @@ public class MyMenusController implements Initializable {
 
 	}
 
-
 	private void newSceneGenerateMenu() {
 		try {
 			menuController = new GenerateMenuController();
@@ -216,6 +215,8 @@ public class MyMenusController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
 	@FXML
 	void onSnackButtonAction(ActionEvent event) {
 		newSceneProduct();
