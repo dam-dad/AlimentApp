@@ -15,8 +15,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="780.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
@@ -77,6 +78,11 @@
                      <HBox.margin>
                         <Insets bottom="10.0" />
                      </HBox.margin></RadioButton>
+                  <RadioButton fx:id="otroRadio" mnemonicParsing="false" text="Otro">
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </RadioButton>
                </children>
                <padding>
                   <Insets left="10.0" />
@@ -88,7 +94,7 @@
             <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="5" />
             <ImageView fx:id="avatarImageView" fitHeight="114.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <image>
-                  <Image url="@../images/default_avatar.png" />
+                  <Image url="@../images/myDataTab/default_avatar.png" />
                </image>
             </ImageView>
             <Button fx:id="changeButton" mnemonicParsing="false" prefWidth="150.0" text="Cambiar avatar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
@@ -145,11 +151,17 @@
                <GridPane.margin>
                   <Insets bottom="5.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
             </Label>
             <Label text="Te recomendamos:" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="5.0" />
-               </GridPane.margin></Label>
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Label>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <Label text="*Consejo o tipo de dieta*" />
