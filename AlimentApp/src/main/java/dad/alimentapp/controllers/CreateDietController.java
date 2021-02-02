@@ -14,11 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MyMenusController implements Initializable {
+public class CreateDietController implements Initializable {
 
 	// VIEW
 
@@ -85,8 +86,8 @@ public class MyMenusController implements Initializable {
 	GenerateMenuController menuController;
 	GenerateDietController dietController = new GenerateDietController();
 
-	public MyMenusController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MyMenus.fxml"));
+	public CreateDietController() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateDietView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -120,8 +121,8 @@ public class MyMenusController implements Initializable {
 			Scene scene = new Scene(productController.getView());
 
 			secondaryStage.setScene(scene);
-			secondaryStage.setTitle("AlimentApp");
-			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.setTitle("Produtos");
+			secondaryStage.getIcons().add(new Image("/images/logo.png"));
 			secondaryStage.initModality(Modality.WINDOW_MODAL);
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();

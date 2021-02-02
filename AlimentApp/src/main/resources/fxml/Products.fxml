@@ -26,7 +26,7 @@
                <children>
                   <ImageView fx:id="productImageLabel" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/myMenusTab/products/food-128px.png" />
+                        <Image url="@../images/createDietTab/products/food-128px.png" />
                      </image>
                   </ImageView>
                </children>
@@ -141,7 +141,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/myMenusTab/products/add-72px.png" />
+                        <Image url="@../images/createDietTab/products/add-72px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -150,7 +150,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/myMenusTab/products/remove-72px.png" />
+                        <Image url="@../images/createDietTab/products/remove-72px.png" />
                      </image>
                   </ImageView>
                </graphic></Button>

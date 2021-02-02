@@ -19,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -58,7 +59,7 @@ public class MainController implements Initializable {
 	private Tab myDietsTab;
 
 	// Controllers
-	MyMenusController myMenusController = new MyMenusController();
+	CreateDietController myMenusController = new CreateDietController();
 	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
 	AboutAppController aboutAppController;
@@ -105,7 +106,7 @@ public class MainController implements Initializable {
 			secondaryStage.setScene(scene);
 			secondaryStage.setTitle("Acerca de AlimentApp");
 			secondaryStage.resizableProperty().setValue(Boolean.FALSE);
-			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.getIcons().add(new Image("/images/logo.png"));
 			secondaryStage.initModality(Modality.WINDOW_MODAL);
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();
