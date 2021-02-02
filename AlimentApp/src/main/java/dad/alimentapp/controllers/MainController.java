@@ -62,7 +62,8 @@ public class MainController implements Initializable {
 	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
 	AboutAppController aboutAppController;
-	
+	ManageDietController manageDietController = new ManageDietController();
+
 	public MainController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
 		loader.setController(this);
@@ -74,6 +75,7 @@ public class MainController implements Initializable {
 		myMenusTab.setContent(myMenusController.getView());
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
+		myDietsTab.setContent(manageDietController.getView());
 	}
 
 	// Funciones menu

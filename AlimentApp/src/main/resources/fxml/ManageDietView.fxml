@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="865.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="menusDietsPane" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="205.0" minHeight="135.0" prefHeight="165.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="170.0" minHeight="75.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="205.0" minHeight="135.0" prefHeight="165.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="170.0" minHeight="75.0" prefHeight="80.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="dietsLabel" text="Dietas" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="menuLabel" text="Menús">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="modifyMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModifyMenuButtonAction" text="Modificar" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="3.0" left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="removeMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveMenuButtonAction" text="Eliminar" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="viewMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewMenuButtonAction" text="Visualizar Menú" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="removeDietsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveDietsButtonAction" text="Eliminar" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="modifyDietsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModifyDietsButtonAction" text="Modificar" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="3.0" left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="viewDietsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewDietsButtonAction" text="Visualizar Dieta" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="menuName1Label" alignment="CENTER" text="NomMenu" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="menuName2Label" alignment="CENTER" layoutX="10.0" layoutY="262.0" text="NomMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="menuName3Label" alignment="CENTER" layoutX="180.0" layoutY="262.0" text="NomMenu" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="dietsName1Label" layoutX="350.0" layoutY="262.0" text="NomDieta" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label fx:id="dietsName2Label" layoutX="10.0" layoutY="583.0" text="NomDieta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label fx:id="dietsName3Label" layoutX="180.0" layoutY="583.0" text="NomDieta" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <ImageView fx:id="menu1ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="374.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/myManageDietsTab/menus-512px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="menu2ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="374.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/myManageDietsTab/menus-512px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="menu3ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="180.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/myManageDietsTab/menus-512px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="diets1ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="205.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/myManageDietsTab/diets-512px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="diets2ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="10.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/myManageDietsTab/diets-512px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="diets3ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="180.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/myManageDietsTab/diets-512px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <GridPane fx:id="viewMenuDietsPane" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints prefHeight="175.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="175.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="175.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="menuDietsNameLabel" alignment="CENTER" text="NomMenu/MisDietas" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="breakfastLabel" text="Desayuno" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="midmorningLabel" layoutX="10.0" layoutY="72.0" text="Media-Mañana" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lunchLabel" layoutX="10.0" layoutY="72.0" text="Almuerzo" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="snackLabel" layoutX="120.0" layoutY="242.0" text="Merienda" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="dinnerLabel" layoutX="10.0" layoutY="213.0" text="Cena" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="breakfast1Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="100.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="breakfast2Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="breakfast3Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="20.0" top="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="midmorning1Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="100.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="midmorning2Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="midmorning3Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="20.0" top="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lunch1Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="100.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lunch2Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label fx:id="lunch3Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="20.0" top="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="snack1Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="100.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="snack2Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label fx:id="snack3Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="20.0" top="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="dinner1Label" layoutX="191.0" layoutY="513.0" text="-Comida" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets bottom="100.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="dinner2Label" text="-Comida" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Label fx:id="dinner3Label" layoutX="191.0" layoutY="513.0" text="-Comida" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets bottom="20.0" top="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="bonAppetiteLabel" text="¡Buen provecho!" textAlignment="CENTER" textFill="#2200ff" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="copyrightLabel" alignment="CENTER" contentDisplay="CENTER" text="AlimentApp 2020-2021" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</HBox>

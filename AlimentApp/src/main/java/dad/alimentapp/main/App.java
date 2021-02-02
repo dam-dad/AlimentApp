@@ -22,7 +22,7 @@ public class App extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("AlimentApp");
-		primaryStage.getIcons().add(new Image("/images/icon.png"));
+		primaryStage.getIcons().add(new Image("/images/logo.png"));
 		primaryStage.show();
 
 	}
