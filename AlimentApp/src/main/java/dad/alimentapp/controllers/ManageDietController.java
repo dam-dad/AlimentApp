@@ -14,7 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-public class FoodsController implements Initializable {
+public class ManageDietController implements Initializable {
 	
 	 @FXML
 	    private HBox view;
@@ -154,8 +154,8 @@ public class FoodsController implements Initializable {
 	    @FXML
 	    private Label copyrightLabel;
 	    
-		public FoodsController() throws IOException {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FoodsView.fxml"));
+		public ManageDietController() throws IOException {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManageDietView.fxml"));
 			loader.setController(this);
 			loader.load();
 		}
