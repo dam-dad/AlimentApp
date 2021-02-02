@@ -57,6 +57,9 @@ public class DataController implements Initializable {
 
 	@FXML
 	private RadioButton womanRadio;
+	
+    @FXML
+    private RadioButton otroRadio;
 
 	@FXML
 	private ImageView avatarImageView;
@@ -108,6 +111,10 @@ public class DataController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		
+		
+		imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
 
 		changeButton.setOnAction(e -> onChangeButtonAction());
 
@@ -129,21 +136,22 @@ public class DataController implements Initializable {
 		if (imcProperty.get() == 0) {
 			imcStringProperty.set("(peso * altura^ 2)");
 			resProperty.set("Bajo peso | Normal | Sobrepeso | Obeso");
+			imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
 		} else {
 			imcStringProperty.set("IMC: " + imcProperty.get());
 			if (imcProperty.get() < 18.5) {
 				resProperty.set("Bajo peso");
-				imcImageView.setImage(new Image("images/imcWeight/under_weight.png"));
+				imcImageView.setImage(new Image("images/myDataTab/under_weight.png"));
 			} else if (imcProperty.get() >= 18.5 && imcProperty.get() < 25.0) {
 				resProperty.set("Normal");
-				imcImageView.setImage(new Image("images/imcWeight/normal_weight.png"));
+				imcImageView.setImage(new Image("images/myDataTab/normal_weight.png"));
 
 			} else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
 				resProperty.set("Sobrepeso");
-				imcImageView.setImage(new Image("images/imcWeight/over_weight.png"));
+				imcImageView.setImage(new Image("images/myDataTab/over_weight.png"));
 			} else {
 				resProperty.set("Obeso");
-				imcImageView.setImage(new Image("images/imcWeight/obese_weight.png"));
+				imcImageView.setImage(new Image("images/myDataTab/obese_weight.png"));
 			}
 		}
 
