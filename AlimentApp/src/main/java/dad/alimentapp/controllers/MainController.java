@@ -1,41 +1,43 @@
 package dad.alimentapp.controllers;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.main.App;
+import dad.alimentapp.utils.Messages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 
 	// View
+
 	@FXML
 	private BorderPane view;
-
-	@FXML
-	private MenuItem newMenu;
-
-	@FXML
-	private MenuItem openMenu;
-
-	@FXML
-	private MenuItem saveMenu;
-
-	@FXML
-	private MenuItem saveAsMenu;
 
 	@FXML
 	private MenuItem exitMenu;
 
 	@FXML
 	private MenuItem changeThemeMenu;
+
+	@FXML
+	private MenuItem showUserGuidesMenu;
 
 	@FXML
 	private MenuItem aboutAppMenu;
@@ -54,11 +56,12 @@ public class MainController implements Initializable {
 
 	@FXML
 	private Tab myDietsTab;
-	
-	//Controllers
+
+	// Controllers
 	MyMenusController myMenusController = new MyMenusController();
-	DataController  dataController= new DataController();
+	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
+	AboutAppController aboutAppController;
 	ManageDietController manageDietController = new ManageDietController();
 
 	public MainController() throws IOException {
@@ -76,9 +79,14 @@ public class MainController implements Initializable {
 	}
 
 	// Funciones menu
-	@FXML
-	void onAboutAppMenuAction(ActionEvent event) {
 
+	@FXML
+	void onExitMenuAction(ActionEvent event) {
+		Optional<ButtonType> result = Messages.confirmation("Salir de la aplicación",
+				"¿Está seguro de que desea salir de la aplicación?");
+		if (result.get() == ButtonType.OK) {
+			App.getPrimaryStage().close();
+		}
 	}
 
 	@FXML
@@ -87,28 +95,32 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
-	void onExitMenuAction(ActionEvent event) {
+	void onAboutAppMenuAction(ActionEvent event) {
+		try {
+			aboutAppController = new AboutAppController();
 
+			Stage secondaryStage = new Stage();
+			Scene scene = new Scene(aboutAppController.getView());
+
+			secondaryStage.setScene(scene);
+			secondaryStage.setTitle("Acerca de AlimentApp");
+			secondaryStage.resizableProperty().setValue(Boolean.FALSE);
+			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.initModality(Modality.WINDOW_MODAL);
+			secondaryStage.initOwner(App.getPrimaryStage());
+			secondaryStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	@FXML
-	void onNewMenuAction(ActionEvent event) {
-
-	}
-
-	@FXML
-	void onOpenMenuAction(ActionEvent event) {
-
-	}
-
-	@FXML
-	void onSaveAsMenuAction(ActionEvent event) {
-
-	}
-
-	@FXML
-	void onSaveMenuAction(ActionEvent event) {
-
+	void onShowUserGuidesMenuAction(ActionEvent event) {
+		try {
+			Desktop.getDesktop().browse(new URI("https://github.com/dam-dad/AlimentApp/blob/main/README.md"));
+		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public BorderPane getView() {
