@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="view" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" spacing="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+         <image>
+            <Image url="@../images/icon.png" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <GridPane alignment="CENTER" VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox alignment="CENTER" GridPane.halignment="CENTER">
+                     <children>
+                        <Label text="Versión:">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="versionLabel" text="Label">
+                           <font>
+                              <Font name="System Italic" size="13.0" />
+                           </font></Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" GridPane.rowIndex="1">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <HBox alignment="CENTER" spacing="5.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/logoGitHub.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Desarrolladores:">
+                                       <font>
+                                          <Font name="System Bold Italic" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Hyperlink fx:id="davidLink" onAction="#onDavidLinkAction" text="David" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="antonioLink" onAction="#onAntonioLinkAction" text="Antonio" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="andyLink" onAction="#onAndyLinkAction" text="Andy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="danielLink" onAction="#onDanielLinkAction" text="Daniel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Licencia:">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font></Label>
+                        <Hyperlink fx:id="licenceLink" onAction="#onLicenceLinkAction" text="GNU General Public License v3.0">
+                           <font>
+                              <Font name="System Italic" size="13.0" />
+                           </font></Hyperlink>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

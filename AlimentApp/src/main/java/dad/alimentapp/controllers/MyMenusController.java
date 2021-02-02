@@ -76,12 +76,14 @@ public class MyMenusController implements Initializable {
 	@FXML
 	private Button generateMenuButton;
 
-	GenerateMenuController menuController;
-	GenerateDietController dietController = new GenerateDietController();
+	@FXML
 	private Button saveMenuButton;
 
 	// CONTROLLERS
 	private ProductController productController;
+
+	GenerateMenuController menuController;
+	GenerateDietController dietController = new GenerateDietController();
 
 	public MyMenusController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MyMenus.fxml"));
@@ -115,9 +117,9 @@ public class MyMenusController implements Initializable {
 			productController = new ProductController();
 
 			Stage secondaryStage = new Stage();
-			Scene escena = new Scene(productController.getView());
+			Scene scene = new Scene(productController.getView());
 
-			secondaryStage.setScene(escena);
+			secondaryStage.setScene(scene);
 			secondaryStage.setTitle("AlimentApp");
 			// secondaryStage.getIcons().add(new Image("/images/"));
 			secondaryStage.initModality(Modality.WINDOW_MODAL);

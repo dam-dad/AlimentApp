@@ -18,9 +18,9 @@ public class App extends Application {
 
 		controller = new MainController();
 
-		Scene escena = new Scene(controller.getView(), 900, 750);
+		Scene scene = new Scene(controller.getView(), 800, 700);
 
-		primaryStage.setScene(escena);
+		primaryStage.setScene(scene);
 		primaryStage.setTitle("AlimentApp");
 		primaryStage.getIcons().add(new Image("/images/icon.png"));
 		primaryStage.show();
