@@ -38,7 +38,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/myMenusTab/Previous-32px.png" />
+                              <Image url="@../images/createDietTab/Previous-32px.png" />
                            </image></ImageView>
                      </graphic>
                   </Button>
@@ -46,7 +46,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/myMenusTab/Next-32px.png" />
+                              <Image url="@../images/createDietTab/Next-32px.png" />
                            </image></ImageView>
                      </graphic>
                   </Button>
@@ -141,7 +141,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/myMenusTab/note-add-24px.png" />
+                                    <Image url="@../images/createDietTab/note-add-24px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -159,7 +159,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/myMenusTab/note-add-24px.png" />
+                                    <Image url="@../images/createDietTab/note-add-24px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -177,7 +177,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/myMenusTab/note-add-24px.png" />
+                                    <Image url="@../images/createDietTab/note-add-24px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -195,7 +195,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/myMenusTab/note-add-24px.png" />
+                                    <Image url="@../images/createDietTab/note-add-24px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -213,7 +213,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/myMenusTab/note-add-24px.png" />
+                                    <Image url="@../images/createDietTab/note-add-24px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
