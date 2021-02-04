@@ -54,6 +54,9 @@ public class GenerateMenuController implements Initializable {
 	private ComboBox<?> menuTypeCombo;
 
 	@FXML
+	private Label descriptionLabel;
+
+	@FXML
 	private VBox personalizedVBox;
 
 	@FXML

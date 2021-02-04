@@ -87,16 +87,31 @@ public class GenerateDietController implements Initializable {
 	private Slider fatsSlider;
 
 	@FXML
-	private RadioButton eats3Radio;
+	private RadioButton mondayRadio;
 
 	@FXML
 	private ToggleGroup food;
 
 	@FXML
-	private RadioButton eats5Radio;
+	private RadioButton tuesdayRadio;
+
+	@FXML
+	private RadioButton wednesdayRadio;
+
+	@FXML
+	private RadioButton thursdayRadio;
 
 	@FXML
 	private CheckBox vegetalCheck;
+
+	@FXML
+	private RadioButton fridayRadio;
+
+	@FXML
+	private RadioButton saturdayRadio;
+
+	@FXML
+	private RadioButton sundayRadio;
 
 	public GenerateDietController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GenerateDietView.fxml"));

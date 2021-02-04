@@ -191,7 +191,7 @@ public class CreateDietController implements Initializable {
 
 			secondaryStage.setScene(escena);
 			secondaryStage.setTitle("Generar Menu");
-			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.getIcons().add(new Image("/images/logo.png"));
 			secondaryStage.initModality(Modality.WINDOW_MODAL);
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();
@@ -210,7 +210,7 @@ public class CreateDietController implements Initializable {
 
 			secondaryStage.setScene(escena);
 			secondaryStage.setTitle("Generar Dieta");
-			// secondaryStage.getIcons().add(new Image("/images/"));
+			secondaryStage.getIcons().add(new Image("/images/logo.png"));
 			secondaryStage.initModality(Modality.WINDOW_MODAL);
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();
