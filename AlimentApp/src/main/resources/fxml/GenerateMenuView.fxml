@@ -34,13 +34,13 @@
                <children>
                   <Label text="Nombre:">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                      </HBox.margin>
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nameText" prefHeight="25.0" prefWidth="190.0">
+                  <TextField fx:id="nameText" prefHeight="25.0" prefWidth="190.0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="2.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -49,7 +49,7 @@
             </HBox>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <RadioButton fx:id="forTypeRadio" mnemonicParsing="false" text="Por tipo">
+                  <RadioButton fx:id="forTypeRadio" mnemonicParsing="false" text="Por tipo" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -57,7 +57,7 @@
                         <ToggleGroup fx:id="type" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="personalizedRadio" mnemonicParsing="false" text="Personalizado" toggleGroup="$type">
+                  <RadioButton fx:id="personalizedRadio" mnemonicParsing="false" text="Personalizado" toggleGroup="$type" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -66,12 +66,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="generateButton" mnemonicParsing="false" onAction="#onGenerateButtonAction" text="Generar">
+                  <Button fx:id="generateButton" mnemonicParsing="false" onAction="#onGenerateButtonAction" text="Generar" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Cancelar">
+                  <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Cancelar" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -87,7 +87,7 @@
    <top>
       <VBox fx:id="menuTypeVBox" prefHeight="95.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox fx:id="menuTypeBox" alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="600.0">
+            <HBox fx:id="menuTypeBox" alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="600.0">
                <children>
                   <Label text="Tipo de menú:">
                      <font>
@@ -102,9 +102,14 @@
                         <Insets left="20.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ComboBox>
+                  <Label fx:id="descriptionLabel" alignment="CENTER_RIGHT" text="Label" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="80.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
-            <Separator prefHeight="41.0" prefWidth="600.0" valignment="BOTTOM">
+            <Separator prefHeight="41.0" prefWidth="600.0" valignment="BOTTOM" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -150,7 +155,7 @@
                               <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <Slider fx:id="kcalSlider" prefHeight="14.0" prefWidth="193.0">
+                        <Slider fx:id="kcalSlider" prefHeight="14.0" prefWidth="193.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" left="39.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -197,7 +202,7 @@
                               <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <Slider fx:id="hydrartsSlider" prefHeight="14.0" prefWidth="192.0">
+                        <Slider fx:id="hydrartsSlider" prefHeight="14.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -224,7 +229,7 @@
                               <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <Slider fx:id="proteinSlider" prefHeight="14.0" prefWidth="192.0">
+                        <Slider fx:id="proteinSlider" prefHeight="14.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -281,7 +286,7 @@
                               <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <Slider fx:id="fatsSlider" prefHeight="14.0" prefWidth="193.0">
+                        <Slider fx:id="fatsSlider" prefHeight="14.0" prefWidth="193.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" left="24.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -290,7 +295,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <RadioButton fx:id="eats3Radio" mnemonicParsing="false" text="3 comidas">
+                        <RadioButton fx:id="eats3Radio" mnemonicParsing="false" text="3 comidas" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -298,7 +303,7 @@
                               <ToggleGroup fx:id="food" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="eats5Radio" mnemonicParsing="false" text="5 comidas" toggleGroup="$food">
+                        <RadioButton fx:id="eats5Radio" mnemonicParsing="false" text="5 comidas" toggleGroup="$food" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -312,7 +317,7 @@
                   </CheckBox>
                </children>
             </GridPane>
-            <Separator prefHeight="8.0" prefWidth="600.0">
+            <Separator prefHeight="8.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
