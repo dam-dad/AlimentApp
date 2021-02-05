@@ -3,10 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="780.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="62.0" prefWidth="730.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="editButton" mnemonicParsing="false" text="Editar perfil" />
             <Button fx:id="saveButton" mnemonicParsing="false" text="Guardar" />
@@ -51,7 +51,7 @@
          <children>
             <Label text="Nombre:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label text="Apellidos:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label text="Edad:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label text="Edad:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label text="Sexo:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
@@ -63,7 +63,7 @@
                   <Insets left="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="ageText" maxWidth="25.0" prefWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="ageText" maxWidth="30.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" top="5.0" />
                </GridPane.margin>
@@ -73,16 +73,14 @@
                   <RadioButton fx:id="manRadio" mnemonicParsing="false" text="Hombre">
                      <HBox.margin>
                         <Insets bottom="10.0" />
-                     </HBox.margin></RadioButton>
-                  <RadioButton fx:id="womanRadio" mnemonicParsing="false" text="Mujer">
-                     <HBox.margin>
-                        <Insets bottom="10.0" />
-                     </HBox.margin></RadioButton>
-                  <RadioButton fx:id="otroRadio" mnemonicParsing="false" text="Otro">
-                     <HBox.margin>
-                        <Insets bottom="10.0" />
                      </HBox.margin>
-                  </RadioButton>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="gender" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="womanRadio" mnemonicParsing="false" text="Mujer" toggleGroup="$gender">
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin></RadioButton>
                </children>
                <padding>
                   <Insets left="10.0" />
@@ -114,24 +112,28 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="13.799993896484374" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
-          <RowConstraints maxHeight="153.20000000000002" minHeight="10.0" prefHeight="153.20000000000002" vgrow="NEVER" />
-          <RowConstraints maxHeight="186.00003662109378" minHeight="10.0" prefHeight="97.59998168945313" vgrow="ALWAYS" />
+          <RowConstraints />
+          <RowConstraints maxHeight="32.0" minHeight="0.0" prefHeight="14.399994850158691" />
+            <RowConstraints maxHeight="154.4" minHeight="10.0" prefHeight="134.39998474121094" vgrow="NEVER" />
+            <RowConstraints maxHeight="186.00003662109378" minHeight="10.0" prefHeight="97.59998168945313" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="267.0" spacing="5.0">
                      <children>
                         <Label text="Peso:" />
-                        <TextField fx:id="weightText" prefWidth="30.0" />
+                        <TextField fx:id="weightText" prefWidth="40.0">
+                           <HBox.margin>
+                              <Insets left="3.0" />
+                           </HBox.margin></TextField>
                         <Label text="kg" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="33.0" prefWidth="267.0" spacing="5.0">
                      <children>
                         <Label text="Altura:" />
-                        <TextField fx:id="heighText" prefWidth="30.0" />
+                        <TextField fx:id="heighText" prefWidth="40.0" />
                         <Label text="cm" />
                      </children>
                   </HBox>
@@ -147,56 +149,79 @@
                   <Insets />
                </GridPane.margin>
             </VBox>
-            <Label text="Calculadora IMC:" GridPane.halignment="CENTER">
+            <Label text="Calculadora IMC:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" />
                </GridPane.margin>
                <font>
-                  <Font name="System Bold Italic" size="12.0" />
+                  <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <Label text="Te recomendamos:" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label text="Te recomendamos:" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="5.0" />
                </GridPane.margin>
                <font>
-                  <Font name="System Bold Italic" size="12.0" />
+                  <Font name="System Bold Italic" size="18.0" />
                </font></Label>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <children>
-                  <Label text="*Consejo o tipo de dieta*" />
-                  <Label text="*Consejo o tipo de dieta 2*" />
-                  <Label text="*Consejo o tipo de dieta 3*" />
+                  <Label fx:id="idealWeightLabel" text="-Escribe tus datos para calcular tu peso ideal" />
+                  <Label fx:id="idealDietLabel" text="-Te recomendaremos un tipo de dieta ">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
+                  <Label fx:id="exerciseLabel" text="- El ejercicio que mejor te vendrá">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
                </children>
+               <GridPane.margin>
+                  <Insets top="50.0" />
+               </GridPane.margin>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <children>
                   <Button fx:id="saveRegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="0.0" prefWidth="150.0" text="Guardar registro actual" />
                   <Button fx:id="historicButton" mnemonicParsing="false" prefWidth="150.0" text="Histórico de registros" />
                </children>
             </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <children>
-                  <ProgressBar fx:id="imcProgress" prefWidth="200.0" progress="0.0" />
-                  <Label text="Para llegar a tu peso ideal" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <children>
-                  <ImageView fx:id="imcImageView" fitHeight="145.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imcImageView" fitHeight="230.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../../Desktop/ALIMENTAPP/low_weight.png" />
                      </image>
-                  </ImageView>
-                  <Label fx:id="indeximcLabel" text="Bajo peso| Normal| Sobrepeso| Obeso">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
+                  </ImageView>
+                  <Label fx:id="indeximcLabel" text="Bajo peso  | Normal  | Sobrepeso  | Obeso">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
                   </Label>
                </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </VBox>
+            <Label text="Resultado:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
          </children>
          <padding>
             <Insets top="20.0" />

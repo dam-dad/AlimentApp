@@ -14,7 +14,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.embed.swing.SwingFXUtils;
-
 import dad.alimentapp.main.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -59,7 +59,7 @@ public class DataController implements Initializable {
 	private RadioButton womanRadio;
 	
     @FXML
-    private RadioButton otroRadio;
+    private ToggleGroup gender;
 
 	@FXML
 	private ImageView avatarImageView;
@@ -78,6 +78,15 @@ public class DataController implements Initializable {
 
 	@FXML
 	private Label indeximcLabel;
+	
+    @FXML
+    private Label idealWeightLabel;
+
+    @FXML
+    private Label idealDietLabel;
+
+    @FXML
+    private Label exerciseLabel;
 
 	@FXML
 	private Button saveRegisterButton;
@@ -102,6 +111,9 @@ public class DataController implements Initializable {
 	private DoubleProperty imcProperty = new SimpleDoubleProperty();
 
 	private StringProperty resProperty = new SimpleStringProperty();
+	
+	
+
 
 	public DataController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DataView.fxml"));
@@ -112,6 +124,15 @@ public class DataController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		gender= new ToggleGroup();
+		
+		gender.getToggles().add(manRadio);
+		gender.getToggles().add(womanRadio);
+
+		
+		
+
+	
 		
 		
 		imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
@@ -130,7 +151,19 @@ public class DataController implements Initializable {
 		resProperty.bindBidirectional(indeximcLabel.textProperty());
 		imcProperty.addListener((o, ov, nv) -> onCalculoRes());
 
+		
+
 	}
+	
+
+
+
+
+
+		
+		
+	
+
 
 	private void onCalculoRes() {
 		if (imcProperty.get() == 0) {
@@ -141,32 +174,47 @@ public class DataController implements Initializable {
 			imcStringProperty.set("IMC: " + imcProperty.get());
 			if (imcProperty.get() < 18.5) {
 				resProperty.set("Bajo peso");
+				idealDietLabel.setText("Te recomendamos una dieta hipercalórica");
+				exerciseLabel.setText("Realiza ejercicio de manera poco intensa," + "\n"+ "de modo que no incluya un gasto calórico excesivo");
 				imcImageView.setImage(new Image("images/myDataTab/under_weight.png"));
 			} else if (imcProperty.get() >= 18.5 && imcProperty.get() < 25.0) {
 				resProperty.set("Normal");
+				idealDietLabel.setText("Sigue una dieta equilibrada");
+				exerciseLabel.setText("El ejercicio físico moderado te vendrá bien");
 				imcImageView.setImage(new Image("images/myDataTab/normal_weight.png"));
 
 			} else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
 				resProperty.set("Sobrepeso");
+				idealDietLabel.setText("Te recomendamos seguir una dieta hipocalórica");
+				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude a quemar"+"\n"+"más calorías de las que consumes");
 				imcImageView.setImage(new Image("images/myDataTab/over_weight.png"));
 			} else {
 				resProperty.set("Obeso");
 				imcImageView.setImage(new Image("images/myDataTab/obese_weight.png"));
+				idealDietLabel.setText("Consulta con un especialista para que te ayude" +"\n"+ "a bajar peso de forma considerable");
+				exerciseLabel.setText("Realiza ejercicio físico aeróbico");
 			}
 		}
 
 	}
 
 	private void onCalculoIndice() {
+	
 
-		if ((pesoProperty.get() == 0) || (alturaProperty.get() == 0))
-			imcProperty.set(0);
+		if ((pesoProperty.get() == 0) || (alturaProperty.get() == 0)) 
+			imcProperty.set(0);	
 		else {
 
-			Double imc = (pesoProperty.get() / (Math.pow(alturaProperty.get(), 2)));
-			imcProperty.set(imc * 10000);
+			Double imc = (pesoProperty.get() / (Math.pow(alturaProperty.get(), 2))*10000);
+			imcProperty.set(Math.round((imc*100.00)/100.00));
 
 		}
+		
+	
+		
+		
+
+		
 
 	}
 
