@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -42,13 +43,26 @@ public class InfoController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		
+		loadMainImage();
 		
 	}
+
 	
+
+//Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
+private void loadMainImage() {
+		
+	int nPhoto=(int)(Math.random() * (10 - 1)) + 1;
+	adviceImageView.setImage(new Image("images/infoTab/"+nPhoto+".png"));
+		
+	}
+
 public BorderPane getView() {
 	return view;
 }	
+
+
 	
 
 }
