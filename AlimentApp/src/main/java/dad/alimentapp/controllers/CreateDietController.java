@@ -5,6 +5,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.DietsMenu;
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.MenuProduct;
+import dad.alimentapp.models.MomentDay;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,8 +89,13 @@ public class CreateDietController implements Initializable {
 
 	GenerateMenuController menuController;
 	GenerateDietController dietController = new GenerateDietController();
+	
+	//MODEL
+	private DietsMenu dietsMenu;
+	private Menu menuSelected = Menu.getMenu(1);
 
-	public CreateDietController() throws IOException {
+	public CreateDietController(DietsMenu dietsMenu) throws IOException {
+		this.dietsMenu = dietsMenu;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateDietView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -94,7 +103,6 @@ public class CreateDietController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		// Ejemplo provicional
 		PieChart.Data queso1 = new PieChart.Data("kcal", 40);
 		PieChart.Data queso2 = new PieChart.Data("Proteinas", 20);
@@ -113,33 +121,32 @@ public class CreateDietController implements Initializable {
 		menuChart.setLegendSide(Side.LEFT);
 	}
 
-	private void newSceneProduct() {
+	private void newSceneProduct(MenuProduct menuProduct) {
 		try {
-			productController = new ProductController();
+			productController = new ProductController(menuProduct);
 
 			Stage secondaryStage = new Stage();
 			Scene scene = new Scene(productController.getView());
 
 			secondaryStage.setScene(scene);
-			secondaryStage.setTitle("Produtos");
+			secondaryStage.setTitle("Productos");
 			secondaryStage.getIcons().add(new Image("/images/logo.png"));
 			secondaryStage.initModality(Modality.WINDOW_MODAL);
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@FXML
-	void onBreakfastButtonAction(ActionEvent event) {
-		newSceneProduct();
+	void onBreakfastButtonAction(ActionEvent event) {		
+		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.DESAYUNO));
 	}
 
 	@FXML
 	void onDinnerButtonAction(ActionEvent event) {
-		newSceneProduct();
+		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.CENA));
 	}
 
 	@FXML
@@ -154,12 +161,12 @@ public class CreateDietController implements Initializable {
 
 	@FXML
 	void onLaunchButtonAction(ActionEvent event) {
-		newSceneProduct();
+		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.ALMUERZO));
 	}
 
 	@FXML
 	void onMidMorningButtonAction(ActionEvent event) {
-		newSceneProduct();
+		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.MEDIA_MAÑANA));
 	}
 
 	@FXML
@@ -196,7 +203,6 @@ public class CreateDietController implements Initializable {
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -215,14 +221,13 @@ public class CreateDietController implements Initializable {
 			secondaryStage.initOwner(App.getPrimaryStage());
 			secondaryStage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@FXML
 	void onSnackButtonAction(ActionEvent event) {
-		newSceneProduct();
+		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.MERIENDA));
 	}
 
 	public HBox getView() {

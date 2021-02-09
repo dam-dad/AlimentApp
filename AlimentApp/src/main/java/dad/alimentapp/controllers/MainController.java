@@ -5,17 +5,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.utils.Messages;
+import dad.alimentapp.models.DietsMenu;
+import dad.alimentapp.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -53,13 +52,13 @@ public class MainController implements Initializable {
 	private Tab myDataTab;
 
 	@FXML
-	private Tab myMenusTab;
+	private Tab createDietTab;
 
 	@FXML
-	private Tab myDietsTab;
+	private Tab manageDietsTab;
 
 	// Controllers
-	CreateDietController myMenusController = new CreateDietController();
+	CreateDietController myMenusController;
 	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
 	AboutAppController aboutAppController;
@@ -73,21 +72,23 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		myMenusTab.setContent(myMenusController.getView());
+		try {
+			myMenusController = new CreateDietController(new DietsMenu());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		createDietTab.setContent(myMenusController.getView());
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
-		myDietsTab.setContent(manageDietController.getView());
+		manageDietsTab.setContent(manageDietController.getView());
 	}
 
 	// Funciones menu
 
 	@FXML
 	void onExitMenuAction(ActionEvent event) {
-		Optional<ButtonType> result = Messages.confirmation("Salir de la aplicación",
-				"¿Está seguro de que desea salir de la aplicación?");
-		if (result.get() == ButtonType.OK) {
-			App.getPrimaryStage().close();
-		}
+		Utils.closeApp();
 	}
 
 	@FXML
