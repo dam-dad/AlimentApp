@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -55,6 +56,11 @@
                   <Insets left="15.0" right="15.0" />
                </GridPane.margin>
             </Button>
+            <Button fx:id="createMenuButton" layoutX="424.0" layoutY="124.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreateMenuButtonAction" text="Crear Menú" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
             <Button fx:id="viewMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewMenuButtonAction" text="Visualizar Menú" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="15.0" right="15.0" />
@@ -75,42 +81,89 @@
                   <Insets left="15.0" right="15.0" />
                </GridPane.margin>
             </Button>
+            <Button fx:id="createDietsButton" layoutX="424.0" layoutY="46.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreateDietsButtonAction" text="Crear Dieta" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </Button>
             <Label fx:id="menuName1Label" alignment="CENTER" text="NomMenu" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="menuName2Label" alignment="CENTER" layoutX="10.0" layoutY="262.0" text="NomMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="menuName3Label" alignment="CENTER" layoutX="180.0" layoutY="262.0" text="NomMenu" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="dietsName1Label" layoutX="350.0" layoutY="262.0" text="NomDieta" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <Label fx:id="dietsName2Label" layoutX="10.0" layoutY="583.0" text="NomDieta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <Label fx:id="dietsName3Label" layoutX="180.0" layoutY="583.0" text="NomDieta" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <ImageView fx:id="menu1ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="374.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../images/myManageDietsTab/menus-512px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="menu2ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="374.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../images/myManageDietsTab/menus-512px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="menu3ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="180.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../images/myManageDietsTab/menus-512px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="diets1ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="205.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <image>
-                  <Image url="@../images/myManageDietsTab/diets-512px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="diets2ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="10.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <image>
-                  <Image url="@../images/myManageDietsTab/diets-512px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="diets3ImageView" fitHeight="121.0" fitWidth="140.0" layoutX="180.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <image>
-                  <Image url="@../images/myManageDietsTab/diets-512px.png" />
-               </image>
-            </ImageView>
+            <Button fx:id="menu1ImageButton" mnemonicParsing="false" onAction="#onMenu1ImageButtonAction" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="menu1ImageView" fitHeight="111.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/myManageDietsTab/menus-512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="menu2ImageButton" mnemonicParsing="false" onAction="#onMenu2ImageButtonAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="menu2ImageView" fitHeight="111.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/myManageDietsTab/menus-512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="menu3ImageButton" mnemonicParsing="false" onAction="#onMenu3ImageButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="menu3ImageView" fitHeight="111.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/myManageDietsTab/menus-512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="diets1ImageButton" mnemonicParsing="false" onAction="#onDiets1ImageButtonAction" GridPane.rowIndex="4">
+               <graphic>
+                  <ImageView fx:id="diets1ImageView" fitHeight="111.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/myManageDietsTab/diets-512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="diets2ImageButton" mnemonicParsing="false" onAction="#onDiets2ImageButtonAction" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <graphic>
+                  <ImageView fx:id="diets2ImageView" fitHeight="111.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/myManageDietsTab/diets-512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="diets3ImageButton" mnemonicParsing="false" onAction="#onDiets3ImageButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <graphic>
+                  <ImageView fx:id="diets3ImageView" fitHeight="111.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/myManageDietsTab/diets-512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
       <GridPane fx:id="viewMenuDietsPane" HBox.hgrow="ALWAYS">
@@ -129,7 +182,7 @@
             <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="menuDietsNameLabel" alignment="CENTER" text="NomMenu/MisDietas" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="menuDietsNameLabel" alignment="CENTER" text="Menú" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -159,65 +212,6 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="breakfast1Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="100.0" top="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="breakfast2Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="breakfast3Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="20.0" top="100.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="midmorning1Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="100.0" top="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="midmorning2Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="midmorning3Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="20.0" top="100.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lunch1Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets bottom="100.0" top="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lunch2Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label fx:id="lunch3Label" text="-Comida" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets bottom="20.0" top="100.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="snack1Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets bottom="100.0" top="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="snack2Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label fx:id="snack3Label" text="-Comida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets bottom="20.0" top="100.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="dinner1Label" layoutX="191.0" layoutY="513.0" text="-Comida" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets bottom="100.0" top="20.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="dinner2Label" text="-Comida" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="dinner3Label" layoutX="191.0" layoutY="513.0" text="-Comida" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets bottom="20.0" top="100.0" />
-               </GridPane.margin>
-            </Label>
             <Label fx:id="bonAppetiteLabel" text="¡Buen provecho!" textAlignment="CENTER" textFill="#2200ff" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -234,6 +228,11 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <ListView fx:id="breakfastListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+            <ListView fx:id="midMorningListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ListView fx:id="lunchListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4" />
+            <ListView fx:id="snackListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ListView fx:id="dinnerListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </children>
