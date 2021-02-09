@@ -17,14 +17,14 @@
    <children>
       <VBox alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Label fx:id="productNameLabel" text="Nombre Producto">
+            <Label fx:id="productNameLabel" text="Selecciona un producto">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
                <children>
-                  <ImageView fx:id="productImageLabel" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="productImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/createDietTab/products/food-128px.png" />
                      </image>
@@ -78,31 +78,31 @@
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="kcalProductLabel" text="Label" GridPane.columnIndex="1">
+                  <Label fx:id="kcalProductLabel" text="0" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="hydratesProductLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="hydratesProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="fatsProductLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="fatsProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="proteinProductLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="proteinProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="fibresProductLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Label fx:id="fibresProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="originProductLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="originProductLabel" text="INDEFINIDO" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="typeProductLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Label fx:id="typeProductLabel" text="INDEFINIDO" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
@@ -125,7 +125,7 @@
             </Label>
             <ListView fx:id="productList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="29.0" />
+                  <Insets />
                </VBox.margin></ListView>
          </children>
          <padding>
@@ -170,10 +170,6 @@
                </font>
             </Label>
             <ListView fx:id="selectedProductList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Button fx:id="saveProductButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveProductButtonAction" text="Guardar">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font></Button>
          </children>
          <padding>
             <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />

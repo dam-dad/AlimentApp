@@ -6,7 +6,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * Representamos la tabla Dietas con un clase y generamos sus getter and setters. Para poder obtener toda la información. 
+ * @author Antonio
+ *
+ */
 public class Diet {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
