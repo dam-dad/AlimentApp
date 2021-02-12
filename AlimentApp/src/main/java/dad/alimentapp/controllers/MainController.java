@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.DietsMenu;
 import dad.alimentapp.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,13 +51,9 @@ public class MainController implements Initializable {
 	private Tab myDataTab;
 
 	@FXML
-	private Tab createDietTab;
-
-	@FXML
 	private Tab manageDietsTab;
 
 	// Controllers
-	CreateDietController myMenusController;
 	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
 	AboutAppController aboutAppController;
@@ -72,13 +67,7 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			myMenusController = new CreateDietController(new DietsMenu());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
-		createDietTab.setContent(myMenusController.getView());
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
@@ -101,16 +90,16 @@ public class MainController implements Initializable {
 		try {
 			aboutAppController = new AboutAppController();
 
-			Stage secondaryStage = new Stage();
+			Stage aboutStage = new Stage();
 			Scene scene = new Scene(aboutAppController.getView());
 
-			secondaryStage.setScene(scene);
-			secondaryStage.setTitle("Acerca de AlimentApp");
-			secondaryStage.resizableProperty().setValue(Boolean.FALSE);
-			secondaryStage.getIcons().add(new Image("/images/logo.png"));
-			secondaryStage.initModality(Modality.WINDOW_MODAL);
-			secondaryStage.initOwner(App.getPrimaryStage());
-			secondaryStage.showAndWait();
+			aboutStage.setScene(scene);
+			aboutStage.setTitle("Acerca de AlimentApp");
+			aboutStage.resizableProperty().setValue(Boolean.FALSE);
+			aboutStage.getIcons().add(new Image("/images/logo.png"));
+			aboutStage.initModality(Modality.WINDOW_MODAL);
+			aboutStage.initOwner(App.getPrimaryStage());
+			aboutStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

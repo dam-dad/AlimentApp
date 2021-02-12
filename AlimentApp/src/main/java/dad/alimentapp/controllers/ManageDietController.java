@@ -3,13 +3,20 @@ package dad.alimentapp.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import dad.alimentapp.main.App;
+import dad.alimentapp.models.ControlDietMenu;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXMLLoader;
@@ -149,6 +156,11 @@ public class ManageDietController implements Initializable {
     @FXML
     private ListView<String> dinnerListView;
     
+    //CONTROLLERS
+    ChoiceController choiceController;
+    
+    //VARIABLE
+	private static Stage choiceStage;
 	    
 		public ManageDietController() throws IOException {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManageDietView.fxml"));
@@ -164,12 +176,22 @@ public class ManageDietController implements Initializable {
 
 		@FXML
 	    void onCreateDietsButtonAction(ActionEvent event) {
-
+			try {
+				choiceController = new ChoiceController(ControlDietMenu.Dieta);
+				this.createChoiceStage();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    }
 
 	    @FXML
 	    void onCreateMenuButtonAction(ActionEvent event) {
-
+	    	try {
+				choiceController = new ChoiceController(ControlDietMenu.Menú);
+				this.createChoiceStage();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    }
 
 	    @FXML
@@ -232,8 +254,25 @@ public class ManageDietController implements Initializable {
 
 	    }
 	    
+	    private void createChoiceStage() {
+	    	choiceStage = new Stage();
+			Scene scene = new Scene(choiceController.getView());
+			
+			choiceStage.setScene(scene);
+			choiceStage.setTitle("Elección");
+			choiceStage.resizableProperty().setValue(Boolean.FALSE);
+			choiceStage.getIcons().add(new Image("/images/logo.png"));
+			choiceStage.initModality(Modality.WINDOW_MODAL);
+			choiceStage.initOwner(App.getPrimaryStage());
+			choiceStage.showAndWait();
+	    }
+	    
+	    public static Stage getChoiceStage() {
+			return choiceStage;
+		}
+	    
 	    public HBox getView() {
 	    	return view;
 	    }
-
+	    
 }
