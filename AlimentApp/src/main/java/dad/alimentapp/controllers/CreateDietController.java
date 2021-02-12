@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.ControlDietMenu;
 import dad.alimentapp.models.DietsMenu;
 import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.MenuProduct;
@@ -73,13 +74,7 @@ public class CreateDietController implements Initializable {
 	private PieChart menuChart;
 
 	@FXML
-	private Button generateDietButton;
-
-	@FXML
 	private Button saveDietButton;
-
-	@FXML
-	private Button generateMenuButton;
 
 	@FXML
 	private Button saveMenuButton;
@@ -87,15 +82,16 @@ public class CreateDietController implements Initializable {
 	// CONTROLLERS
 	private ProductController productController;
 
-	GenerateMenuController menuController;
-	GenerateDietController dietController = new GenerateDietController();
-	
-	//MODEL
+	// MODEL
 	private DietsMenu dietsMenu;
 	private Menu menuSelected = Menu.getMenu(1);
 
-	public CreateDietController(DietsMenu dietsMenu) throws IOException {
+	// VARIABLE
+	private ControlDietMenu controlDietMenu;
+
+	public CreateDietController(DietsMenu dietsMenu, ControlDietMenu controlDietMenu) throws IOException {
 		this.dietsMenu = dietsMenu;
+		this.controlDietMenu = controlDietMenu;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateDietView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -125,38 +121,29 @@ public class CreateDietController implements Initializable {
 		try {
 			productController = new ProductController(menuProduct);
 
-			Stage secondaryStage = new Stage();
+			Stage productStage = new Stage();
 			Scene scene = new Scene(productController.getView());
-
-			secondaryStage.setScene(scene);
-			secondaryStage.setTitle("Productos");
-			secondaryStage.getIcons().add(new Image("/images/logo.png"));
-			secondaryStage.initModality(Modality.WINDOW_MODAL);
-			secondaryStage.initOwner(App.getPrimaryStage());
-			secondaryStage.showAndWait();
+			productStage.setMinWidth(750);
+			productStage.setMinHeight(450);
+			productStage.setScene(scene);
+			productStage.setTitle("Productos");
+			productStage.getIcons().add(new Image("/images/logo.png"));
+			productStage.initModality(Modality.WINDOW_MODAL);
+			productStage.initOwner(App.getPrimaryStage());
+			productStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@FXML
-	void onBreakfastButtonAction(ActionEvent event) {		
+	void onBreakfastButtonAction(ActionEvent event) {
 		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.DESAYUNO));
 	}
 
 	@FXML
 	void onDinnerButtonAction(ActionEvent event) {
 		newSceneProduct(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected, MomentDay.CENA));
-	}
-
-	@FXML
-	void onGenerateDietButtonAction(ActionEvent event) throws IOException {
-		newSceneGenerateDiet();
-	}
-
-	@FXML
-	void onGenerateMenuButtonAction(ActionEvent event) throws IOException {
-		newSceneGenerateMenu();
 	}
 
 	@FXML
@@ -187,42 +174,6 @@ public class CreateDietController implements Initializable {
 	@FXML
 	void onSaveMenuButtonAction(ActionEvent event) {
 
-	}
-
-	private void newSceneGenerateMenu() {
-		try {
-			menuController = new GenerateMenuController();
-
-			Stage secondaryStage = new Stage();
-			Scene escena = new Scene(menuController.getView());
-
-			secondaryStage.setScene(escena);
-			secondaryStage.setTitle("Generar Menu");
-			secondaryStage.getIcons().add(new Image("/images/logo.png"));
-			secondaryStage.initModality(Modality.WINDOW_MODAL);
-			secondaryStage.initOwner(App.getPrimaryStage());
-			secondaryStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void newSceneGenerateDiet() {
-		try {
-			dietController = new GenerateDietController();
-
-			Stage secondaryStage = new Stage();
-			Scene escena = new Scene(dietController.getView());
-
-			secondaryStage.setScene(escena);
-			secondaryStage.setTitle("Generar Dieta");
-			secondaryStage.getIcons().add(new Image("/images/logo.png"));
-			secondaryStage.initModality(Modality.WINDOW_MODAL);
-			secondaryStage.initOwner(App.getPrimaryStage());
-			secondaryStage.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@FXML

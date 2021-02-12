@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="view" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="view" minHeight="450.0" minWidth="750.0" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="SOMETIMES">
          <children>
@@ -123,7 +123,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <ListView fx:id="productList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <ListView fx:id="productList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin></ListView>
@@ -169,7 +169,7 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <ListView fx:id="selectedProductList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="selectedProductList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />

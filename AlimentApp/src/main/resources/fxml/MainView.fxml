@@ -40,7 +40,6 @@
         <tabs>
           <Tab fx:id="informationTab" text="Información" />
           <Tab fx:id="myDataTab" text="Mis datos" />
-            <Tab fx:id="createDietTab" text="Crear dieta" />
             <Tab fx:id="manageDietsTab" text="Gestionar dietas" />
         </tabs>
       </TabPane>
