@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
   surname varchar(100)  NOT NULL,
-  password varchar(20)  NOT NULL,
   age int(3) NOT NULL,
   weight int(3) NOT NULL,
   height int(3) NOT NULL,
@@ -129,8 +128,17 @@ INSERT INTO type (name) VALUES ('Proteicos');
 INSERT INTO type (name) VALUES ('Grasas');
 INSERT INTO type (name) VALUES ('Lacteos');
 
+INSERT INTO users (name, surname, age, weight, height, gender) VALUES
+('User', 'Test', 21, 70, 170, 1);
+
+INSERT INTO diets (name, user_id) VALUES
+('Dieta inicial', 1);
+
 INSERT INTO menu (name, id_weekday) VALUES
 ('Menú Lunes', 1);
+
+INSERT INTO diets_menus (id_diets, id_menu) VALUES
+(1, 1);
 
 INSERT INTO product (nombre, kcal, hydrates, fats, protein, fibres, id_origin, id_type, image) VALUES ('Leche con miel', '131', '14', '5', '5', '0', '2', '6', 'https://alimentapp.diginalia.com/images/1.jpg');
 INSERT INTO product (nombre, kcal, hydrates, fats, protein, fibres, id_origin, id_type, image) VALUES ('Tortilla francesa', '104', '1', '8', '7', '0', '2', '4', 'https://alimentapp.diginalia.com/images/2.jpg');

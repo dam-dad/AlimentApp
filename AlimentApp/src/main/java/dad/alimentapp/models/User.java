@@ -1,13 +1,22 @@
 package dad.alimentapp.models;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import dad.alimentapp.main.App;
+import dad.alimentapp.utils.Messages;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
 /**
- *  Representamos la tabla user con un clase y generamos sus getter and setters. Para poder obtener toda la información.
+ * Representamos la tabla user con un clase y generamos sus getter and setters.
+ * Para poder obtener toda la información.
+ * 
  * @author Antonio
  *
  */
@@ -16,12 +25,22 @@ public class User {
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
 	private StringProperty surName = new SimpleStringProperty();
-	private StringProperty password = new SimpleStringProperty();
 	private IntegerProperty age = new SimpleIntegerProperty();
 	private IntegerProperty weight = new SimpleIntegerProperty();
 	private IntegerProperty height = new SimpleIntegerProperty();
 	private ObjectProperty<Gender> gender = new SimpleObjectProperty<>();
 	private StringProperty image = new SimpleStringProperty();
+
+	public User(Integer id, String name, String surName, Integer age, Integer weight, Integer height, Gender gender) {
+		super();
+		this.setId(id);
+		this.setName(name);
+		this.setSurName(surName);
+		this.setAge(age);
+		this.setWeight(weight);
+		this.setHeight(height);
+		this.setGender(gender);
+	}
 
 	public final IntegerProperty idProperty() {
 		return this.id;
@@ -57,18 +76,6 @@ public class User {
 
 	public final void setSurName(final String surName) {
 		this.surNameProperty().set(surName);
-	}
-
-	public final StringProperty passwordProperty() {
-		return this.password;
-	}
-
-	public final String getPassword() {
-		return this.passwordProperty().get();
-	}
-
-	public final void setPassword(final String password) {
-		this.passwordProperty().set(password);
 	}
 
 	public final IntegerProperty ageProperty() {
@@ -129,5 +136,22 @@ public class User {
 
 	public final void setImage(final String image) {
 		this.imageProperty().set(image);
+	}
+
+	public static User getUser(Integer id) {
+		User user = null;
+		try {
+			String sql = "SELECT * FROM users WHERE id = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setInt(1, id);
+			ResultSet result = query.executeQuery();
+			while (result.next()) {
+				user = new User(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
+						result.getInt(5), result.getInt(6), Gender.valueOf(result.getInt(7)));
+			}
+		} catch (SQLException e) {
+			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
+		}
+		return user;
 	}
 }
