@@ -1,5 +1,12 @@
+
 package dad.alimentapp.models;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import dad.alimentapp.main.App;
+import dad.alimentapp.utils.Messages;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -16,7 +23,19 @@ public class Diet {
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
 	private ObjectProperty<User> user = new SimpleObjectProperty<>();
+		
+	public Diet() {}
 	
+	public Diet(String name) {
+		this.setName(name);
+	}
+	
+	public Diet(Integer id, String name, User user) {
+		this.setId(id);
+		this.setName(name);
+		this.setUser(user);
+	}
+
 	public final IntegerProperty idProperty() {
 		return this.id;
 	}
@@ -52,4 +71,21 @@ public class Diet {
 	public final void setUser(final User user) {
 		this.userProperty().set(user);
 	}	
+	
+	public static Diet getDiet(Integer id) {
+		Diet diet = null;
+		try {
+			String sql = "SELECT id, name, user_id FROM diets WHERE id = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setInt(1, id);
+			ResultSet result = query.executeQuery();
+			while (result.next()) {
+				User user = User.getUser(result.getInt(3));
+				diet = new Diet(result.getInt(1), result.getString(2), user);
+			}
+		} catch (SQLException e) {
+			Messages.error("Error al obtenner el menu selecionado",  e.getMessage());
+		}
+		return diet;
+	}
 }

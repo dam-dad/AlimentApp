@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
 import dad.alimentapp.models.DietsMenu;
+import dad.alimentapp.models.Menu;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -26,9 +27,9 @@ public class ChoiceController implements Initializable {
 	// VIEW
 	@FXML
 	private VBox view;
-	
-    @FXML
-    private Label titleChoiceLabel;
+
+	@FXML
+	private Label titleChoiceLabel;
 
 	@FXML
 	private Button defaultButton;
@@ -45,8 +46,8 @@ public class ChoiceController implements Initializable {
 	// VARIABLE
 	private ControlDietMenu controlDietMenu;
 	private static final String TITLE = "Crear ";
-		
-	//MODEL
+
+	// MODEL
 	private StringProperty title = new SimpleStringProperty();
 
 	public ChoiceController(ControlDietMenu controlDietMenu) throws IOException {
@@ -59,7 +60,7 @@ public class ChoiceController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//BINDINGS
+		// BINDINGS
 		titleChoiceLabel.textProperty().bindBidirectional(title);
 	}
 
@@ -102,13 +103,19 @@ public class ChoiceController implements Initializable {
 	@FXML
 	void onPersonalizedButtonAction(ActionEvent event) {
 		try {
-			createDietController = new CreateDietController(new DietsMenu(), this.controlDietMenu);
+			DietsMenu dietsMenu = new DietsMenu();
+			if (controlDietMenu == ControlDietMenu.Dieta) {
+				createDietController = new CreateDietController(dietsMenu, this.controlDietMenu);
+			} else {
+				dietsMenu.getMenu().add(new Menu());
+				createDietController = new CreateDietController(dietsMenu, this.controlDietMenu);
+			}
 
 			Stage createDietStage = new Stage();
 			createDietStage.setMinWidth(800);
 			createDietStage.setMinHeight(500);
 			Scene scene = new Scene(createDietController.getView());
-			
+
 			createDietStage.setScene(scene);
 			createDietStage.setTitle(controlDietMenu.name());
 			createDietStage.getIcons().add(new Image("/images/logo.png"));
@@ -121,9 +128,11 @@ public class ChoiceController implements Initializable {
 		}
 
 	}
+
 	public void controlChoiceLabel() {
 		title.set(TITLE + this.controlDietMenu);
 	}
+
 	public VBox getView() {
 		return view;
 	}
