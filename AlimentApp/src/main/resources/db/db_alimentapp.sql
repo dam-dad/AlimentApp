@@ -1,9 +1,3 @@
-CREATE TABLE IF NOT EXISTS gender (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  name varchar(10)  NOT NULL,
-  PRIMARY KEY (id)
-) ;
-
 CREATE TABLE IF NOT EXISTS users (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
@@ -14,8 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
   gender int(11) NOT NULL,
   image_profile text  NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY user_name_unique (name),
-  CONSTRAINT fk_users_gender FOREIGN KEY (gender) REFERENCES gender (id)
+  UNIQUE KEY user_name_unique (name)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets (
@@ -23,24 +16,14 @@ CREATE TABLE IF NOT EXISTS diets (
   name varchar(50)  NOT NULL,
   user_id int(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY diets_name_unique (name),
   CONSTRAINT fk_diets_users FOREIGN KEY (user_id) REFERENCES users (id)
-) ;
-
-CREATE TABLE IF NOT EXISTS weekday (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  name varchar(10)  NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY weekday_unique (name)
 ) ;
 
 CREATE TABLE IF NOT EXISTS menu (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
   id_weekday int(11) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY menu_name_unique (name),
-  CONSTRAINT fk_menu_weekday FOREIGN KEY (id_weekday) REFERENCES weekday (id)
+  PRIMARY KEY (id)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets_menus (
@@ -66,13 +49,6 @@ CREATE TABLE IF NOT EXISTS type (
   UNIQUE KEY type_name_unique (name)
 ) ;
 
-CREATE TABLE IF NOT EXISTS moment_day (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  name varchar(50)  NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY moment_day_name_unique (name)
-) ;
-
 CREATE TABLE IF NOT EXISTS product (
   id int(11) AUTO_INCREMENT NOT NULL,
   nombre varchar(50)  NOT NULL,
@@ -96,26 +72,8 @@ CREATE TABLE IF NOT EXISTS menu_product (
   id_moment_day int(11) NOT NULL,
   PRIMARY KEY (id_menu, id_product, id_moment_day),
   CONSTRAINT fk_menu_product_id_menu FOREIGN KEY (id_menu) REFERENCES menu (id),
-  CONSTRAINT fk_menu_product_id_product FOREIGN KEY (id_product) REFERENCES product (id),
-  CONSTRAINT fk_menu_product_id_moment_day FOREIGN KEY (id_moment_day) REFERENCES moment_day (id)
+  CONSTRAINT fk_menu_product_id_product FOREIGN KEY (id_product) REFERENCES product (id)
 ) ;
-
-INSERT INTO moment_day (name) VALUES ('Desayuno');
-INSERT INTO moment_day (name) VALUES ('Media mañana');
-INSERT INTO moment_day (name) VALUES ('Almuerzo');
-INSERT INTO moment_day (name) VALUES ('Merienda');
-INSERT INTO moment_day (name) VALUES ('Cena');
-
-INSERT INTO weekday (name) VALUES ('Lunes');
-INSERT INTO weekday (name) VALUES ('Martes');
-INSERT INTO weekday (name) VALUES ('Miércoles');
-INSERT INTO weekday (name) VALUES ('Jueves');
-INSERT INTO weekday (name) VALUES ('Viernes');
-INSERT INTO weekday (name) VALUES ('Sábado');
-INSERT INTO weekday (name) VALUES ('Domingo');
-
-INSERT INTO gender (name) VALUES ('Masculino');
-INSERT INTO gender (name) VALUES ('Femenino');
 
 INSERT INTO origin (name) VALUES ('Vegetal');
 INSERT INTO origin (name) VALUES ('Animal');
