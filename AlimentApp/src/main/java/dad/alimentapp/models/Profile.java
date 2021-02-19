@@ -20,7 +20,7 @@ import javafx.beans.property.StringProperty;
  * @author Antonio
  *
  */
-public class User {
+public class Profile {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
@@ -31,8 +31,7 @@ public class User {
 	private ObjectProperty<Gender> gender = new SimpleObjectProperty<>();
 	private StringProperty image = new SimpleStringProperty();
 
-	public User(Integer id, String name, String surName, Integer age, Integer weight, Integer height, Gender gender) {
-		super();
+	public Profile(Integer id, String name, String surName, Integer age, Integer weight, Integer height, Gender gender) {
 		this.setId(id);
 		this.setName(name);
 		this.setSurName(surName);
@@ -138,20 +137,20 @@ public class User {
 		this.imageProperty().set(image);
 	}
 
-	public static User getUser(Integer id) {
-		User user = null;
+	public static Profile getProfile(Integer id) {
+		Profile profile = null;
 		try {
-			String sql = "SELECT * FROM users WHERE id = ?";
+			String sql = "SELECT * FROM profile WHERE id = ?";
 			PreparedStatement query = App.connection.prepareStatement(sql);
 			query.setInt(1, id);
 			ResultSet result = query.executeQuery();
 			while (result.next()) {
-				user = new User(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
+				profile = new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
 						result.getInt(5), result.getInt(6), Gender.valueOf(result.getInt(7)));
 			}
 		} catch (SQLException e) {
 			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
 		}
-		return user;
+		return profile;
 	}
 }

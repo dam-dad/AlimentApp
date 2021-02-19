@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS profile (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
   surname varchar(100)  NOT NULL,
@@ -8,22 +8,24 @@ CREATE TABLE IF NOT EXISTS users (
   gender int(11) NOT NULL,
   image_profile text  NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY user_name_unique (name)
+  UNIQUE KEY profile_name_unique (name)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
-  user_id int(11) NOT NULL,
+  profile_id int(11) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_diets_users FOREIGN KEY (user_id) REFERENCES users (id)
+  CONSTRAINT fk_diets_profile FOREIGN KEY (profile_id) REFERENCES profile (id)
 ) ;
 
 CREATE TABLE IF NOT EXISTS menu (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
   id_weekday int(11) NOT NULL,
-  PRIMARY KEY (id)
+  profile_id int(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_menu_profile FOREIGN KEY (profile_id) REFERENCES profile (id)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets_menus (
@@ -33,7 +35,6 @@ CREATE TABLE IF NOT EXISTS diets_menus (
   CONSTRAINT fk_diets_menu_id_diets FOREIGN KEY (id_diets) REFERENCES diets (id),
   CONSTRAINT fk_diets_menu_id_menu FOREIGN KEY (id_menu) REFERENCES menu (id)
 ) ;
-
 
 CREATE TABLE IF NOT EXISTS origin (
   id int(11) AUTO_INCREMENT NOT NULL,
@@ -86,14 +87,14 @@ INSERT INTO type (name) VALUES ('Proteicos');
 INSERT INTO type (name) VALUES ('Grasas');
 INSERT INTO type (name) VALUES ('Lacteos');
 
-INSERT INTO users (name, surname, age, weight, height, gender) VALUES
+INSERT INTO profile (name, surname, age, weight, height, gender) VALUES
 ('User', 'Test', 21, 70, 170, 1);
 
-INSERT INTO diets (name, user_id) VALUES
+INSERT INTO diets (name, profile_id) VALUES
 ('Dieta inicial', 1);
 
-INSERT INTO menu (name, id_weekday) VALUES
-('Menú Lunes', 1);
+INSERT INTO menu (name, id_weekday, profile_id) VALUES
+('Menú Lunes', 1, 1);
 
 INSERT INTO diets_menus (id_diets, id_menu) VALUES
 (1, 1);

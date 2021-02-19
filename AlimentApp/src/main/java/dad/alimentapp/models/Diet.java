@@ -4,7 +4,9 @@ package dad.alimentapp.models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import dad.alimentapp.controllers.MainController;
 import dad.alimentapp.main.App;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.property.IntegerProperty;
@@ -22,18 +24,19 @@ public class Diet {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
-	private ObjectProperty<User> user = new SimpleObjectProperty<>();
+	private ObjectProperty<Profile> profile = new SimpleObjectProperty<>();
 		
 	public Diet() {}
 	
 	public Diet(String name) {
 		this.setName(name);
+		this.setProfile(MainController.getProfileSelected());
 	}
 	
-	public Diet(Integer id, String name, User user) {
+	public Diet(Integer id, String name, Profile profile) {
 		this.setId(id);
 		this.setName(name);
-		this.setUser(user);
+		this.setProfile(profile);
 	}
 
 	public final IntegerProperty idProperty() {
@@ -60,32 +63,50 @@ public class Diet {
 		this.nameProperty().set(name);
 	}
 
-	public final ObjectProperty<User> userProperty() {
-		return this.user;
+	public final ObjectProperty<Profile> profileProperty() {
+		return this.profile;
 	}	
 
-	public final User getUser() {
-		return this.userProperty().get();
+	public final Profile getProfile() {
+		return this.profileProperty().get();
 	}	
 
-	public final void setUser(final User user) {
-		this.userProperty().set(user);
+	public final void setProfile(final Profile profile) {
+		this.profileProperty().set(profile);
 	}	
 	
 	public static Diet getDiet(Integer id) {
 		Diet diet = null;
 		try {
-			String sql = "SELECT id, name, user_id FROM diets WHERE id = ?";
+			String sql = "SELECT id, name, profile_id FROM diets WHERE id = ?";
 			PreparedStatement query = App.connection.prepareStatement(sql);
 			query.setInt(1, id);
 			ResultSet result = query.executeQuery();
 			while (result.next()) {
-				User user = User.getUser(result.getInt(3));
-				diet = new Diet(result.getInt(1), result.getString(2), user);
+				Profile profile = Profile.getProfile(result.getInt(3));
+				diet = new Diet(result.getInt(1), result.getString(2), profile);
 			}
 		} catch (SQLException e) {
 			Messages.error("Error al obtenner el menu selecionado",  e.getMessage());
 		}
 		return diet;
+	}
+	
+	public static int insertDiet(Diet diet) {
+		int idResult = 0;
+		try {
+			String sql = "INSERT INTO diets (name, profile_id) VALUES (?, ?)";
+			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setString(1, diet.getName());
+			query.setInt(2, diet.getProfile().getId());
+			query.execute();
+			ResultSet generatedKeys = query.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				idResult = generatedKeys.getInt(1);
+			}
+		} catch (SQLException e) {
+			Messages.error("Error al insertar la nueva dieta", e.getMessage());
+		}
+		return idResult;
 	}
 }
