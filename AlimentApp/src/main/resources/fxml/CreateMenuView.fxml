@@ -24,13 +24,6 @@
                <VBox.margin>
                   <Insets bottom="20.0" left="10.0" />
                </VBox.margin>
-               <children>
-                  <TextField fx:id="nameDietText" text="Nombre Dieta">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </TextField>
-               </children>
             </HBox>
             <GridPane alignment="CENTER" hgap="5.0" vgap="5.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
@@ -341,17 +334,7 @@
                   <Separator orientation="VERTICAL" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="SOMETIMES">
                      <children>
-                        <Button fx:id="loadExistingMenusButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLoadExistingMenusButtonAction" text="Cargar menús existentes">
-                           <font>
-                              <Font name="System Bold Italic" size="14.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="saveDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveDietButtonAction" text="Guardar dieta" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold Italic" size="14.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="deleteCurrentMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onDeleteCurrentMenuButtonAction" text="Eliminar menú actual">
+                        <Button fx:id="saveMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveMenuButtonAction" text="Guardar menú" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>

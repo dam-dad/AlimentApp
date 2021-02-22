@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,11 +40,13 @@ public class ChoiceController implements Initializable {
 
 	// CONTROLLERS
 	private CreateDietController createDietController;
+	private CreateMenuController createMenuController;
 
 	private GenerateMenuController menuController;
-	private GenerateDietController dietController = new GenerateDietController();
+	private GenerateDietController dietController;
 
 	// VARIABLE
+	private static Stage createCustomStage; // TODO BORRAR
 	private ControlDietMenu controlDietMenu;
 	private static final String TITLE = "Crear ";
 
@@ -103,34 +106,39 @@ public class ChoiceController implements Initializable {
 	@FXML
 	void onPersonalizedButtonAction(ActionEvent event) {
 		try {
-			DietsMenu dietsMenu = new DietsMenu();
-			if (controlDietMenu == ControlDietMenu.Dieta) {
-				createDietController = new CreateDietController(dietsMenu, this.controlDietMenu);
+			if (controlDietMenu.equals(ControlDietMenu.Dieta)) {
+				createDietController = new CreateDietController(new DietsMenu());
+				createStage(createDietController.getView());
 			} else {
-				dietsMenu.getMenu().add(new Menu());
-				createDietController = new CreateDietController(dietsMenu, this.controlDietMenu);
+				createMenuController = new CreateMenuController(new Menu());
+				createStage(createMenuController.getView());
 			}
-
-			Stage createDietStage = new Stage();
-			createDietStage.setMinWidth(800);
-			createDietStage.setMinHeight(500);
-			Scene scene = new Scene(createDietController.getView());
-
-			createDietStage.setScene(scene);
-			createDietStage.setTitle(controlDietMenu.name());
-			createDietStage.getIcons().add(new Image("/images/logo.png"));
-			createDietStage.initModality(Modality.WINDOW_MODAL);
-			createDietStage.initOwner(App.getPrimaryStage());
-			createDietStage.show();
-			ManageDietController.getChoiceStage().close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public static Stage getCreateDietCustomStage() {
+		return createCustomStage;
 	}
 
 	public void controlChoiceLabel() {
 		title.set(TITLE + this.controlDietMenu);
+	}
+
+	private void createStage(HBox view) {
+		createCustomStage = new Stage();
+		createCustomStage.setMinWidth(800);
+		createCustomStage.setMinHeight(500);
+		Scene scene = new Scene(view);
+
+		createCustomStage.setScene(scene);
+		createCustomStage.setTitle(controlDietMenu.name());
+		createCustomStage.getIcons().add(new Image("/images/logo.png"));
+		createCustomStage.initModality(Modality.WINDOW_MODAL);
+		createCustomStage.initOwner(App.getPrimaryStage());
+		createCustomStage.show();
+		ManageDietController.getChoiceStage().close();
 	}
 
 	public VBox getView() {

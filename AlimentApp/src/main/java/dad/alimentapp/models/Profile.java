@@ -6,21 +6,23 @@ import java.sql.SQLException;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.utils.Messages;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * Representamos la tabla user con un clase y generamos sus getter and setters.
+ * Representamos la tabla profile con un clase y generamos sus getter and setters.
  * Para poder obtener toda la información.
  * 
  * @author Antonio
  *
  */
-public class User {
+public class Profile {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
@@ -28,17 +30,18 @@ public class User {
 	private IntegerProperty age = new SimpleIntegerProperty();
 	private IntegerProperty weight = new SimpleIntegerProperty();
 	private IntegerProperty height = new SimpleIntegerProperty();
+	private DoubleProperty imc = new SimpleDoubleProperty();
 	private ObjectProperty<Gender> gender = new SimpleObjectProperty<>();
 	private StringProperty image = new SimpleStringProperty();
 
-	public User(Integer id, String name, String surName, Integer age, Integer weight, Integer height, Gender gender) {
-		super();
+	public Profile(Integer id, String name, String surName, Integer age, Integer weight, Integer height, Double imc, Gender gender) {
 		this.setId(id);
 		this.setName(name);
 		this.setSurName(surName);
 		this.setAge(age);
 		this.setWeight(weight);
 		this.setHeight(height);
+		this.setImc(imc);
 		this.setGender(gender);
 	}
 
@@ -138,20 +141,35 @@ public class User {
 		this.imageProperty().set(image);
 	}
 
-	public static User getUser(Integer id) {
-		User user = null;
+	public static Profile getProfile(Integer id) {
+		Profile profile = null;
 		try {
-			String sql = "SELECT * FROM users WHERE id = ?";
+			String sql = "SELECT * FROM profile WHERE id = ?";
 			PreparedStatement query = App.connection.prepareStatement(sql);
 			query.setInt(1, id);
 			ResultSet result = query.executeQuery();
 			while (result.next()) {
-				user = new User(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
-						result.getInt(5), result.getInt(6), Gender.valueOf(result.getInt(7)));
+				profile = new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
+						result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(7)));
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
+			Messages.error("Error al obtenner el perfil selecionado", e.getMessage());
 		}
-		return user;
+		return profile;
 	}
+
+	public final DoubleProperty imcProperty() {
+		return this.imc;
+	}
+	
+
+	public final double getImc() {
+		return this.imcProperty().get();
+	}
+	
+
+	public final void setImc(final double imc) {
+		this.imcProperty().set(imc);
+	}
+	
 }
