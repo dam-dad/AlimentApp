@@ -2,6 +2,7 @@ package dad.alimentapp.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -119,7 +120,6 @@ public class CreateMenuController implements Initializable {
 	@FXML
 	private Button saveMenuButton;
 
-
 	// CONTROLLERS
 	private ProductController productController;
 
@@ -182,6 +182,19 @@ public class CreateMenuController implements Initializable {
 		hydratesTotLabel.textProperty().bindBidirectional(hydratesTotales);
 		fatsTotLabel.textProperty().bindBidirectional(fatsTotales);
 		fibresTotLabel.textProperty().bindBidirectional(fibresTotales);
+
+		saveMenuButton.disableProperty()
+				.bind(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0)
+						.and(Bindings.size(midMorningProductList.getProduct()).isEqualTo(0))
+						.and(Bindings.size(lunchProductList.getProduct()).isEqualTo(0))
+						.and(Bindings.size(snackProductList.getProduct()).isEqualTo(0))
+						.and(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0)));
+
+		breakfastRemoveButton.disableProperty().bind(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0));
+		midMorningRemoveButton.disableProperty().bind(Bindings.size(midMorningProductList.getProduct()).isEqualTo(0));
+		lunchRemoveButton.disableProperty().bind(Bindings.size(lunchProductList.getProduct()).isEqualTo(0));
+		snackRemoveButton.disableProperty().bind(Bindings.size(snackProductList.getProduct()).isEqualTo(0));
+		dinnerRemoveButton.disableProperty().bind(Bindings.size(dinnerProductList.getProduct()).isEqualTo(0));
 	}
 
 	@FXML
@@ -191,10 +204,11 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onBreakfastRemoveButtonAction(ActionEvent event) {
-		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Desayuno", 
+		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Desayuno",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			breakfastProductList.setProduct(FXCollections.observableArrayList());
+			List<Product> products = breakfastProductList.getProduct();
+			breakfastProductList.getProduct().removeAll(products);
 		}
 	}
 
@@ -205,10 +219,11 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onMidMorningRemoveButtonAction(ActionEvent event) {
-		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de Media-Mañana", 
+		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de Media-Mañana",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			midMorningProductList.setProduct(FXCollections.observableArrayList());
+			List<Product> products = midMorningProductList.getProduct();
+			midMorningProductList.getProduct().removeAll(products);
 		}
 	}
 
@@ -219,10 +234,11 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onLunchRemoveButtonAction(ActionEvent event) {
-		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Almuerzo", 
+		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Almuerzo",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			lunchProductList.setProduct(FXCollections.observableArrayList());
+			List<Product> products = lunchProductList.getProduct();
+			lunchProductList.getProduct().removeAll(products);
 		}
 	}
 
@@ -233,10 +249,11 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onSnackRemoveButtonAction(ActionEvent event) {
-		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Merienda", 
+		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Merienda",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			snackProductList.setProduct(FXCollections.observableArrayList());
+			List<Product> products = snackProductList.getProduct();
+			snackProductList.getProduct().removeAll(products);
 		}
 	}
 
@@ -247,10 +264,11 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onDinnerRemoveButtonAction(ActionEvent event) {
-		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Cena", 
+		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Cena",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			dinnerProductList.setProduct(FXCollections.observableArrayList());
+			List<Product> products = dinnerProductList.getProduct();
+			dinnerProductList.getProduct().removeAll(products);
 		}
 	}
 
