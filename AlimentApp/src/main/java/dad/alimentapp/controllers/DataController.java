@@ -10,14 +10,20 @@ import javax.imageio.ImageIO;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -34,71 +40,62 @@ import javafx.util.converter.NumberStringConverter;
 public class DataController implements Initializable {
 
 	// view
-	@FXML
-	private BorderPane view;
+	 @FXML
+	    private BorderPane view;
 
-	@FXML
-	private Button editButton;
+	    @FXML
+	    private TextField nameText;
 
-	@FXML
-	private Button saveButton;
+	    @FXML
+	    private TextField surnameText;
 
-	@FXML
-	private TextField nameText;
+	    @FXML
+	    private TextField ageText;
 
-	@FXML
-	private TextField surnameText;
+	    @FXML
+	    private RadioButton manRadio;
 
-	@FXML
-	private TextField ageText;
+	    @FXML
+	    private ToggleGroup gender;
 
-	@FXML
-	private RadioButton manRadio;
+	    @FXML
+	    private RadioButton womanRadio;
 
-	@FXML
-	private RadioButton womanRadio;
-	
-    @FXML
-    private ToggleGroup gender;
+	    @FXML
+	    private ImageView avatarImageView;
 
-	@FXML
-	private ImageView avatarImageView;
+	    @FXML
+	    private Button changeButton;
 
-	@FXML
-	private Button changeButton;
+	    @FXML
+	    private TextField weightText;
 
-	@FXML
-	private TextField weightText;
+	    @FXML
+	    private TextField heighText;
 
-	@FXML
-	private TextField heighText;
+	    @FXML
+	    private Label imcLabel;
 
-	@FXML
-	private Label imcLabel;
+	    @FXML
+	    private Button saveButton;
 
-	@FXML
-	private Label indeximcLabel;
-	
-    @FXML
-    private Label idealWeightLabel;
+	    @FXML
+	    private BarChart<?, ?> historicChart;
 
-    @FXML
-    private Label idealDietLabel;
+	    @FXML
+	    private Label idealWeightLabel;
 
-    @FXML
-    private Label exerciseLabel;
+	    @FXML
+	    private Label idealDietLabel;
 
-	@FXML
-	private Button saveRegisterButton;
+	    @FXML
+	    private Label exerciseLabel;
 
-	@FXML
-	private Button historicButton;
+	    @FXML
+	    private ImageView imcImageView;
 
-	@FXML
-	private ProgressBar imcProgress;
-
-	@FXML
-	private ImageView imcImageView;
+	    @FXML
+	    private Label indeximcLabel;
 
 	// model
 	private StringProperty pesoStringProperty = new SimpleStringProperty();
@@ -111,6 +108,8 @@ public class DataController implements Initializable {
 	private DoubleProperty imcProperty = new SimpleDoubleProperty();
 
 	private StringProperty resProperty = new SimpleStringProperty();
+	
+	private ObjectProperty<User> user= new SimpleObjectProperty<>();
 	
 	
 
@@ -129,11 +128,7 @@ public class DataController implements Initializable {
 		gender.getToggles().add(manRadio);
 		gender.getToggles().add(womanRadio);
 
-		
-		
 
-	
-		
 		
 		imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
 
@@ -150,6 +145,15 @@ public class DataController implements Initializable {
 		imcStringProperty.bindBidirectional(imcLabel.textProperty());
 		resProperty.bindBidirectional(indeximcLabel.textProperty());
 		imcProperty.addListener((o, ov, nv) -> onCalculoRes());
+		
+		
+		
+		
+		
+		this.user.addListener((o,ov,nv)->onUserChanged(o,ov,nv));
+		
+		
+		saveButton.setOnAction(e->onSaveButtonAction(e));
 
 		
 
@@ -165,13 +169,47 @@ public class DataController implements Initializable {
 	
 
 
+	private void onUserChanged(ObservableValue<? extends User> o, User ov, User nv) {
+		
+		if(ov!=null) {
+			
+			nameText.textProperty().unbindBidirectional(ov.nameProperty());
+			surnameText.textProperty().unbindBidirectional(ov.surNameProperty());
+			ageText.textProperty().unbindBidirectional(ov.ageProperty());
+			//	gender        (ov.genderProperty());
+			
+			
+			
+		}
+		
+		
+		if(nv!=null) {
+			nameText.textProperty().bindBidirectional(ov.nameProperty());
+			surnameText.textProperty().bindBidirectional(ov.surNameProperty());
+			//ageText.textProperty().bindBidirectional(ov.ageProperty());
+			
+		}
+		
+	}
+
+	private void onSaveButtonAction(ActionEvent e) {
+		
+
+	
+		
+		
+		
+		
+		
+	}
+
 	private void onCalculoRes() {
 		if (imcProperty.get() == 0) {
 			imcStringProperty.set("(peso * altura^ 2)");
 			resProperty.set("Bajo peso | Normal | Sobrepeso | Obeso");
 			imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
 		} else {
-			imcStringProperty.set("IMC: " + imcProperty.get());
+			imcStringProperty.set(" "+imcProperty.get());
 			if (imcProperty.get() < 18.5) {
 				resProperty.set("Bajo peso");
 				idealDietLabel.setText("Te recomendamos una dieta hipercalórica");

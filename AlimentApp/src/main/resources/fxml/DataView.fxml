@@ -163,7 +163,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <BarChart>
+                  <BarChart fx:id="historicChart">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>

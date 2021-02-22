@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
 	private static Stage primaryStage;
-	private MainController controller;
+	private  static MainController controller;
 	
 	//Almacenamos e iniciamos la conexion con la BD.
 	public static Connection connection = ConnectionDB.connection();
@@ -43,4 +43,8 @@ public class App extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}	
+	
+	public static MainController getMainController() {
+		return controller;
+	}
 }

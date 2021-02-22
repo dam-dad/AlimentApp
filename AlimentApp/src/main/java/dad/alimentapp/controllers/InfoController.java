@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.main.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,22 +16,37 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class InfoController implements Initializable{
+		
+		
+
+	   @FXML
+	    private BorderPane view;
+
+	    @FXML
+	    private ImageView adviceImageView;
+
+	    @FXML
+	    private Button guessButton;
+
+	    @FXML
+	    private Button profile1Button;
+
+	    @FXML
+	    private Button profile2Button;
+
+	    @FXML
+	    private Button profile3Button;
+
+	    @FXML
+	    private Button profile4Button;
+
+	    @FXML
+	    private Button deleteButton;
+
+	    @FXML
+	    private Button entryButton;
+	    
 	
-
-    @FXML
-    private BorderPane view;
-
-    @FXML
-    private ImageView adviceImageView;
-
-    @FXML
-    private Button historicButton;
-
-    @FXML
-    private GridPane dietPane;
-
-    @FXML
-    private Label dietLabel;
 	
 	public InfoController() throws IOException  {
 		
@@ -43,12 +59,24 @@ public class InfoController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+	
 		loadMainImage();
+		entryButton.setOnAction(e->onEntryButtonAction());
 		
 	}
 
 	
+
+private void onEntryButtonAction() {
+	
+	//CARGAMOS LOS DATOS DEL PERFIL CORRESPONDIENTE
+	
+	
+	
+	App.getMainController().getDataTab().getSelectionModel().select(1);
+	
+		
+	}
 
 //Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
 private void loadMainImage() {
@@ -57,6 +85,10 @@ private void loadMainImage() {
 	adviceImageView.setImage(new Image("images/infoTab/"+nPhoto+".png"));
 		
 	}
+
+
+
+
 
 public BorderPane getView() {
 	return view;
