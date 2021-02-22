@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.DietsMenu;
+import dad.alimentapp.models.Profile;
 import dad.alimentapp.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 public class MainController implements Initializable {
 
 	// View
-
 	@FXML
 	private BorderPane view;
 
@@ -34,7 +33,10 @@ public class MainController implements Initializable {
 	private MenuItem exitMenu;
 
 	@FXML
-	private MenuItem changeThemeMenu;
+	private MenuItem lightThemeMenu;
+
+	@FXML
+	private MenuItem darkThemeMenu;
 
 	@FXML
 	private MenuItem showUserGuidesMenu;
@@ -52,17 +54,16 @@ public class MainController implements Initializable {
 	private  Tab myDataTab;
 
 	@FXML
-	private Tab createDietTab;
-
-	@FXML
 	private Tab manageDietsTab;
 
 	// Controllers
-	CreateDietController myMenusController;
 	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
 	AboutAppController aboutAppController;
 	ManageDietController manageDietController = new ManageDietController();
+
+	// Profile
+	private static Profile profileSelected;
 
 	public MainController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
@@ -72,13 +73,7 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			myMenusController = new CreateDietController(new DietsMenu());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		createDietTab.setContent(myMenusController.getView());
+
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
@@ -92,7 +87,12 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
-	void onChangeThemeMenuAction(ActionEvent event) {
+	void onLightThemeMenuAction(ActionEvent event) {
+
+	}
+
+	@FXML
+	void onDarkThemeMenuAction(ActionEvent event) {
 
 	}
 
@@ -101,21 +101,21 @@ public class MainController implements Initializable {
 		try {
 			aboutAppController = new AboutAppController();
 
-			Stage secondaryStage = new Stage();
+			Stage aboutStage = new Stage();
 			Scene scene = new Scene(aboutAppController.getView());
 
-			secondaryStage.setScene(scene);
-			secondaryStage.setTitle("Acerca de AlimentApp");
-			secondaryStage.resizableProperty().setValue(Boolean.FALSE);
-			secondaryStage.getIcons().add(new Image("/images/logo.png"));
-			secondaryStage.initModality(Modality.WINDOW_MODAL);
-			secondaryStage.initOwner(App.getPrimaryStage());
-			secondaryStage.showAndWait();
+			aboutStage.setScene(scene);
+			aboutStage.setTitle("Acerca de AlimentApp");
+			aboutStage.resizableProperty().setValue(Boolean.FALSE);
+			aboutStage.getIcons().add(new Image("/images/logo.png"));
+			aboutStage.initModality(Modality.WINDOW_MODAL);
+			aboutStage.initOwner(App.getPrimaryStage());
+			aboutStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void onShowUserGuidesMenuAction(ActionEvent event) {
 		try {
@@ -123,6 +123,14 @@ public class MainController implements Initializable {
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static Profile getProfileSelected() {
+		return profileSelected;
+	}
+
+	public static void setProfileSelected(Profile profileSelected) {
+		MainController.profileSelected = profileSelected;
 	}
 
 	public BorderPane getView() {
