@@ -37,4 +37,22 @@ public enum Weekday {
     public static Weekday valueOf(int id) {
         return map.get(id);
     }
+    
+    public static Weekday previous(int id) {
+    	if(id == 1) {
+    		id = 7;
+    	} else {
+    		id--; 
+    	}
+    	return Weekday.valueOf(id);
+    }
+    
+    public static Weekday next(int id) {
+    	if(id == 7) {
+    		id = 1;
+    	} else {
+    		id++; 
+    	}    
+    	return Weekday.valueOf(id);
+    }
 }

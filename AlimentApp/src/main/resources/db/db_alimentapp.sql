@@ -1,46 +1,32 @@
-CREATE TABLE IF NOT EXISTS gender (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  name varchar(10)  NOT NULL,
-  PRIMARY KEY (id)
-) ;
-
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS profile (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
   surname varchar(100)  NOT NULL,
   age int(3) NOT NULL,
   weight int(3) NOT NULL,
   height int(3) NOT NULL,
+  imc DECIMAL(5,2) NOT NULL,
   gender int(11) NOT NULL,
   image_profile text  NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY user_name_unique (name),
-  CONSTRAINT fk_users_gender FOREIGN KEY (gender) REFERENCES gender (id)
+  UNIQUE KEY profile_name_unique (name)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
-  user_id int(11) NOT NULL,
+  profile_id int(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY diets_name_unique (name),
-  CONSTRAINT fk_diets_users FOREIGN KEY (user_id) REFERENCES users (id)
-) ;
-
-CREATE TABLE IF NOT EXISTS weekday (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  name varchar(10)  NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY weekday_unique (name)
+  CONSTRAINT fk_diets_profile FOREIGN KEY (profile_id) REFERENCES profile (id)
 ) ;
 
 CREATE TABLE IF NOT EXISTS menu (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
   id_weekday int(11) NOT NULL,
+  profile_id int(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY menu_name_unique (name),
-  CONSTRAINT fk_menu_weekday FOREIGN KEY (id_weekday) REFERENCES weekday (id)
+  CONSTRAINT fk_menu_profile FOREIGN KEY (profile_id) REFERENCES profile (id)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets_menus (
@@ -50,7 +36,6 @@ CREATE TABLE IF NOT EXISTS diets_menus (
   CONSTRAINT fk_diets_menu_id_diets FOREIGN KEY (id_diets) REFERENCES diets (id),
   CONSTRAINT fk_diets_menu_id_menu FOREIGN KEY (id_menu) REFERENCES menu (id)
 ) ;
-
 
 CREATE TABLE IF NOT EXISTS origin (
   id int(11) AUTO_INCREMENT NOT NULL,
@@ -64,13 +49,6 @@ CREATE TABLE IF NOT EXISTS type (
   name varchar(50)  NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY type_name_unique (name)
-) ;
-
-CREATE TABLE IF NOT EXISTS moment_day (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  name varchar(50)  NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY moment_day_name_unique (name)
 ) ;
 
 CREATE TABLE IF NOT EXISTS product (
@@ -96,26 +74,8 @@ CREATE TABLE IF NOT EXISTS menu_product (
   id_moment_day int(11) NOT NULL,
   PRIMARY KEY (id_menu, id_product, id_moment_day),
   CONSTRAINT fk_menu_product_id_menu FOREIGN KEY (id_menu) REFERENCES menu (id),
-  CONSTRAINT fk_menu_product_id_product FOREIGN KEY (id_product) REFERENCES product (id),
-  CONSTRAINT fk_menu_product_id_moment_day FOREIGN KEY (id_moment_day) REFERENCES moment_day (id)
+  CONSTRAINT fk_menu_product_id_product FOREIGN KEY (id_product) REFERENCES product (id)
 ) ;
-
-INSERT INTO moment_day (name) VALUES ('Desayuno');
-INSERT INTO moment_day (name) VALUES ('Media mañana');
-INSERT INTO moment_day (name) VALUES ('Almuerzo');
-INSERT INTO moment_day (name) VALUES ('Merienda');
-INSERT INTO moment_day (name) VALUES ('Cena');
-
-INSERT INTO weekday (name) VALUES ('Lunes');
-INSERT INTO weekday (name) VALUES ('Martes');
-INSERT INTO weekday (name) VALUES ('Miércoles');
-INSERT INTO weekday (name) VALUES ('Jueves');
-INSERT INTO weekday (name) VALUES ('Viernes');
-INSERT INTO weekday (name) VALUES ('Sábado');
-INSERT INTO weekday (name) VALUES ('Domingo');
-
-INSERT INTO gender (name) VALUES ('Masculino');
-INSERT INTO gender (name) VALUES ('Femenino');
 
 INSERT INTO origin (name) VALUES ('Vegetal');
 INSERT INTO origin (name) VALUES ('Animal');
@@ -128,14 +88,14 @@ INSERT INTO type (name) VALUES ('Proteicos');
 INSERT INTO type (name) VALUES ('Grasas');
 INSERT INTO type (name) VALUES ('Lacteos');
 
-INSERT INTO users (name, surname, age, weight, height, gender) VALUES
+INSERT INTO profile (name, surname, age, weight, height, gender) VALUES
 ('User', 'Test', 21, 70, 170, 1);
 
-INSERT INTO diets (name, user_id) VALUES
+INSERT INTO diets (name, profile_id) VALUES
 ('Dieta inicial', 1);
 
-INSERT INTO menu (name, id_weekday) VALUES
-('Menú Lunes', 1);
+INSERT INTO menu (name, id_weekday, profile_id) VALUES
+('Menú Lunes', 1, 1);
 
 INSERT INTO diets_menus (id_diets, id_menu) VALUES
 (1, 1);

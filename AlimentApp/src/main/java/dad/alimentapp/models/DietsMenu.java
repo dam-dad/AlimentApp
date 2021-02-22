@@ -3,6 +3,7 @@ package dad.alimentapp.models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import dad.alimentapp.main.App;
@@ -79,5 +80,23 @@ public class DietsMenu {
 			Messages.error("Error al obtener todos los menus de la dieta indicada",  e.getMessage());
 		}
 		return dietMenu;
+	}
+	
+	public static int insertDietMenu(Integer dietId, Integer menuId) {
+		int idResult = 0;
+		try {
+			String sql = "INSERT INTO diets_menus VALUES (?, ?)";
+			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, dietId);
+			query.setInt(2, menuId);
+			query.execute();
+			ResultSet generatedKeys = query.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				idResult = generatedKeys.getInt(1);
+			}
+		} catch (SQLException e) {
+			Messages.error("Error al insertar el nuevo menú en la dieta", e.getMessage());
+		}
+		return idResult;
 	}
 }
