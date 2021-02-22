@@ -24,7 +24,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// Creacion inicial de la BD. Descomentar esta linea si tienes que volver a
 		// crear la BD.
-		// ConnectionDB.createDB();
+//		ConnectionDB.createDB();
 		App.primaryStage = primaryStage;
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override

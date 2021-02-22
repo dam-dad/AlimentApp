@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import dad.alimentapp.controllers.MainController;
 import dad.alimentapp.main.App;
@@ -74,7 +76,12 @@ public class Diet {
 	public final void setProfile(final Profile profile) {
 		this.profileProperty().set(profile);
 	}	
-	
+		
+	@Override
+	public String toString() {
+		return getName();
+	}
+
 	public static Diet getDiet(Integer id) {
 		Diet diet = null;
 		try {
@@ -108,5 +115,34 @@ public class Diet {
 			Messages.error("Error al insertar la nueva dieta", e.getMessage());
 		}
 		return idResult;
+	}
+	
+	public static void updateDiet(Diet diet) {
+		try {
+			String sql = "UPDATE diets SET name = ? WHERE id = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setString(1, diet.getName());
+			query.setInt(2, diet.getId());
+			query.execute();
+		} catch (SQLException e) {
+			Messages.error("Error al modificar esta dieta", e.getMessage());
+		}
+	}
+	
+	public static List<Diet> getAllDiets(Profile profile) {
+		List<Diet> dietsList = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM diets WHERE profile_id = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setInt(1, profile.getId());
+			ResultSet result = query.executeQuery();
+			while (result.next()) {
+				Diet diet = new Diet(result.getInt(1), result.getString(2), profile);
+				dietsList.add(diet);
+			}
+		} catch (SQLException e) {
+			Messages.error("Error al cargar todas las dietas", e.getMessage());
+		}
+		return dietsList;		
 	}
 }

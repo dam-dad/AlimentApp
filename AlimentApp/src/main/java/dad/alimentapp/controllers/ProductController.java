@@ -136,18 +136,13 @@ public class ProductController implements Initializable {
 	@FXML
 	void onAddButtonAction(ActionEvent event) {
 		menuProduct.getProduct().add(productSelected.get());
-		MenuProduct.insertMenuProduct(menuProduct.getMenu().getId(), productSelected.get().getId(),
-				menuProduct.getMomentDay().getId());
 		defaultProductList.remove(productSelected.get());
 	}
 
 	@FXML
 	void onRemoveButtonAction(ActionEvent event) {
 		defaultProductList.add(productMenuSelected.get());
-		MenuProduct.deleteMenuProduct(menuProduct.getMenu().getId(), productMenuSelected.get().getId(),
-				menuProduct.getMomentDay().getId());
 		menuProduct.getProduct().remove(productMenuSelected.get());
-
 	}
 
 	private void filterProduct() {

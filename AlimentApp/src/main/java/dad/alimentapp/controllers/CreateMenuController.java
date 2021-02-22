@@ -2,28 +2,22 @@ package dad.alimentapp.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.Diet;
-import dad.alimentapp.models.DietsMenu;
 import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.MenuProduct;
 import dad.alimentapp.models.MomentDay;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.models.Weekday;
 import dad.alimentapp.utils.Messages;
-import dad.alimentapp.utils.Utils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,14 +35,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class CreateDietController implements Initializable {
+public class CreateMenuController implements Initializable {
 
 	// VIEW
 	@FXML
 	private HBox view;
-
-	@FXML
-	private TextField nameDietText;
 
 	@FXML
 	private Button previousButton;
@@ -126,28 +117,20 @@ public class CreateDietController implements Initializable {
 	private PieChart menuChart;
 
 	@FXML
-	private Button saveDietButton;
+	private Button saveMenuButton;
 
-	@FXML
-	private Button loadExistingMenusButton;
-
-	@FXML
-	private Button deleteCurrentMenuButton;
 
 	// CONTROLLERS
 	private ProductController productController;
-	private LoadAllMenuController loadAllMenuController;
 
 	// MODEL
-	private DietsMenu dietsMenu;
-	private ObjectProperty<Menu> menuSelected;
+	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
 
 	private StringProperty kcalTotales = new SimpleStringProperty();
 	private StringProperty proteinTotales = new SimpleStringProperty();
 	private StringProperty hydratesTotales = new SimpleStringProperty();
 	private StringProperty fatsTotales = new SimpleStringProperty();
 	private StringProperty fibresTotales = new SimpleStringProperty();
-	 
 
 	// STAGE
 	private static Stage loadAllMenuStage;
@@ -159,15 +142,10 @@ public class CreateDietController implements Initializable {
 	private MenuProduct snackProductList;
 	private MenuProduct dinnerProductList;
 
-	public CreateDietController(DietsMenu dietsMenu) throws IOException {
-		this.dietsMenu = dietsMenu;
-		List<Menu> menuList = this.dietsMenu.getMenu();
-		if (menuList.size() == 0) {
-			menuList.add(new Menu());
-		}
-		this.menuSelected = new SimpleObjectProperty<>(menuList.get(0));
+	public CreateMenuController(Menu menu) throws IOException {
+		this.menuSelected.set(menu);
 		loadProductsMenu();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateDietView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateMenuView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -177,7 +155,6 @@ public class CreateDietController implements Initializable {
 		getPieChart();
 
 		// BINDINGS
-		nameDietText.textProperty().bindBidirectional(dietsMenu.getDiets().nameProperty());
 		nameMenuText.textProperty().bindBidirectional(menuSelected.get().nameProperty());
 		Bindings.bindBidirectional(weekdayLabel.textProperty(), menuSelected.get().weekdayProperty(),
 				new StringConverter<Weekday>() {
@@ -197,9 +174,6 @@ public class CreateDietController implements Initializable {
 		lunchList.itemsProperty().bindBidirectional(lunchProductList.productProperty());
 		snackList.itemsProperty().bindBidirectional(snackProductList.productProperty());
 		dinnerList.itemsProperty().bindBidirectional(dinnerProductList.productProperty());
-
-		dietsMenu.menuProperty().addListener((o, ov, nv) -> manageBindDietsMenu(o, ov, nv));
-		menuSelected.addListener((o, ov, nv) -> manageBindMenuSelected(o, ov, nv));
 
 		// BINDINGS LABELS
 		// TODO LISTENERS Y UNBINDINGS
@@ -282,76 +256,25 @@ public class CreateDietController implements Initializable {
 
 	@FXML
 	void onNextButtonAction(ActionEvent event) {
-		if (dietsMenu.getMenu().size() > 1) {
-			Weekday nextDay = Weekday.next(menuSelected.get().getWeekday().getId());
-			Menu menu = Utils.searchMatchesInMenu(dietsMenu.getMenu(), nextDay);
-			menuSelected.set(menu != null ? menu : new Menu(nextDay));
-			System.out.println(menuSelected);
-		} else {
-			menuSelected.set(new Menu(Weekday.next(menuSelected.get().getWeekday().getId())));
-			System.out.println(menuSelected);
-			dietsMenu.getMenu().add(menuSelected.get());
-		}
+		menuSelected.get().setWeekday(Weekday.next(menuSelected.get().getWeekday().getId()));
 	}
 
 	@FXML
 	void onPreviousButtonAction(ActionEvent event) {
-		if (dietsMenu.getMenu().size() > 1) {
-			Weekday previousDay = Weekday.previous(menuSelected.get().getWeekday().getId());
-			Menu menu = Utils.searchMatchesInMenu(dietsMenu.getMenu(), previousDay);
-			menuSelected.set(menu != null ? menu : new Menu(previousDay));
-			System.out.println(menuSelected);
-		} else {
-			menuSelected.set(new Menu(Weekday.previous(menuSelected.get().getWeekday().getId())));
-			System.out.println(menuSelected);
-			dietsMenu.getMenu().add(menuSelected.get());
-		}
+		menuSelected.get().setWeekday(Weekday.previous(menuSelected.get().getWeekday().getId()));
 	}
 
 	@FXML
-	void onSaveDietButtonAction(ActionEvent event) {
-		if (dietsMenu.getDiets().getId() != 0) {
-			Diet.updateDiet(dietsMenu.getDiets());
-			for (Menu menu : dietsMenu.getMenu()) {
-				menuSelected.set(menu);
-				Menu.updateMenu(menuSelected.get());
-				manageRemoveProductsInMenu();
-				manageInsertProductsInMenu();
-			}
+	void onSaveMenuButtonAction(ActionEvent event) {
+		if (menuSelected.get().getId() != 0) {
+			Menu.updateMenu(menuSelected.get());
+			manageRemoveProductsInMenu();
+			manageInsertProductsInMenu();
 			ManageDietController.getModificateStage().close();
 		} else {
-			dietsMenu.getDiets().setId(Diet.insertDiet(dietsMenu.getDiets()));
-			for (Menu menu : dietsMenu.getMenu()) {
-				menu.setId(Menu.insertMenu(menuSelected.get()));
-				DietsMenu.insertDietMenu(dietsMenu.getDiets().getId(), menu.getId());
-				menuSelected.set(menu);
-				manageInsertProductsInMenu();
-			}
+			menuSelected.get().setId(Menu.insertMenu(menuSelected.get()));
+			manageInsertProductsInMenu();
 			ChoiceController.getCreateDietCustomStage().close();
-		}
-	}
-
-	@FXML
-	void onDeleteCurrentMenuButtonAction(ActionEvent event) {
-		// TODO
-	}
-
-	@FXML
-	void onLoadExistingMenusButtonAction(ActionEvent event) {
-		try {
-			loadAllMenuController = new LoadAllMenuController(dietsMenu.getMenu());
-
-			loadAllMenuStage = new Stage();
-			Scene scene = new Scene(loadAllMenuController.getView());
-			loadAllMenuStage.setScene(scene);
-			loadAllMenuStage.setTitle("Listas de Menús");
-			loadAllMenuStage.resizableProperty().setValue(Boolean.FALSE);
-			loadAllMenuStage.getIcons().add(new Image("/images/logo.png"));
-			loadAllMenuStage.initModality(Modality.WINDOW_MODAL);
-			loadAllMenuStage.initOwner(App.getPrimaryStage());
-			loadAllMenuStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -410,60 +333,6 @@ public class CreateDietController implements Initializable {
 		lunchProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.ALMUERZO);
 		snackProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.MERIENDA);
 		dinnerProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.CENA);
-	}
-
-	private void refreshBinding() {
-		nameMenuText.textProperty().bindBidirectional(menuSelected.get().nameProperty());
-		Bindings.bindBidirectional(weekdayLabel.textProperty(), menuSelected.get().weekdayProperty(),
-				new StringConverter<Weekday>() {
-					@Override
-					public String toString(Weekday weekday) {
-						return weekday.name();
-					}
-
-					@Override
-					public Weekday fromString(String string) {
-						return Weekday.valueOf(string);
-					}
-				});
-		
-		loadProductsMenu();
-		breakfastList.itemsProperty().bindBidirectional(breakfastProductList.productProperty());
-		midMorningList.itemsProperty().bindBidirectional(midMorningProductList.productProperty());
-		lunchList.itemsProperty().bindBidirectional(lunchProductList.productProperty());
-		snackList.itemsProperty().bindBidirectional(snackProductList.productProperty());
-		dinnerList.itemsProperty().bindBidirectional(dinnerProductList.productProperty());
-	}
-
-	private void refreshUnBinding() {
-		nameMenuText.textProperty().unbindBidirectional(menuSelected.get().nameProperty());
-		weekdayLabel.textProperty().unbindBidirectional(menuSelected.get().weekdayProperty());
-		
-		breakfastList.itemsProperty().unbindBidirectional(breakfastProductList.productProperty());
-		midMorningList.itemsProperty().unbindBidirectional(midMorningProductList.productProperty());
-		lunchList.itemsProperty().unbindBidirectional(lunchProductList.productProperty());
-		snackList.itemsProperty().unbindBidirectional(snackProductList.productProperty());
-		dinnerList.itemsProperty().unbindBidirectional(dinnerProductList.productProperty());
-	}
-
-	private void manageBindMenuSelected(ObservableValue<? extends Menu> o, Menu ov, Menu nv) {
-		if (ov != null) {
-			refreshUnBinding();		}
-
-		if (nv != null) {
-			refreshBinding();
-		}
-	}
-
-	private void manageBindDietsMenu(ObservableValue<? extends ObservableList<Menu>> o, ObservableList<Menu> ov,
-			ObservableList<Menu> nv) {
-		if (ov != null) {
-			refreshUnBinding();
-		}
-
-		if (nv != null) {
-			refreshBinding();
-		}
 	}
 
 	private void getPieChart() {
