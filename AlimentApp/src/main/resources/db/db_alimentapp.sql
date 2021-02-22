@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS profile (
   age int(3) NOT NULL,
   weight int(3) NOT NULL,
   height int(3) NOT NULL,
+  imc DECIMAL(5,2) NOT NULL,
   gender int(11) NOT NULL,
   image_profile text  NULL,
   PRIMARY KEY (id),
