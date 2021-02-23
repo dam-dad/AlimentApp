@@ -67,10 +67,9 @@
                               <ListView fx:id="dietList" prefHeight="200.0" prefWidth="400.0" HBox.hgrow="ALWAYS" />
                               <VBox alignment="CENTER" spacing="25.0">
                                  <children>
-                                    <Button fx:id="createDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreateDietButtonAction" text="Crear dieta" />
-                                    <Button fx:id="viewDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewDietButtonAction" text="Visualizar dieta" />
-                                    <Button fx:id="modifyDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModifyDietButtonAction" text="Modificar" />
-                                    <Button fx:id="removeDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveDietButtonAction" text="Eliminar" />
+                                    <Button fx:id="createDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onCreateDietButtonAction" prefWidth="100.0" text="Crear dieta" />
+                                    <Button fx:id="modifyDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onModifyDietButtonAction" prefWidth="100.0" text="Modificar" />
+                                    <Button fx:id="removeDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onRemoveDietButtonAction" prefWidth="100.0" text="Eliminar" />
                                  </children>
                               </VBox>
                            </children>
@@ -158,6 +157,9 @@
             <ListView fx:id="snackListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ListView fx:id="dinnerListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
          </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
       </GridPane>
    </children>
 </HBox>

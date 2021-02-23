@@ -30,6 +30,9 @@ public class MainController implements Initializable {
 	private BorderPane view;
 
 	@FXML
+	private MenuItem generateReportMenu;
+
+	@FXML
 	private MenuItem exitMenu;
 
 	@FXML
@@ -80,6 +83,11 @@ public class MainController implements Initializable {
 	}
 
 	// Funciones menu
+
+	@FXML
+	void onGenerateReportMenuAction(ActionEvent event) {
+
+	}
 
 	@FXML
 	void onExitMenuAction(ActionEvent event) {
