@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -17,8 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
 
-<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <GridPane prefHeight="142.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -26,8 +26,8 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="102.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -47,35 +47,38 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <RadioButton fx:id="forTypeRadio" mnemonicParsing="false" text="Por tipo" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="type" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="personalizedRadio" mnemonicParsing="false" text="Personalizado" toggleGroup="$type" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </RadioButton>
-               </children>
-            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="generateButton" mnemonicParsing="false" onAction="#onGenerateButtonAction" text="Generar" HBox.hgrow="ALWAYS">
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="generateButton" mnemonicParsing="false" onAction="#onGenerateButtonAction" text="Generar" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Cancelar" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children></HBox>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <RadioButton fx:id="defaultRadio" mnemonicParsing="false" text="Predeterminado" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
-                  </Button>
-                  <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Cancelar" HBox.hgrow="ALWAYS">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="configure" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="configureRadio" mnemonicParsing="false" text="Configurar" toggleGroup="$configure" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
-                  </Button>
+                  </RadioButton>
                </children>
             </HBox>
          </children>
@@ -87,7 +90,7 @@
    <top>
       <VBox fx:id="dietTypeVBox" prefHeight="95.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox fx:id="dietTypeBox" alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="600.0">
+            <HBox fx:id="dietTypeBox" alignment="CENTER_LEFT" prefHeight="121.0" prefWidth="600.0">
                <children>
                   <Label text="Tipo de dieta:" HBox.hgrow="ALWAYS">
                      <font>
@@ -97,14 +100,19 @@
                         <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="dietTypeCombo" maxWidth="1.7976931348623157E308" prefWidth="389.0" promptText="Selecciona el tipo" HBox.hgrow="ALWAYS">
+                  <ComboBox fx:id="dietTypeCombo" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="189.0" promptText="Selecciona el tipo">
                      <HBox.margin>
                         <Insets left="20.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ComboBox>
+                  <Label fx:id="descriptionLabel" alignment="CENTER" contentDisplay="CENTER" text="Descripción">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
-            <Separator prefHeight="41.0" prefWidth="600.0" valignment="BOTTOM" VBox.vgrow="ALWAYS">
+            <Separator prefHeight="41.0" prefWidth="590.0" valignment="BOTTOM" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -115,7 +123,7 @@
    <center>
       <VBox fx:id="personalizedVBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane fx:id="personalizedPane" prefHeight="374.0" prefWidth="600.0">
+            <GridPane fx:id="personalizedPane" prefHeight="341.0" prefWidth="600.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
@@ -132,9 +140,9 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Personalizar:">
+                  <Label text="Ajustar:">
                      <font>
-                        <Font name="System Bold Italic" size="18.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                      <GridPane.margin>
                         <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
@@ -157,7 +165,7 @@
                         </Slider>
                      </children>
                   </HBox>
-                  <Label fx:id="recomend1Label" text="x" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Label fx:id="recomend1Label" text="2000" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="170.0" right="5.0" top="5.0" />
                      </GridPane.margin>
@@ -172,14 +180,14 @@
                         <Insets left="60.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="recomend2Label" text="x" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <Label fx:id="recomend2Label" text="150" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="170.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="1500" GridPane.rowIndex="1">
+                  <Label fx:id="numberCalLabel" text="0" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets left="88.0" right="5.0" top="5.0" />
+                        <Insets left="100.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="3000" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
@@ -204,12 +212,12 @@
                         </Slider>
                      </children>
                   </HBox>
-                  <Label text="20" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <Label fx:id="numberHydrLabel" text="0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets left="95.0" right="5.0" top="5.0" />
+                        <Insets left="100.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="100" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                  <Label text="200" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
@@ -236,14 +244,14 @@
                         <Insets left="60.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="recomend3Label" text="x" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                  <Label fx:id="recomend3Label" text="40" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="170.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="20" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+                  <Label fx:id="numberProtLabel" text="0" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets left="95.0" right="5.0" top="5.0" />
+                        <Insets left="100.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="100" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
@@ -251,9 +259,9 @@
                         <Insets left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="0" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                  <Label fx:id="numberFatsLabel" text="0" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets left="95.0" right="5.0" top="5.0" />
+                        <Insets left="100.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="recomendado" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
@@ -261,12 +269,12 @@
                         <Insets left="60.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="recomend4Label" text="x" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                  <Label fx:id="recomend4Label" text="55" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="170.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="30" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                  <Label text="100" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
@@ -288,57 +296,11 @@
                         </Slider>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <RadioButton fx:id="mondayRadio" mnemonicParsing="false" text="Lunes" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="day" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="tuesdayRadio" mnemonicParsing="false" text="Martes" toggleGroup="$day" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton fx:id="wednesdayRadio" mnemonicParsing="false" text="Miercoles" toggleGroup="$day" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton fx:id="thursdayRadio" mnemonicParsing="false" text="Jueves" toggleGroup="$day" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                     </children>
-                  </HBox>
-                  <CheckBox fx:id="vegetalCheck" mnemonicParsing="false" text="Solo productos vegetales" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+                  <CheckComboBox fx:id="daysCheckCombo" title="Elige el/los dias" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="24.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
-                  </CheckBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <RadioButton fx:id="fridayRadio" mnemonicParsing="false" text="Viernes" toggleGroup="$day" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton fx:id="saturdayRadio" mnemonicParsing="false" text="Sabado" toggleGroup="$day" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton fx:id="sundayRadio" mnemonicParsing="false" text="Domingo" toggleGroup="$day" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                     </children>
-                  </HBox>
+                  </CheckComboBox>
                </children>
             </GridPane>
             <Separator prefHeight="8.0" prefWidth="600.0" VBox.vgrow="ALWAYS">

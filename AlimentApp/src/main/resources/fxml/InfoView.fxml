@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,75 +14,84 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <right>
-      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="540.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="adviceImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <image>
-                  <Image url="@../images/infoTab/1.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="historicButton" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="Histórico de dietas">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </right>
    <center>
-      <GridPane fx:id="dietPane" gridLinesVisible="true" BorderPane.alignment="CENTER">
+      <GridPane vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.19998168945312" minWidth="10.0" prefWidth="131.19998168945312" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="357.4000122070312" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="291.1999877929687" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="160.40000762939454" minHeight="0.0" prefHeight="29.80000352859497" valignment="CENTER" vgrow="NEVER" />
-          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.0" prefHeight="100.0" vgrow="ALWAYS" />
-          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.0" prefHeight="100.0" vgrow="ALWAYS" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.0" prefHeight="100.0" vgrow="ALWAYS" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.0" prefHeight="100.0" vgrow="ALWAYS" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="20.0" prefHeight="100.0" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="14.19999694824218" vgrow="NEVER" />
+          <RowConstraints maxHeight="472.6000122070313" minHeight="10.0" prefHeight="162.0000030517578" vgrow="NEVER" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="292.6000122070313" vgrow="ALWAYS" />
+            <RowConstraints />
         </rowConstraints>
          <children>
-            <Label text="Lunes" GridPane.columnIndex="1" />
-            <Label text="Martes" GridPane.columnIndex="2" />
-            <Label text="Miércoles" GridPane.columnIndex="3" />
-            <Label text="Jueves" GridPane.columnIndex="4" />
-            <Label text="Viernes" GridPane.columnIndex="5" />
-            <Label text="Sábado" GridPane.columnIndex="6" />
-            <Label text="Domingo" GridPane.columnIndex="7" />
-            <Label text="Desayuno" GridPane.rowIndex="1" />
-            <Label text="Mediodía" GridPane.rowIndex="2" />
-            <Label text="Almuerzo" GridPane.rowIndex="3" />
-            <Label text="Merienda" GridPane.rowIndex="4" />
-            <Label text="Cena" GridPane.rowIndex="5" />
+            <ListView fx:id="profileView" prefHeight="221.0" prefWidth="525.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3" />
+            <Label text="AlimentApp" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="30.0" />
+               </font>
+            </Label>
+            <Label text="Lista de perfiles:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="TOP">
+               <children>
+                  <Button fx:id="newProfileButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/infoTab/addImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="entryButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/infoTab/entryImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/infoTab/deleteImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+            <ImageView fx:id="adviceImageView" fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/infoTab/0.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </ImageView>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="25.0" />
+            <Insets top="20.0" />
          </BorderPane.margin>
       </GridPane>
    </center>
-   <top>
-      <Label fx:id="dietLabel" text="Nombre Dieta" BorderPane.alignment="TOP_CENTER">
-         <BorderPane.margin>
-            <Insets right="100.0" top="20.0" />
-         </BorderPane.margin>
-         <font>
-            <Font name="System Bold Italic" size="19.0" />
-         </font>
-      </Label>
-   </top>
 </BorderPane>

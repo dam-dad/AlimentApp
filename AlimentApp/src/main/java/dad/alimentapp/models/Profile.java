@@ -172,4 +172,7 @@ public class Profile {
 		this.imcProperty().set(imc);
 	}
 	
+	public String toString() {
+		return getName();
+	}
 }

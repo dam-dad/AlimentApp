@@ -15,9 +15,15 @@ import javafx.stage.WindowEvent;
 public class App extends Application {
 
 	private static Stage primaryStage;
-	private MainController controller;
 
-	// Almacenamos e iniciamos la conexion con la BD.
+	private  static MainController controller;
+	
+	//Almacenamos e iniciamos la conexion con la BD.
+
+	
+
+	
+
 	public static Connection connection = ConnectionDB.connection();
 
 	@Override
@@ -52,5 +58,11 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+
+	}	
+	
+	public static MainController getMainController() {
+		return controller;
+
 	}
 }
