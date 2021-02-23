@@ -224,6 +224,7 @@ public class GenerateDietController implements Initializable {
 		});
 	}
 
+
 	private void showDescription() {
 		try {
 			if (dietTypeCombo.getSelectionModel().getSelectedIndex() == 0) {
@@ -303,6 +304,7 @@ public class GenerateDietController implements Initializable {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 	}
 
 	@FXML

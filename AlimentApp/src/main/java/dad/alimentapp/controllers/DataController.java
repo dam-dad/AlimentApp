@@ -4,20 +4,32 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.Gender;
+import dad.alimentapp.models.Profile;
+import dad.alimentapp.utils.Messages;
+import dad.alimentapp.controllers.InfoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -34,71 +46,62 @@ import javafx.util.converter.NumberStringConverter;
 public class DataController implements Initializable {
 
 	// view
-	@FXML
-	private BorderPane view;
+	 @FXML
+	    private BorderPane view;
 
-	@FXML
-	private Button editButton;
+	    @FXML
+	    private TextField nameText;
 
-	@FXML
-	private Button saveButton;
+	    @FXML
+	    private TextField surnameText;
 
-	@FXML
-	private TextField nameText;
+	    @FXML
+	    private TextField ageText;
 
-	@FXML
-	private TextField surnameText;
+	    @FXML
+	    private RadioButton manRadio;
 
-	@FXML
-	private TextField ageText;
+	    @FXML
+	    private ToggleGroup gender;
 
-	@FXML
-	private RadioButton manRadio;
+	    @FXML
+	    private RadioButton womanRadio;
 
-	@FXML
-	private RadioButton womanRadio;
-	
-    @FXML
-    private ToggleGroup gender;
+	    @FXML
+	    private ImageView avatarImageView;
 
-	@FXML
-	private ImageView avatarImageView;
+	    @FXML
+	    private Button changeButton;
 
-	@FXML
-	private Button changeButton;
+	    @FXML
+	    private TextField weightText;
 
-	@FXML
-	private TextField weightText;
+	    @FXML
+	    private TextField heighText;
 
-	@FXML
-	private TextField heighText;
+	    @FXML
+	    private Label imcLabel;
 
-	@FXML
-	private Label imcLabel;
+	    @FXML
+	    private Button saveButton;
 
-	@FXML
-	private Label indeximcLabel;
-	
-    @FXML
-    private Label idealWeightLabel;
+	    @FXML
+	    private BarChart<?, ?> historicChart;
 
-    @FXML
-    private Label idealDietLabel;
+	    @FXML
+	    private Label idealWeightLabel;
 
-    @FXML
-    private Label exerciseLabel;
+	    @FXML
+	    private Label idealDietLabel;
 
-	@FXML
-	private Button saveRegisterButton;
+	    @FXML
+	    private Label exerciseLabel;
 
-	@FXML
-	private Button historicButton;
+	    @FXML
+	    private ImageView imcImageView;
 
-	@FXML
-	private ProgressBar imcProgress;
-
-	@FXML
-	private ImageView imcImageView;
+	    @FXML
+	    private Label indeximcLabel;
 
 	// model
 	private StringProperty pesoStringProperty = new SimpleStringProperty();
@@ -111,6 +114,8 @@ public class DataController implements Initializable {
 	private DoubleProperty imcProperty = new SimpleDoubleProperty();
 
 	private StringProperty resProperty = new SimpleStringProperty();
+	
+	private static ObjectProperty<Profile> profile= new SimpleObjectProperty<>();
 	
 	
 
@@ -129,11 +134,7 @@ public class DataController implements Initializable {
 		gender.getToggles().add(manRadio);
 		gender.getToggles().add(womanRadio);
 
-		
-		
 
-	
-		
 		
 		imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
 
@@ -150,6 +151,16 @@ public class DataController implements Initializable {
 		imcStringProperty.bindBidirectional(imcLabel.textProperty());
 		resProperty.bindBidirectional(indeximcLabel.textProperty());
 		imcProperty.addListener((o, ov, nv) -> onCalculoRes());
+		
+		
+		profile.addListener((o,ov,nv)->onProfileChanged(o,ov,nv));
+		
+		
+		
+	
+		
+		
+		saveButton.setOnAction(e->onSaveButtonAction(e));
 
 		
 
@@ -157,13 +168,71 @@ public class DataController implements Initializable {
 	
 
 
-
-
-
+	private void onProfileChanged(ObservableValue<? extends Profile> o, Profile ov, Profile nv) {
 		
+		System.out.println("ov: "+ov);
+		System.out.println("nv: "+nv);
+		if(ov!=null) {
 		
+			/*profile.unbindBidirectional(InfoController.getProfile());
+			nameText.textProperty().bind(profile.get().nameProperty());
+			surnameText.textProperty().bind(profile.get().surNameProperty());
+			Bindings.bindBidirectional(ageText.textProperty(),profile.get().ageProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(weightText.textProperty(),profile.get().weightProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(heighText.textProperty(),profile.get().heightProperty(),new NumberStringConverter());
+			*/
+		}
+		if(nv!=null) {
+			profile.bindBidirectional(InfoController.getProfile());
+			nameText.textProperty().bind(profile.get().nameProperty());
+			surnameText.textProperty().bind(profile.get().surNameProperty());
+			Bindings.bindBidirectional(ageText.textProperty(),profile.get().ageProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(weightText.textProperty(),profile.get().weightProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(heighText.textProperty(),profile.get().heightProperty(),new NumberStringConverter());
+			
+			if(profile.get().genderProperty().get().getId()==1) {
+				manRadio.setSelected(true);
+			}else {
+				womanRadio.setSelected(true);
+			}
+			
+		}
+		
+	}
+
+	private void onSaveButtonAction(ActionEvent e) {
+		
+	//Dialog para perfil	
+		
+	//Recogemos los datos 	
+	String name= nameText.getText();
+	String surname= surnameText.getText();
+	int age= Integer.parseInt( ageText.getText());
 	
-
+	/*
+	try {
+		String sql = "insert into Profile (name,surname,age) values()";
+		PreparedStatement query = App.connection.prepareStatement(sql);
+		query.setInt(1, id);
+		ResultSet result = query.executeQuery();
+		while (result.next()) {
+			profile = new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
+					result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(7)));
+		}
+	} catch (SQLException e) {
+		Messages.error("Error al obtenner el perfil selecionado", e.getMessage());
+	}
+	*/
+	
+		
+		
+	//InfoController.getProfileList().add();
+		
+		
+		
+		
+		
+	}
 
 	private void onCalculoRes() {
 		if (imcProperty.get() == 0) {
@@ -171,7 +240,7 @@ public class DataController implements Initializable {
 			resProperty.set("Bajo peso | Normal | Sobrepeso | Obeso");
 			imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
 		} else {
-			imcStringProperty.set("IMC: " + imcProperty.get());
+			imcStringProperty.set(" "+imcProperty.get());
 			if (imcProperty.get() < 18.5) {
 				resProperty.set("Bajo peso");
 				idealDietLabel.setText("Te recomendamos una dieta hipercalórica");
@@ -237,6 +306,10 @@ public class DataController implements Initializable {
 			}
 		}
 
+	}
+	
+	public static void setProfile(Profile e) {
+		profile.set(e);
 	}
 
 	public BorderPane getView() {

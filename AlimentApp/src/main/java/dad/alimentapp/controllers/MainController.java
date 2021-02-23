@@ -51,7 +51,7 @@ public class MainController implements Initializable {
 	private Tab informationTab;
 
 	@FXML
-	private Tab myDataTab;
+	private  Tab myDataTab;
 
 	@FXML
 	private Tab manageDietsTab;
@@ -136,5 +136,9 @@ public class MainController implements Initializable {
 	public BorderPane getView() {
 		return view;
 	}
-
+	
+public  TabPane getDataTab() {
+	return alimentAppTabPane;
+}
+	
 }
