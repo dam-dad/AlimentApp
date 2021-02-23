@@ -46,7 +46,7 @@ public class ChoiceController implements Initializable {
 	private GenerateDietController dietController;
 
 	// VARIABLE
-	private static Stage createCustomStage; // TODO BORRAR
+	private static Stage createCustomStage; 
 	private ControlDietMenu controlDietMenu;
 	private static final String TITLE = "Crear ";
 

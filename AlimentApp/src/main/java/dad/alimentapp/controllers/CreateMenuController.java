@@ -18,7 +18,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +34,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
+/**
+ * Esta clase "CreateMenuController" la utilizaremos para crear nuevos menús en nuestra app.
+ * @author Antonio
+ *
+ */
 public class CreateMenuController implements Initializable {
 
 	// VIEW
@@ -125,13 +128,13 @@ public class CreateMenuController implements Initializable {
 
 	// MODEL
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
-
+	
 	private StringProperty kcalTotales = new SimpleStringProperty();
 	private StringProperty proteinTotales = new SimpleStringProperty();
 	private StringProperty hydratesTotales = new SimpleStringProperty();
 	private StringProperty fatsTotales = new SimpleStringProperty();
 	private StringProperty fibresTotales = new SimpleStringProperty();
-
+	
 	// STAGE
 	private static Stage loadAllMenuStage;
 
@@ -183,6 +186,7 @@ public class CreateMenuController implements Initializable {
 		fatsTotLabel.textProperty().bindBidirectional(fatsTotales);
 		fibresTotLabel.textProperty().bindBidirectional(fibresTotales);
 
+		//BUTTONS
 		saveMenuButton.disableProperty()
 				.bind(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0)
 						.and(Bindings.size(midMorningProductList.getProduct()).isEqualTo(0))
@@ -288,10 +292,12 @@ public class CreateMenuController implements Initializable {
 			Menu.updateMenu(menuSelected.get());
 			manageRemoveProductsInMenu();
 			manageInsertProductsInMenu();
+			ManageDietController.loadDietsAndMenus();
 			ManageDietController.getModificateStage().close();
 		} else {
 			menuSelected.get().setId(Menu.insertMenu(menuSelected.get()));
 			manageInsertProductsInMenu();
+			ManageDietController.loadDietsAndMenus();
 			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}

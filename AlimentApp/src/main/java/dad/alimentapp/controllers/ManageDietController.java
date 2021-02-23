@@ -22,17 +22,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-//NUESTRO CONTROLLER
 public class ManageDietController implements Initializable {
 	@FXML
 	private HBox view;
@@ -57,9 +54,6 @@ public class ManageDietController implements Initializable {
 
 	@FXML
 	private Button createDietButton;
-
-	@FXML
-	private Button viewDietButton;
 
 	@FXML
 	private Button modifyDietButton;
@@ -93,7 +87,7 @@ public class ManageDietController implements Initializable {
 
 	@FXML
 	private Label copyrightLabel;
-	// parte de visualizacion
+
 	@FXML
 	private ListView<?> breakfastListView;
 
@@ -115,9 +109,9 @@ public class ManageDietController implements Initializable {
 	private ChoiceController choiceController;
 
 	// MODEL
-	private ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private static ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
-	private ListProperty<Diet> diets = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private static ListProperty<Diet> diets = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Diet> dietSelected = new SimpleObjectProperty<>();
 
 	// VARIABLE
@@ -135,25 +129,24 @@ public class ManageDietController implements Initializable {
 		// BINDINGS
 		loadDietsAndMenus();
 		
-//		diets.addListener((o, ov, nv) -> {
-//			System.out.println(nv);
-//		});
-//		
-//		menus.addListener((o, ov, nv) -> {
-//			System.out.println(nv);
-//		});
-
 		menuList.itemsProperty().bindBidirectional(menus);
 		dietList.itemsProperty().bindBidirectional(diets);
 		
 		menuSelected.bind(menuList.getSelectionModel().selectedItemProperty());
 		dietSelected.bind(dietList.getSelectionModel().selectedItemProperty());
+		
+		viewMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
+		modifyMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
+		removeMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
+		
+		modifyDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
+		removeDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
 	}
 	
-	private void loadDietsAndMenus() {		
+	public static void loadDietsAndMenus() {		
 		Profile profile = MainController.getProfileSelected();		
-		diets.addAll(Diet.getAllDiets(profile));
-		menus.addAll(Menu.getAllMenus(profile));
+		diets.setAll(Diet.getAllDiets(profile));
+		menus.setAll(Menu.getAllMenus(profile));
 	}
 
 	@FXML
@@ -210,11 +203,6 @@ public class ManageDietController implements Initializable {
 
 	@FXML
 	void onViewMenuButtonAction(ActionEvent event) {
-
-	}
-
-	@FXML
-	void onViewDietButtonAction(ActionEvent event) {
 
 	}
 
