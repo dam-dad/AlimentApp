@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -19,7 +22,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.User;
+import dad.alimentapp.models.Gender;
+import dad.alimentapp.models.Profile;
+import dad.alimentapp.utils.Messages;
+import dad.alimentapp.controllers.InfoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -109,7 +115,7 @@ public class DataController implements Initializable {
 
 	private StringProperty resProperty = new SimpleStringProperty();
 	
-	private ObjectProperty<User> user= new SimpleObjectProperty<>();
+	private static ObjectProperty<Profile> profile= new SimpleObjectProperty<>();
 	
 	
 
@@ -147,10 +153,11 @@ public class DataController implements Initializable {
 		imcProperty.addListener((o, ov, nv) -> onCalculoRes());
 		
 		
+		profile.addListener((o,ov,nv)->onProfileChanged(o,ov,nv));
 		
 		
 		
-		this.user.addListener((o,ov,nv)->onUserChanged(o,ov,nv));
+	
 		
 		
 		saveButton.setOnAction(e->onSaveButtonAction(e));
@@ -161,32 +168,33 @@ public class DataController implements Initializable {
 	
 
 
-
-
-
+	private void onProfileChanged(ObservableValue<? extends Profile> o, Profile ov, Profile nv) {
 		
-		
-	
-
-
-	private void onUserChanged(ObservableValue<? extends User> o, User ov, User nv) {
-		
+		System.out.println("ov: "+ov);
+		System.out.println("nv: "+nv);
 		if(ov!=null) {
-			
-			nameText.textProperty().unbindBidirectional(ov.nameProperty());
-			surnameText.textProperty().unbindBidirectional(ov.surNameProperty());
-			ageText.textProperty().unbindBidirectional(ov.ageProperty());
-			//	gender        (ov.genderProperty());
-			
-			
-			
+		
+			/*profile.unbindBidirectional(InfoController.getProfile());
+			nameText.textProperty().bind(profile.get().nameProperty());
+			surnameText.textProperty().bind(profile.get().surNameProperty());
+			Bindings.bindBidirectional(ageText.textProperty(),profile.get().ageProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(weightText.textProperty(),profile.get().weightProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(heighText.textProperty(),profile.get().heightProperty(),new NumberStringConverter());
+			*/
 		}
-		
-		
 		if(nv!=null) {
-			nameText.textProperty().bindBidirectional(ov.nameProperty());
-			surnameText.textProperty().bindBidirectional(ov.surNameProperty());
-			//ageText.textProperty().bindBidirectional(ov.ageProperty());
+			profile.bindBidirectional(InfoController.getProfile());
+			nameText.textProperty().bind(profile.get().nameProperty());
+			surnameText.textProperty().bind(profile.get().surNameProperty());
+			Bindings.bindBidirectional(ageText.textProperty(),profile.get().ageProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(weightText.textProperty(),profile.get().weightProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(heighText.textProperty(),profile.get().heightProperty(),new NumberStringConverter());
+			
+			if(profile.get().genderProperty().get().getId()==1) {
+				manRadio.setSelected(true);
+			}else {
+				womanRadio.setSelected(true);
+			}
 			
 		}
 		
@@ -194,8 +202,31 @@ public class DataController implements Initializable {
 
 	private void onSaveButtonAction(ActionEvent e) {
 		
-
+	//Dialog para perfil	
+		
+	//Recogemos los datos 	
+	String name= nameText.getText();
+	String surname= surnameText.getText();
+	int age= Integer.parseInt( ageText.getText());
 	
+	/*
+	try {
+		String sql = "insert into Profile (name,surname,age) values()";
+		PreparedStatement query = App.connection.prepareStatement(sql);
+		query.setInt(1, id);
+		ResultSet result = query.executeQuery();
+		while (result.next()) {
+			profile = new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
+					result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(7)));
+		}
+	} catch (SQLException e) {
+		Messages.error("Error al obtenner el perfil selecionado", e.getMessage());
+	}
+	*/
+	
+		
+		
+	//InfoController.getProfileList().add();
 		
 		
 		
@@ -275,6 +306,10 @@ public class DataController implements Initializable {
 			}
 		}
 
+	}
+	
+	public static void setProfile(Profile e) {
+		profile.set(e);
 	}
 
 	public BorderPane getView() {

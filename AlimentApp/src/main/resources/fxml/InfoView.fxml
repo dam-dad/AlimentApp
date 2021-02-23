@@ -3,186 +3,94 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <right>
-      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="540.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="adviceImageView" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <image>
-                  <Image url="@../images/infoTab/1.png" />
-               </image>
-            </ImageView>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="50.0" />
-         </BorderPane.margin>
-      </VBox>
-   </right>
    <center>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.19998168945312" minWidth="10.0" prefWidth="131.19998168945312" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="357.4000122070312" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="291.1999877929687" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="149.60001220703123" minHeight="10.0" prefHeight="88.80000000000001" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="240.0000061035156" minHeight="10.0" prefHeight="220.8" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="14.19999694824218" vgrow="NEVER" />
+          <RowConstraints maxHeight="472.6000122070313" minHeight="10.0" prefHeight="162.0000030517578" vgrow="NEVER" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="292.6000122070313" vgrow="ALWAYS" />
+            <RowConstraints />
         </rowConstraints>
          <children>
-            <Label text="AlimentApp" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ListView fx:id="profileView" prefHeight="221.0" prefWidth="525.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3" />
+            <Label text="AlimentApp" GridPane.columnSpan="3" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Label>
-            <TitledPane animated="false" collapsible="false" prefWidth="600.0" text="Perfiles:" GridPane.columnSpan="4" GridPane.rowIndex="1">
-               <content>
-                  <HBox prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="guessButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                 <graphic>
-                                    <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/infoTab/default_avatar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Label text="Invitado">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="profile1Button" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                 <graphic>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/infoTab/empty_file.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                              <Label alignment="CENTER" text="Perfil vacío">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Autor" />
-                              <Label text="Fecha" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="profile2Button" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                 <graphic>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/infoTab/empty_file.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                              <Label alignment="CENTER" text="Perfil vacío">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Autor" />
-                              <Label text="Fecha" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="profile3Button" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                 <graphic>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/infoTab/empty_file.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                              <Label alignment="CENTER" text="Perfil vacío">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Autor" />
-                              <Label text="Fecha" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="profile4Button" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                 <graphic>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/infoTab/empty_file.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                              <Label alignment="CENTER" text="Perfil vacío">
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Autor" />
-                              <Label text="Fecha" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </content>
-            </TitledPane>
-            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <graphic>
-                  <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/infoTab/deleteImage.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="entryButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <graphic>
-                  <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/infoTab/entryImage.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <ImageView fitHeight="200.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
+            <Label text="Lista de perfiles:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="TOP">
+               <children>
+                  <Button fx:id="newProfileButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/infoTab/addImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="entryButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/infoTab/entryImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/infoTab/deleteImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+            <ImageView fx:id="adviceImageView" fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../images/infoTab/aliments.jpg" />
+                  <Image url="@../images/infoTab/0.png" />
                </image>
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </ImageView>
          </children>
-         <BorderPane.margin>
+         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets top="20.0" />
          </BorderPane.margin>
       </GridPane>
    </center>
