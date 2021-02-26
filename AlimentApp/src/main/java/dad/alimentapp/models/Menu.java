@@ -16,6 +16,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * Representamos la tabla menu con un clase y generamos sus getter and setters.
@@ -110,7 +112,7 @@ public class Menu {
 	}
 
 	/**
-	 * Esta función getMenu, nos de vuelve un menu del id especificado.
+	 * Esta función getMenu, nos devuelve un menu del id especificado.
 	 * 
 	 * @param id en este parametro especificaremos el id del menu.
 	 * @return retornaremos un menu con dicho id.
@@ -130,6 +132,7 @@ public class Menu {
 		}
 		return menu;
 	}
+	
 
 	public static int insertMenu(Menu menu) {
 		int idResult = 0;
@@ -160,6 +163,34 @@ public class Menu {
 			query.execute();
 		} catch (SQLException e) {
 			Messages.error("Error al modificar este menú", e.getMessage());
+		}
+	}
+	
+	/**
+	 * Esta función deleteMenu, nos permite eliminar un menú
+	 * 
+	 * @param menu, es el menú que se eliminará
+	 */
+	public static void deleteMenu(Menu menu) {
+		try {
+			String sql = "DELETE FROM diets_menus WHERE id_menu = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute();
+			sql = "DELETE FROM menu_product WHERE id_menu = ?";
+			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute();
+			sql = "DELETE FROM menu WHERE id = ?";
+			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Éxito en la eliminación");
+			alert.setHeaderText("Se ha eliminado el menú correctamente.");
+			alert.show();
+		} catch (SQLException e) {
+			Messages.error("Error al eliminar el menú", e.getMessage());
 		}
 	}
 	

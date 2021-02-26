@@ -17,8 +17,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 /**
- * Representamos la tabla Dietas con un clase y generamos sus getter and setters. Para poder obtener toda la información. 
+ * Representamos la tabla Dietas con una clase y generamos sus getter and setters. Para poder obtener toda la información. 
  * @author Antonio
  *
  */
@@ -126,6 +128,31 @@ public class Diet {
 			query.execute();
 		} catch (SQLException e) {
 			Messages.error("Error al modificar esta dieta", e.getMessage());
+		}
+	}
+	
+	
+	/**
+	 * Esta función deleteDiet, nos permite eliminar una dieta
+	 * 
+	 * @param diet, es la dieta que se eliminará
+	 */
+	public static void deleteDiet(Diet diet) {
+		try {
+			String sql = "DELETE FROM diets_menus WHERE id_diets = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, diet.getId());
+			query.execute();
+			sql = "DELETE FROM diets WHERE id = ?";
+			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, diet.getId());
+			query.execute();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Éxito en la eliminación");
+			alert.setHeaderText("Se ha eliminado el menú correctamente.");
+			alert.show();
+		} catch (SQLException e) {
+			Messages.error("Error al eliminar la dieta", e.getMessage());
 		}
 	}
 	
