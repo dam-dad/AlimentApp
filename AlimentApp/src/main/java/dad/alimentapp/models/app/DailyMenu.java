@@ -1,5 +1,7 @@
 package dad.alimentapp.models.app;
 
+import java.util.List;
+
 import dad.alimentapp.models.Weekday;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -12,6 +14,13 @@ public class DailyMenu {
 
 	private ObjectProperty<Weekday> weekday = new SimpleObjectProperty<>();
 	private ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
+	
+	public DailyMenu() {}
+	
+	public DailyMenu(Weekday weekday, List<Menu> menus) {
+		this.setWeekday(weekday);
+		this.setMenus(FXCollections.observableArrayList(menus));
+	}
 	
 	public final ObjectProperty<Weekday> weekdayProperty() {
 		return this.weekday;
@@ -36,4 +45,9 @@ public class DailyMenu {
 	public final void setMenus(final ObservableList<Menu> menus) {
 		this.menusProperty().set(menus);
 	}	
+	
+	@Override
+	public String toString() {
+		return "[" + getMenus() + " - " + getWeekday() + "]";
+	}
 }

@@ -1,85 +1,63 @@
 package dad.alimentapp.service;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import dad.alimentapp.main.App;
+import dad.alimentapp.models.Profile;
+import dad.alimentapp.models.Weekday;
+import dad.alimentapp.models.app.DailyMenu;
+import dad.alimentapp.models.app.Diet;
+import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.utils.Messages;
+
+/**
+ * En esta clase tenemos almacenadas todas las consultas a la base de datos, en referencia a la tabla Diet.
+ * @author Antonio
+ *
+ */
 public class DietService {
+	public static List<Diet> getAllDiets(Profile profile) {
+		List<Diet> dietsList = new ArrayList<>();
+		try {
+			String sql = "SELECT id, name FROM diets WHERE profile_id = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setInt(1, profile.getId());
+			ResultSet result = query.executeQuery();
+			while (result.next()) {
+				Diet diet = new Diet(result.getInt(1), result.getString(2), profile);
+				diet.getDailyMenu().setAll(getAllMenusForDiet(diet));
+				dietsList.add(diet);
+			}
+		} catch (SQLException e) {
+			Messages.error("Error al cargar todas las dietas", e.getMessage());
+		}
+		return dietsList;
+	}
 
-	// MENU
+	private static List<DailyMenu> getAllMenusForDiet(Diet diet) {
+		List<DailyMenu> dailyMenu = new ArrayList<>();
+		try {
+			String sql = "SELECT id_menu, id_weekday FROM diets_menus WHERE id_diets = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setInt(1, diet.getId());
+			ResultSet result = query.executeQuery();
+			Weekday weekday = null;
+			List<Menu> menus = new ArrayList<>();
+			while (result.next()) {
+				weekday = Weekday.valueOf(result.getInt(1));
+				menus.add(MenuService.getMenu(result.getInt(2)));
+			}
+			dailyMenu.add(new DailyMenu(weekday, menus));
+		} catch (SQLException e) {
+			Messages.error("Error al obtener todos los menus de la dieta indicada", e.getMessage());
+		}
+		return dailyMenu;
+	}
 
-//	public static Menu getMenu(Integer id) {
-//		Menu menu = null;
-//		try {
-//			String sql = "SELECT name FROM menu WHERE id = ?";
-//			PreparedStatement query = App.connection.prepareStatement(sql);
-//			query.setInt(1, id);
-//			ResultSet result = query.executeQuery();
-//			while (result.next()) {
-//				menu = new Menu(id, result.getString(1));
-//			}
-//			menu.setBreakfastProducts(getAllProductsToMenuOfMomentDay(id, MomentDay.DESAYUNO));
-//			menu.setMidMorningProducts(getAllProductsToMenuOfMomentDay(id, MomentDay.MEDIA_MAÑANA));
-//			menu.setLunchProducts(getAllProductsToMenuOfMomentDay(id, MomentDay.ALMUERZO));
-//			menu.setSnackProducts(getAllProductsToMenuOfMomentDay(id, MomentDay.MERIENDA));
-//			menu.setDinnerProducts(getAllProductsToMenuOfMomentDay(id, MomentDay.CENA));
-//		} catch (SQLException e) {
-//			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
-//		}
-//		return menu;
-//	}
-
-//	/**
-//	 * La función deleteMenuProduct la usamos para eliminar un producto en un menu
-//	 * en un momento del dia especificado.
-//	 * 
-//	 * @param id_menu       pasamos el id del menu.
-//	 * @param id_product    pasamos el id del producto.
-//	 * @param id_moment_day pasamos el id del moment day.
-//	 */
-//	public static void deleteMenuProduct(Integer idMenu, Integer idProduct, MomentDay momentDay) {
-//		try {
-//			String sql = "DELETE FROM menu_product WHERE id_menu = ? AND id_product = ? AND id_moment_day = ?";
-//			PreparedStatement query = App.connection.prepareStatement(sql);
-//			query.setInt(1, idMenu);
-//			query.setInt(2, idProduct);
-//			query.setInt(3, momentDay.getId());
-//			query.execute();
-//		} catch (Exception e) {
-//			Messages.error("Error: No se pudo eliminar el producto seleccionado de dicho menu", e.getMessage());
-//		}
-//	}
-
-	// DIETAS
-
-//	public static List<Diet> getAllDiets(Profile profile) {
-//		List<Diet> dietsList = new ArrayList<>();
-//		try {
-//			String sql = "SELECT * FROM diets WHERE profile_id = ?";
-//			PreparedStatement query = App.connection.prepareStatement(sql);
-//			query.setInt(1, profile.getId());
-//			ResultSet result = query.executeQuery();
-//			while (result.next()) {
-//				Diet diet = new Diet(result.getInt(1), result.getString(2), profile);
-//				dietsList.add(diet);
-//			}
-//		} catch (SQLException e) {
-//			Messages.error("Error al cargar todas las dietas", e.getMessage());
-//		}
-//		return dietsList;
-//	}
-//
-//	public static List<Menu> getAllMenusForDiet(Diet diet) {
-//		List<Menu> menus = new ArrayList<>();
-//		try {
-//			String sql = "SELECT id_menu FROM diets_menus WHERE id_diets = ?";
-//			PreparedStatement query = App.connection.prepareStatement(sql);
-//			query.setInt(1, diet.getId());
-//			ResultSet result = query.executeQuery();
-//			while (result.next()) {
-//				menus.add(getMenu(result.getInt(1)));
-//			}
-//		} catch (SQLException e) {
-//			Messages.error("Error al obtener todos los menus de la dieta indicada", e.getMessage());
-//		}
-//		return menus;
-//	}
 //	public static Diet getDiet(Integer id) {
 //		Diet diet = null;
 //		try {

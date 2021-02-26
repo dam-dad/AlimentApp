@@ -6,9 +6,10 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
+import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.app.Diet;
 import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.db.Profile;
+import dad.alimentapp.service.DietService;
 import dad.alimentapp.service.MenuService;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -146,8 +147,7 @@ public class ManageDietController implements Initializable {
 	
 	public static void loadDietsAndMenus() {		
 		Profile profile = MainController.getProfileSelected();		
-		//TODO DIETAS
-//		diets.setAll(QueryService.getAllDiets(profile));
+		diets.setAll(DietService.getAllDiets(profile));
 		menus.setAll(MenuService.getAllMenus(profile));
 	}
 

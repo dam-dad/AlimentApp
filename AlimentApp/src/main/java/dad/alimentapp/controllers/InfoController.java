@@ -12,8 +12,8 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Gender;
-import dad.alimentapp.models.db.Product;
-import dad.alimentapp.models.db.Profile;
+import dad.alimentapp.models.Product;
+import dad.alimentapp.models.Profile;
 import dad.alimentapp.service.ProductService;
 import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;

@@ -1,7 +1,5 @@
-package dad.alimentapp.models.db;
+package dad.alimentapp.models;
 
-import dad.alimentapp.models.Origin;
-import dad.alimentapp.models.Type;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;

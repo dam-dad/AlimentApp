@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.db.Profile;
+import dad.alimentapp.models.Profile;
 import dad.alimentapp.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

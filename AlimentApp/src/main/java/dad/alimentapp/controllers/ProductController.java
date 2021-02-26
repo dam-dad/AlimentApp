@@ -5,8 +5,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Product;
 import dad.alimentapp.models.app.ProductMomentDay;
-import dad.alimentapp.models.db.Product;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;

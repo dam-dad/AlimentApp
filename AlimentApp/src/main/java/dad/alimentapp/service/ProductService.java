@@ -9,11 +9,16 @@ import java.util.List;
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.MomentDay;
 import dad.alimentapp.models.Origin;
+import dad.alimentapp.models.Product;
 import dad.alimentapp.models.Type;
 import dad.alimentapp.models.app.ProductMomentDay;
-import dad.alimentapp.models.db.Product;
 import dad.alimentapp.utils.Messages;
 
+/**
+ *  En esta clase tenemos almacenadas todas las consultas a la base de datos, en referencia a la tabla Product.
+ * @author Antonio
+ *
+ */
 public class ProductService {
 	/**
 	 * Esta funcion la utilizamos para obtener un producto con un id especifico.
@@ -41,7 +46,7 @@ public class ProductService {
 	}
 	
 	/**
-	 * Esta funcion la utilizaremos para obtener todos los productos
+	 * Esta funcion la utilizaremos para obtener todos los productos.
 	 * 
 	 * @return nos retornara una lista de productos.
 	 */
@@ -65,12 +70,11 @@ public class ProductService {
 	}
 	
 	/**
-	 * La función getAllProductsToMenuOfMomentDay obtenemos todos los productos de
-	 * ese menu en un momento del dia.
+	 * El metodo "getAllProductsToMenuOfMomentDay" obtenemos todos los productos de ese menu en un momento del dia.
 	 * 
 	 * @param menu      pasamos por parametros el menu.
-	 * @param momentDay pasamos por parametros el momentDay.
-	 * @return retornamos todos los productos de ese menu en ese momento del dia.
+	 * @param momentDay pasamos por parametros el momento del dia.
+	 * @return retornamos todos los productos del menu para ese momento del dia.
 	 */
 
 	public static ProductMomentDay getAllProductsToMenuOfMomentDay(Integer idMenu, MomentDay momentDay) {

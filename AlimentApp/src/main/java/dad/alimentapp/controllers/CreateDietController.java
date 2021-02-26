@@ -2,12 +2,11 @@ package dad.alimentapp.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Product;
 import dad.alimentapp.models.app.DailyMenu;
 import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.db.Product;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -120,19 +119,23 @@ public class CreateDietController implements Initializable {
 	private LoadAllMenuController loadAllMenuController;
 
 	// MODEL
-	private Diet diet;
-	private ObjectProperty<DailyMenu> menuSelected;
+	private ObjectProperty<Diet> diet = new SimpleObjectProperty<>();
+	private ObjectProperty<DailyMenu> menuSelected = new SimpleObjectProperty<>();
 
 	// STAGE
 	private static Stage loadAllMenuStage;
 
 	public CreateDietController(Diet diet) throws IOException {
-		this.diet = diet;
-		List<DailyMenu> menuList = this.diet.getDailyMenu();
-		if (menuList.size() == 0) {
-		menuList.add(new DailyMenu());
+		this.diet.set(diet);
+		if (this.diet.get().getId() != 0) {
+			menuSelected.set(this.diet.get().getDailyMenu().get(0));;
 		}
-		this.menuSelected = new SimpleObjectProperty<>(menuList.get(0));
+//		this.diet = diet;
+//		List<DailyMenu> menuList = this.diet.getDailyMenu();
+//		if (menuList.size() == 0) {
+//		menuList.add(new DailyMenu());
+//		}
+//		this.menuSelected = new SimpleObjectProperty<>(menuList.get(0));
 //		loadProductsMenu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateDietView.fxml"));
 		loader.setController(this);
@@ -143,7 +146,7 @@ public class CreateDietController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		getPieChart();
 		// BINDINGS
-		nameDietText.textProperty().bindBidirectional(diet.nameProperty());
+		nameDietText.textProperty().bindBidirectional(diet.get().nameProperty());
 
 		// BUTTONS
 //		saveDietButton.disableProperty()
@@ -167,7 +170,7 @@ public class CreateDietController implements Initializable {
 //		dinnerRemoveButton.disableProperty().bind(Bindings.size(dinnerProductList.getProduct()).isEqualTo(0));
 
 		// TODO
-		
+
 //		nameMenuText.textProperty().bindBidirectional(menuSelected.get().nameProperty());
 //		Bindings.bindBidirectional(weekdayLabel.textProperty(), menuSelected.get().weekdayProperty(),
 //				new StringConverter<Weekday>() {
@@ -188,15 +191,10 @@ public class CreateDietController implements Initializable {
 //		snackList.itemsProperty().bindBidirectional(snackProductList.productProperty());
 //		dinnerList.itemsProperty().bindBidirectional(dinnerProductList.productProperty());
 
-		
-		
-		
 //		dietsMenu.menuProperty().addListener((o, ov, nv) -> manageBindDietsMenu(o, ov, nv));
 //		menuSelected.addListener((o, ov, nv) -> manageBindMenuSelected(o, ov, nv));
 
 	}
-
-
 
 	@FXML
 	void onBreakfastAddButtonAction(ActionEvent event) {

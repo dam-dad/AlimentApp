@@ -1,7 +1,7 @@
 package dad.alimentapp.models.app;
 
 import dad.alimentapp.controllers.MainController;
-import dad.alimentapp.models.db.Profile;
+import dad.alimentapp.models.Profile;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -82,5 +82,10 @@ public class Diet {
 
 	public final void setDailyMenu(final ObservableList<DailyMenu> dailyMenu) {
 		this.dailyMenuProperty().set(dailyMenu);
+	}
+
+	@Override
+	public String toString() {
+		return getName();
 	}
 }

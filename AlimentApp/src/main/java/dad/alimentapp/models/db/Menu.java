@@ -1,6 +1,7 @@
 package dad.alimentapp.models.db;
 
 import dad.alimentapp.controllers.MainController;
+import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.Weekday;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

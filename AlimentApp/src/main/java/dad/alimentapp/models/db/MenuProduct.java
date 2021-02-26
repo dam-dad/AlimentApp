@@ -1,6 +1,7 @@
 package dad.alimentapp.models.db;
 
 import dad.alimentapp.models.MomentDay;
+import dad.alimentapp.models.Product;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;

@@ -1,6 +1,5 @@
-package dad.alimentapp.models.db;
+package dad.alimentapp.models;
 
-import dad.alimentapp.models.Gender;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

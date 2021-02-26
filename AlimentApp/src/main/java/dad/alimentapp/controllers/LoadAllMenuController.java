@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.db.Profile;
 import dad.alimentapp.service.MenuService;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

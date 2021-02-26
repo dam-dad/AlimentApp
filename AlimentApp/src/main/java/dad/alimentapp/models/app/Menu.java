@@ -2,7 +2,7 @@ package dad.alimentapp.models.app;
 
 import dad.alimentapp.controllers.MainController;
 import dad.alimentapp.models.MomentDay;
-import dad.alimentapp.models.db.Profile;
+import dad.alimentapp.models.Profile;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
