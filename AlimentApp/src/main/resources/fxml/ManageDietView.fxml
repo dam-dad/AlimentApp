@@ -19,7 +19,7 @@
                <children>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Menú">
+                        <Label text="Menú Diario">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>
@@ -54,7 +54,7 @@
                <children>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Dieta">
+                        <Label text="Dieta Semanal">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>

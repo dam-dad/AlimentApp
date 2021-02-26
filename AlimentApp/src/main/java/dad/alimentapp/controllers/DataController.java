@@ -23,7 +23,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Gender;
-import dad.alimentapp.models.Profile;
+import dad.alimentapp.models.db.Profile;
 import dad.alimentapp.utils.Messages;
 import dad.alimentapp.controllers.InfoController;
 import javafx.fxml.FXML;

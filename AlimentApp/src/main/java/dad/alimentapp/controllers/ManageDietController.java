@@ -6,10 +6,10 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
-import dad.alimentapp.models.Diet;
-import dad.alimentapp.models.DietsMenu;
-import dad.alimentapp.models.Menu;
-import dad.alimentapp.models.Profile;
+import dad.alimentapp.models.app.Diet;
+import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.models.db.Profile;
+import dad.alimentapp.service.MenuService;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -111,6 +111,7 @@ public class ManageDietController implements Initializable {
 	// MODEL
 	private static ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
+	
 	private static ListProperty<Diet> diets = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Diet> dietSelected = new SimpleObjectProperty<>();
 
@@ -145,8 +146,9 @@ public class ManageDietController implements Initializable {
 	
 	public static void loadDietsAndMenus() {		
 		Profile profile = MainController.getProfileSelected();		
-		diets.setAll(Diet.getAllDiets(profile));
-		menus.setAll(Menu.getAllMenus(profile));
+		//TODO DIETAS
+//		diets.setAll(QueryService.getAllDiets(profile));
+		menus.setAll(MenuService.getAllMenus(profile));
 	}
 
 	@FXML
@@ -173,7 +175,7 @@ public class ManageDietController implements Initializable {
 	void onModifyDietButtonAction(ActionEvent event) {
 		ControlDietMenu controlDietMenu = ControlDietMenu.Dieta;
 		try {
-			createDietController = new CreateDietController(DietsMenu.getAllMenusForDiet(dietSelected.get()));
+			createDietController = new CreateDietController(dietSelected.get());
 			modifIcateStage(controlDietMenu, createDietController.getView());
 		} catch (IOException e) {
 			e.printStackTrace();

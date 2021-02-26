@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.Profile;
+import dad.alimentapp.models.db.Profile;
 import dad.alimentapp.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,7 +54,7 @@ public class MainController implements Initializable {
 	private Tab informationTab;
 
 	@FXML
-	private  Tab myDataTab;
+	private Tab myDataTab;
 
 	@FXML
 	private Tab manageDietsTab;
@@ -76,7 +76,6 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
@@ -144,9 +143,8 @@ public class MainController implements Initializable {
 	public BorderPane getView() {
 		return view;
 	}
-	
-public  TabPane getDataTab() {
-	return alimentAppTabPane;
-}
-	
+
+	public TabPane getDataTab() {
+		return alimentAppTabPane;
+	}
 }
