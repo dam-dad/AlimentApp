@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS profile (
   id int(11) AUTO_INCREMENT NOT NULL,
+  name_profile varchar(50)  NOT NULL,
   name varchar(50)  NOT NULL,
   surname varchar(100)  NOT NULL,
   age int(3) NOT NULL,
@@ -9,7 +10,7 @@ CREATE TABLE IF NOT EXISTS profile (
   gender int(11) NOT NULL,
   image_profile text  NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY profile_name_unique (name)
+  UNIQUE KEY profile_name_unique (name_profile)
 ) ;
 
 CREATE TABLE IF NOT EXISTS diets (
@@ -23,7 +24,6 @@ CREATE TABLE IF NOT EXISTS diets (
 CREATE TABLE IF NOT EXISTS menu (
   id int(11) AUTO_INCREMENT NOT NULL,
   name varchar(50)  NOT NULL,
-  id_weekday int(11) NOT NULL,
   profile_id int(11) NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_menu_profile FOREIGN KEY (profile_id) REFERENCES profile (id)
@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS menu (
 CREATE TABLE IF NOT EXISTS diets_menus (
   id_diets int(11) NOT NULL,
   id_menu int(11) NOT NULL,
-  PRIMARY KEY (id_diets, id_menu),
+  id_weekday int(11) NOT NULL,
+  PRIMARY KEY (id_diets, id_menu, id_weekday),
   CONSTRAINT fk_diets_menu_id_diets FOREIGN KEY (id_diets) REFERENCES diets (id),
   CONSTRAINT fk_diets_menu_id_menu FOREIGN KEY (id_menu) REFERENCES menu (id)
 ) ;
@@ -88,17 +89,17 @@ INSERT INTO type (name) VALUES ('Proteicos');
 INSERT INTO type (name) VALUES ('Grasas');
 INSERT INTO type (name) VALUES ('Lacteos');
 
-INSERT INTO profile (name, surname, age, weight, height, gender) VALUES
-('User', 'Test', 21, 70, 170, 1);
+INSERT INTO profile (name_profile, name, surname, age, weight, height, imc, gender) VALUES
+('User_Profile','User','Test', 21, 70, 170, 24.0, 1);
 
 INSERT INTO diets (name, profile_id) VALUES
 ('Dieta inicial', 1);
 
-INSERT INTO menu (name, id_weekday, profile_id) VALUES
-('Menú Lunes', 1, 1);
+INSERT INTO menu (name, profile_id) VALUES
+('Menú Lunes', 1);
 
-INSERT INTO diets_menus (id_diets, id_menu) VALUES
-(1, 1);
+INSERT INTO diets_menus (id_diets, id_menu, id_weekday) VALUES
+(1, 1, 1);
 
 INSERT INTO product (nombre, kcal, hydrates, fats, protein, fibres, id_origin, id_type, image) VALUES ('Leche con miel', '131', '14', '5', '5', '0', '2', '6', 'https://alimentapp.diginalia.com/images/1.jpg');
 INSERT INTO product (nombre, kcal, hydrates, fats, protein, fibres, id_origin, id_type, image) VALUES ('Tortilla francesa', '104', '1', '8', '7', '0', '2', '4', 'https://alimentapp.diginalia.com/images/2.jpg');

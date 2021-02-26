@@ -16,21 +16,16 @@ public class App extends Application {
 
 	private static Stage primaryStage;
 
-	private  static MainController controller;
-	
-	//Almacenamos e iniciamos la conexion con la BD.
+	private static MainController controller;
 
-	
-
-	
-
+	// Almacenamos e iniciamos la conexion con la BD.
 	public static Connection connection = ConnectionDB.connection();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// Creacion inicial de la BD. Descomentar esta linea si tienes que volver a
 		// crear la BD.
-//		ConnectionDB.createDB();
+		//ConnectionDB.createDB();
 		App.primaryStage = primaryStage;
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -59,8 +54,8 @@ public class App extends Application {
 	public static void main(String[] args) {
 		launch(args);
 
-	}	
-	
+	}
+
 	public static MainController getMainController() {
 		return controller;
 

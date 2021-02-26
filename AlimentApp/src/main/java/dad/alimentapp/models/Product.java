@@ -1,13 +1,5 @@
 package dad.alimentapp.models;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import dad.alimentapp.main.App;
-import dad.alimentapp.utils.Messages;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -217,50 +209,5 @@ public class Product {
 		}
 
 		return true;
-	}
-	/**
-	 * Esta funcion la utilizaremos para obtener todos los productos
-	 * @return nos retornara una lista de productos.
-	 */
-	public static List<Product> getAllProducts() {
-		List<Product> productTable = new ArrayList<>();
-		try {
-			String sql = "SELECT id, nombre, kcal, hydrates, fats, protein, fibres, image, id_origin, id_type FROM product";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			ResultSet result = query.executeQuery();
-			while (result.next()) {
-				Origin origin = Origin.valueOf(result.getInt(9));
-				Type type = Type.valueOf(result.getInt(10));
-				Product product = new Product(result.getInt(1), result.getString(2), result.getInt(3), result.getInt(4),
-						result.getInt(5), result.getInt(6), result.getInt(7), result.getString(8), origin, type);
-				productTable.add(product);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al cargar todos los productos", e.getMessage());
-		}
-		return productTable;
-	}
-	/**
-	 * Esta funcion la utilizamos para obtener un producto con un id especifico.
-	 * @param id paseremos el id del producto por parametros
-	 * @return retornaremos el producto
-	 */
-	public static Product getProduct(Integer id) {
-		Product product = null;
-		try {
-			String sql = "SELECT id, nombre, kcal, hydrates, fats, protein, fibres, image, id_origin, id_type FROM product WHERE id = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			query.setInt(1, id);
-			ResultSet result = query.executeQuery();
-			while (result.next()) {
-				Origin origin = Origin.valueOf(result.getInt(9));
-				Type type = Type.valueOf(result.getInt(10));
-				product = new Product(result.getInt(1), result.getString(2), result.getInt(3), result.getInt(4),
-						result.getInt(5), result.getInt(6), result.getInt(7), result.getString(8), origin, type);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al obtener el producto seleccionado", e.getMessage());
-		}
-		return product;
 	}
 }
