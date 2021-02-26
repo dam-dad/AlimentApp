@@ -23,7 +23,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -69,22 +71,67 @@ public class InfoController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		
+		
+		
 		loadProfiles();
 		profileView.itemsProperty().bind(profileList);
+		
+		
+			
+			profileView.setCellFactory(profileView -> new ListCell<Profile>() {
+		    private ImageView imageView = new ImageView();
+		    @Override
+		    public void updateItem(Profile profile, boolean empty) {
+		        super.updateItem(profile, empty);
+		        if (empty) {
+		            setText(null);
+		            setGraphic(null);
+		        } else {
+		            Image image = new Image("images/myDataTab/default_avatar.png");
+		            imageView.setImage(image);
+		            imageView.setFitWidth(30);
+		            imageView.setFitHeight(30);
+		            setText(profile.toString());
+		            setGraphic(imageView);
+		        }
+		    }
+		});
+		
+			
+		
+		
 		
 		MainController.setProfileSelected(Profile.getProfile(1)); //TODO PROVISIONAL
 		loadMainImage();
 		
 		entryButton.setOnAction(e->onEntryButtonAction());
 		deleteButton.setOnAction(e->onDeleteButtonAction());
+		newProfileButton.setOnAction(e->onNewProfileButtonAction());
+		
+		
+		entryButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
+		deleteButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	
 
+private void onNewProfileButtonAction() {
+	
+	
+	App.getMainController().getDataTab().getSelectionModel().select(1);
+	App.getMainController().playTransition();
+	//MainController.setProfileSelected(new Profile(null,null,null,null,null,null,null,null));
+	profileSelected.set(new Profile(null,null,null,null,null,null,null,null));
+	
+		
+	
+	}
+
 private void onDeleteButtonAction() {
 		profileSelected.set(profileView.getSelectionModel().getSelectedItem());
 		
-		Optional result= Messages.confirmation("Borrar un perfil", "¿Seguro que desea borrar este perfil?");
+		Optional <ButtonType> result= Messages.confirmation("Borrar un perfil", "¿Seguro que desea borrar este perfil?");
 		
 		if(result.isPresent()) {
 			
@@ -94,8 +141,8 @@ private void onDeleteButtonAction() {
 			String sql = "delete FROM profile WHERE id = ?";
 			PreparedStatement query = App.connection.prepareStatement(sql);
 			query.setInt(1, id);
-			ResultSet executeDelete = query.executeQuery();
-			profileList.remove(profileSelected);	
+			//query.executeQuery();
+			//profileList.remove(profileSelected);	
 		}catch(Exception e) {
 			Messages.error("Ha ocurrido un error", "No se ha podido borrar el usuario seleccionado.");
 		}
@@ -108,8 +155,9 @@ private void onEntryButtonAction() {
 	
 	//CARGAMOS LOS DATOS DEL PERFIL CORRESPONDIENTE
 	profileSelected.set( profileView.getSelectionModel().getSelectedItem());
-	DataController.setProfile(profileSelected.get());
+	//MainController.setProfileSelected(profileSelected.get());
 	App.getMainController().getDataTab().getSelectionModel().select(1);
+	App.getMainController().playTransition();
 	
 		
 	}
@@ -131,7 +179,7 @@ private void loadMainImage() {
 		ResultSet result = query.executeQuery();
 		while (result.next()) {
 			profileList.add( new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
-					result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(7))));
+					result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(8))));
 		}
 	} catch (SQLException e) {
 		Messages.error("Error al obtener la lista de perfiles", e.getMessage());

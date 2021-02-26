@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" stylesheets="@../css/MainStyle.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -24,9 +24,9 @@
         <rowConstraints>
           <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
             <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="14.19999694824218" vgrow="NEVER" />
-          <RowConstraints maxHeight="472.6000122070313" minHeight="10.0" prefHeight="162.0000030517578" vgrow="NEVER" />
-          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="292.6000122070313" vgrow="ALWAYS" />
-            <RowConstraints />
+          <RowConstraints maxHeight="472.6000122070313" minHeight="10.0" prefHeight="180.7999755859375" vgrow="NEVER" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="341.60002441406243" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
         </rowConstraints>
          <children>
             <ListView fx:id="profileView" prefHeight="221.0" prefWidth="525.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3" />
