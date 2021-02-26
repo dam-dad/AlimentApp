@@ -2,22 +2,21 @@ package dad.alimentapp.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
-import dad.alimentapp.models.Menu;
-import dad.alimentapp.models.MenuProduct;
-import dad.alimentapp.models.MomentDay;
 import dad.alimentapp.models.Product;
-import dad.alimentapp.models.Weekday;
+import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.models.app.NutritionalValues;
+import dad.alimentapp.models.app.ProductMomentDay;
+import dad.alimentapp.service.MenuService;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,13 +28,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
+
 /**
- * Esta clase "CreateMenuController" la utilizaremos para crear nuevos menús en nuestra app.
+ * Esta clase "CreateMenuController" la utilizaremos para crear nuevos menús en
+ * nuestra app.
+ * 
  * @author Antonio
  *
  */
@@ -44,15 +47,6 @@ public class CreateMenuController implements Initializable {
 	// VIEW
 	@FXML
 	private HBox view;
-
-	@FXML
-	private Button previousButton;
-
-	@FXML
-	private Button nextButton;
-
-	@FXML
-	private Label weekdayLabel;
 
 	@FXML
 	private Button breakfastAddButton;
@@ -128,26 +122,13 @@ public class CreateMenuController implements Initializable {
 
 	// MODEL
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
-	
-	private StringProperty kcalTotales = new SimpleStringProperty();
-	private StringProperty proteinTotales = new SimpleStringProperty();
-	private StringProperty hydratesTotales = new SimpleStringProperty();
-	private StringProperty fatsTotales = new SimpleStringProperty();
-	private StringProperty fibresTotales = new SimpleStringProperty();
-	
+	private ObjectProperty<NutritionalValues> nutritionalValues = new SimpleObjectProperty<>(new NutritionalValues());
+
 	// STAGE
 	private static Stage loadAllMenuStage;
 
-	// VARIABLES
-	private MenuProduct breakfastProductList;
-	private MenuProduct midMorningProductList;
-	private MenuProduct lunchProductList;
-	private MenuProduct snackProductList;
-	private MenuProduct dinnerProductList;
-
 	public CreateMenuController(Menu menu) throws IOException {
 		this.menuSelected.set(menu);
-		loadProductsMenu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateMenuView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -155,55 +136,106 @@ public class CreateMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		getPieChart();
+		loadTotals();
 
 		// BINDINGS
 		nameMenuText.textProperty().bindBidirectional(menuSelected.get().nameProperty());
-		Bindings.bindBidirectional(weekdayLabel.textProperty(), menuSelected.get().weekdayProperty(),
-				new StringConverter<Weekday>() {
-					@Override
-					public String toString(Weekday weekday) {
-						return weekday.name();
-					}
 
-					@Override
-					public Weekday fromString(String string) {
-						return Weekday.valueOf(string);
-					}
-				});
+		// MOMENTS OF DAY
+		breakfastList.itemsProperty().bindBidirectional(menuSelected.get().getBreakfastProducts().productsProperty());
+		midMorningList.itemsProperty().bindBidirectional(menuSelected.get().getMidMorningProducts().productsProperty());
+		lunchList.itemsProperty().bindBidirectional(menuSelected.get().getLunchProducts().productsProperty());
+		snackList.itemsProperty().bindBidirectional(menuSelected.get().getSnackProducts().productsProperty());
+		dinnerList.itemsProperty().bindBidirectional(menuSelected.get().getDinnerProducts().productsProperty());
 
-		breakfastList.itemsProperty().bindBidirectional(breakfastProductList.productProperty());
-		midMorningList.itemsProperty().bindBidirectional(midMorningProductList.productProperty());
-		lunchList.itemsProperty().bindBidirectional(lunchProductList.productProperty());
-		snackList.itemsProperty().bindBidirectional(snackProductList.productProperty());
-		dinnerList.itemsProperty().bindBidirectional(dinnerProductList.productProperty());
-
-		// BINDINGS LABELS
-		// TODO LISTENERS Y UNBINDINGS
-		kcalTotLabel.textProperty().bindBidirectional(kcalTotales);
-		proteinTotLabel.textProperty().bindBidirectional(proteinTotales);
-		hydratesTotLabel.textProperty().bindBidirectional(hydratesTotales);
-		fatsTotLabel.textProperty().bindBidirectional(fatsTotales);
-		fibresTotLabel.textProperty().bindBidirectional(fibresTotales);
-
-		//BUTTONS
+		// BUTTONS
 		saveMenuButton.disableProperty()
-				.bind(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0)
-						.and(Bindings.size(midMorningProductList.getProduct()).isEqualTo(0))
-						.and(Bindings.size(lunchProductList.getProduct()).isEqualTo(0))
-						.and(Bindings.size(snackProductList.getProduct()).isEqualTo(0))
-						.and(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0)));
+				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0)
+						.and(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0)));
 
-		breakfastRemoveButton.disableProperty().bind(Bindings.size(breakfastProductList.getProduct()).isEqualTo(0));
-		midMorningRemoveButton.disableProperty().bind(Bindings.size(midMorningProductList.getProduct()).isEqualTo(0));
-		lunchRemoveButton.disableProperty().bind(Bindings.size(lunchProductList.getProduct()).isEqualTo(0));
-		snackRemoveButton.disableProperty().bind(Bindings.size(snackProductList.getProduct()).isEqualTo(0));
-		dinnerRemoveButton.disableProperty().bind(Bindings.size(dinnerProductList.getProduct()).isEqualTo(0));
+		breakfastRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0));
+		midMorningRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0));
+		lunchRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0));
+		snackRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0));
+		dinnerRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0));
+
+		kcalTotLabel.textProperty().bindBidirectional(nutritionalValues.get().kcalsTotalsProperty(),
+				new NumberStringConverter());
+		proteinTotLabel.textProperty().bindBidirectional(nutritionalValues.get().proteinsTotalsProperty(),
+				new NumberStringConverter());
+		hydratesTotLabel.textProperty().bindBidirectional(nutritionalValues.get().hydratesTotalsProperty(),
+				new NumberStringConverter());
+		fatsTotLabel.textProperty().bindBidirectional(nutritionalValues.get().fatsTotalsProperty(),
+				new NumberStringConverter());
+		fibresTotLabel.textProperty().bindBidirectional(nutritionalValues.get().fibresTotalsProperty(),
+				new NumberStringConverter());
+	}
+
+	private void loadTotals() {
+		NutritionalValues totalsBreaksfast = loadTotalsForMomentDay(
+				menuSelected.get().getBreakfastProducts().getProducts());
+		NutritionalValues totalsMidMorning = loadTotalsForMomentDay(
+				menuSelected.get().getMidMorningProducts().getProducts());
+		NutritionalValues totalsLunch = loadTotalsForMomentDay(menuSelected.get().getLunchProducts().getProducts());
+		NutritionalValues totalsSnack = loadTotalsForMomentDay(menuSelected.get().getSnackProducts().getProducts());
+		NutritionalValues totalsDinner = loadTotalsForMomentDay(menuSelected.get().getDinnerProducts().getProducts());
+
+		nutritionalValues.get().setKcalsTotals(totalsBreaksfast.getKcalsTotals() + totalsMidMorning.getKcalsTotals()
+				+ totalsLunch.getKcalsTotals() + totalsSnack.getKcalsTotals() + totalsDinner.getKcalsTotals());
+
+		nutritionalValues.get().proteinsTotalsProperty()
+				.set(totalsBreaksfast.getProteinsTotals() + totalsMidMorning.getProteinsTotals()
+						+ totalsLunch.getProteinsTotals() + totalsSnack.getProteinsTotals()
+						+ totalsDinner.getProteinsTotals());
+
+		nutritionalValues.get().hydratesTotalsProperty()
+				.set(totalsBreaksfast.getHydratesTotals() + totalsMidMorning.getHydratesTotals()
+						+ totalsLunch.getHydratesTotals() + totalsSnack.getHydratesTotals()
+						+ totalsDinner.getHydratesTotals());
+
+		nutritionalValues.get().fatsTotalsProperty()
+				.set(totalsBreaksfast.getFatsTotals() + totalsMidMorning.getFatsTotals() + totalsLunch.getFatsTotals()
+						+ totalsSnack.getFatsTotals() + totalsDinner.getFatsTotals());
+
+		nutritionalValues.get().fibresTotalsProperty()
+				.set(totalsBreaksfast.getFibresTotals() + totalsMidMorning.getFibresTotals()
+						+ totalsLunch.getFibresTotals() + totalsSnack.getFibresTotals()
+						+ totalsDinner.getFibresTotals());
+
+		getPieChart();
+	}
+
+	private NutritionalValues loadTotalsForMomentDay(List<Product> products) {
+		int kcals = 0, proteins = 0, hydrates = 0, fats = 0, fibres = 0;
+		for (Product product : products) {
+			kcals += this.nutritionalValues.get().kcalsTotalsProperty().add(product.kcalProperty()).intValue();
+			proteins += this.nutritionalValues.get().proteinsTotalsProperty().add(product.proteinProperty()).intValue();
+			hydrates += this.nutritionalValues.get().hydratesTotalsProperty().add(product.hydratesProperty())
+					.intValue();
+			fats += this.nutritionalValues.get().fatsTotalsProperty().add(product.fatsProperty()).intValue();
+			fibres += this.nutritionalValues.get().fibresTotalsProperty().add(product.fibresProperty()).intValue();
+		}
+		return new NutritionalValues(kcals, proteins, hydrates, fats, fibres);
 	}
 
 	@FXML
 	void onBreakfastAddButtonAction(ActionEvent event) {
-		newSceneProduct(breakfastProductList);
+		newSceneProduct(menuSelected.get().getBreakfastProducts());
+
+		if (productController.getProductMomentDay().getProducts().size() != 0) {
+			this.menuSelected.get().getBreakfastProducts()
+					.setProducts(productController.getProductMomentDay().getProducts());
+			nutritionalValues.get().clear();
+			loadTotals();
+		}
 	}
 
 	@FXML
@@ -211,14 +243,22 @@ public class CreateMenuController implements Initializable {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Desayuno",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			List<Product> products = breakfastProductList.getProduct();
-			breakfastProductList.getProduct().removeAll(products);
+			menuSelected.get().getBreakfastProducts().getProducts().setAll(new ArrayList<>());
+			nutritionalValues.get().clear();
+			loadTotals();
 		}
 	}
 
 	@FXML
 	void onMidMorningAddButtonAction(ActionEvent event) {
-		newSceneProduct(midMorningProductList);
+		newSceneProduct(menuSelected.get().getMidMorningProducts());
+
+		if (productController.getProductMomentDay().getProducts().size() != 0) {
+			this.menuSelected.get().getMidMorningProducts()
+					.setProducts(productController.getProductMomentDay().getProducts());
+			nutritionalValues.get().clear();
+			loadTotals();
+		}
 	}
 
 	@FXML
@@ -226,14 +266,21 @@ public class CreateMenuController implements Initializable {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de Media-Mañana",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			List<Product> products = midMorningProductList.getProduct();
-			midMorningProductList.getProduct().removeAll(products);
+			menuSelected.get().getMidMorningProducts().getProducts().setAll(new ArrayList<>());
+			nutritionalValues.get().clear();
+			loadTotals();
 		}
 	}
 
 	@FXML
 	void onLunchAddButtonAction(ActionEvent event) {
-		newSceneProduct(lunchProductList);
+		newSceneProduct(menuSelected.get().getLunchProducts());
+		if (productController.getProductMomentDay().getProducts().size() != 0) {
+			this.menuSelected.get().getLunchProducts()
+					.setProducts(productController.getProductMomentDay().getProducts());
+			nutritionalValues.get().clear();
+			loadTotals();
+		}
 	}
 
 	@FXML
@@ -241,14 +288,21 @@ public class CreateMenuController implements Initializable {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Almuerzo",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			List<Product> products = lunchProductList.getProduct();
-			lunchProductList.getProduct().removeAll(products);
+			menuSelected.get().getLunchProducts().getProducts().setAll(new ArrayList<>());
+			nutritionalValues.get().clear();
+			loadTotals();
 		}
 	}
 
 	@FXML
 	void onSnackAddButtonAction(ActionEvent event) {
-		newSceneProduct(snackProductList);
+		newSceneProduct(menuSelected.get().getSnackProducts());
+		if (productController.getProductMomentDay().getProducts().size() != 0) {
+			this.menuSelected.get().getSnackProducts()
+					.setProducts(productController.getProductMomentDay().getProducts());
+			nutritionalValues.get().clear();
+			loadTotals();
+		}
 	}
 
 	@FXML
@@ -256,14 +310,21 @@ public class CreateMenuController implements Initializable {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Merienda",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			List<Product> products = snackProductList.getProduct();
-			snackProductList.getProduct().removeAll(products);
+			menuSelected.get().getSnackProducts().getProducts().setAll(new ArrayList<>());
+			nutritionalValues.get().clear();
+			loadTotals();
 		}
 	}
 
 	@FXML
 	void onDinnerAddButtonAction(ActionEvent event) {
-		newSceneProduct(dinnerProductList);
+		newSceneProduct(menuSelected.get().getDinnerProducts());
+		if (productController.getProductMomentDay().getProducts().size() != 0) {
+			this.menuSelected.get().getDinnerProducts()
+					.setProducts(productController.getProductMomentDay().getProducts());
+			nutritionalValues.get().clear();
+			loadTotals();
+		}
 	}
 
 	@FXML
@@ -271,111 +332,79 @@ public class CreateMenuController implements Initializable {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Cena",
 				"Estas seguro de querer borrar esta lista productos.");
 		if (result.get() == ButtonType.OK) {
-			List<Product> products = dinnerProductList.getProduct();
-			dinnerProductList.getProduct().removeAll(products);
+			menuSelected.get().getDinnerProducts().getProducts().setAll(new ArrayList<>());
+			nutritionalValues.get().clear();
+			loadTotals();
 		}
 	}
 
-	@FXML
-	void onNextButtonAction(ActionEvent event) {
-		menuSelected.get().setWeekday(Weekday.next(menuSelected.get().getWeekday().getId()));
-	}
-
-	@FXML
-	void onPreviousButtonAction(ActionEvent event) {
-		menuSelected.get().setWeekday(Weekday.previous(menuSelected.get().getWeekday().getId()));
-	}
-
-	@FXML
-	void onSaveMenuButtonAction(ActionEvent event) {
-		if (menuSelected.get().getId() != 0) {
-			Menu.updateMenu(menuSelected.get());
-			manageRemoveProductsInMenu();
-			manageInsertProductsInMenu();
-			ManageDietController.loadDietsAndMenus();
-			ManageDietController.getModificateStage().close();
-		} else {
-			menuSelected.get().setId(Menu.insertMenu(menuSelected.get()));
-			manageInsertProductsInMenu();
-			ManageDietController.loadDietsAndMenus();
-			ChoiceController.getCreateDietCustomStage().close();
-		}
-	}
-
-	private void manageRemoveProductsInMenu() {
-		removeProductsInMenu(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.DESAYUNO));
-		removeProductsInMenu(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.MEDIA_MAÑANA));
-		removeProductsInMenu(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.ALMUERZO));
-		removeProductsInMenu(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.MERIENDA));
-		removeProductsInMenu(MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.CENA));
-	}
-
-	private void removeProductsInMenu(MenuProduct menuProduct) {
-		for (Product product : menuProduct.getProduct()) {
-			MenuProduct.deleteMenuProduct(menuProduct.getMenu().getId(), product.getId(),
-					menuProduct.getMomentDay().getId());
-		}
-	}
-
-	private void manageInsertProductsInMenu() {
-		insertProductsInMenu(breakfastProductList);
-		insertProductsInMenu(midMorningProductList);
-		insertProductsInMenu(lunchProductList);
-		insertProductsInMenu(snackProductList);
-		insertProductsInMenu(dinnerProductList);
-	}
-
-	private void insertProductsInMenu(MenuProduct menuProduct) {
-		for (Product product : menuProduct.getProduct()) {
-			MenuProduct.insertMenuProduct(menuProduct.getMenu().getId(), product.getId(),
-					menuProduct.getMomentDay().getId());
-		}
-	}
-
-	private void newSceneProduct(MenuProduct menuProduct) {
+	private void newSceneProduct(ProductMomentDay productMomentDay) {
 		try {
-			productController = new ProductController(menuProduct);
-
 			Stage productStage = new Stage();
-			Scene scene = new Scene(productController.getView());
 			productStage.setMinWidth(750);
 			productStage.setMinHeight(450);
-			productStage.setScene(scene);
 			productStage.setTitle("Productos");
 			productStage.getIcons().add(new Image("/images/logo.png"));
 			productStage.initModality(Modality.WINDOW_MODAL);
 			productStage.initOwner(App.getPrimaryStage());
+
+			productController = new ProductController(productMomentDay);
+			Scene scene = new Scene(productController.getView());
+
+			productStage.setScene(scene);
 			productStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void loadProductsMenu() {
-		breakfastProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.DESAYUNO);
-		midMorningProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.MEDIA_MAÑANA);
-		lunchProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.ALMUERZO);
-		snackProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.MERIENDA);
-		dinnerProductList = MenuProduct.getAllProductsToMenuOfMomentDay(menuSelected.get(), MomentDay.CENA);
+	@FXML
+	void onSaveMenuButtonAction(ActionEvent event) {
+		if (menuSelected.get().getId() != 0) {
+			MenuService.updateMenu(menuSelected.get());
+			ManageDietController.loadDietsAndMenus();
+			ManageDietController.getModificateStage().close();
+		} else {
+			MenuService.insertMenu(menuSelected.get());
+			ManageDietController.loadDietsAndMenus();
+			ChoiceController.getCreateDietCustomStage().close();
+		}
 	}
 
 	private void getPieChart() {
-		// Ejemplo provicional
-		PieChart.Data queso1 = new PieChart.Data("kcal", 40);
-		PieChart.Data queso2 = new PieChart.Data("Proteinas", 20);
-		PieChart.Data queso3 = new PieChart.Data("Hidratos", 10);
-		PieChart.Data queso4 = new PieChart.Data("Grasas", 10);
-		PieChart.Data queso5 = new PieChart.Data("Fibra", 20);
 
-		menuChart.getData().add(queso1);
-		menuChart.getData().add(queso2);
-		menuChart.getData().add(queso3);
-		menuChart.getData().add(queso4);
-		menuChart.getData().add(queso5);
+		PieChart.Data kcal = new PieChart.Data("kcal", nutritionalValues.get().getKcalsTotals());
+		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
+		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
+		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
+		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
 
+		menuChart.getData().setAll(kcal);		
+		menuChart.getData().add(proteins);
+		menuChart.getData().add(hydrates);
+		menuChart.getData().add(fats);
+		menuChart.getData().add(fibres);
+
+		menuChart.setClockwise(true);
 		menuChart.setLabelsVisible(true);
 		menuChart.setLabelLineLength(20);
-//		menuChart.setLegendSide(Side.LEFT);
+
+		menuChart.getData().forEach(this::installTooltip);
+		installTooltip(kcal);
+		installTooltip(proteins);
+		installTooltip(hydrates);
+		installTooltip(fats);
+		installTooltip(fibres);
+	}
+
+	public void installTooltip(PieChart.Data d) {
+
+		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
+
+		Tooltip tt = new Tooltip(msg);
+		tt.setStyle("-fx-background-color: violet; -fx-text-fill: whitesmoke;");
+
+		Tooltip.install(d.getNode(), tt);
 	}
 
 	public static Stage getLoadAllMenuStage() {
