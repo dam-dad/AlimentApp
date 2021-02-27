@@ -161,7 +161,8 @@ public class DataController implements Initializable {
 		
 		womanRadio.selectedProperty().addListener((o,ov,nv)->onCalculateIndex());
 		manRadio.selectedProperty().addListener((o,ov,nv)->onCalculateIndex());
-		profile.bind(InfoController.getProfile());
+		
+		profile.bindBidirectional(InfoController.getProfile());
 		profile.addListener((o,ov,nv)->onProfileChanged(o,ov,nv));
 		
 
@@ -192,7 +193,7 @@ public class DataController implements Initializable {
 	
 		saveButton.disableProperty().bind(support.invalidProperty());
 
-
+		
 	}
 	
 
@@ -204,10 +205,7 @@ public class DataController implements Initializable {
 		System.out.println("ov: "+ov);
 		System.out.println("nv: "+nv);
 		
-		
-		
-	
-		
+
 		if(ov!=null) {
 		
 			profile.unbind();
@@ -220,9 +218,10 @@ public class DataController implements Initializable {
 			
 		}
 		if(nv!=null) {
-			profile.bind(InfoController.getProfile());
-			nameText.textProperty().bind(nv.nameProperty());
-			surnameText.textProperty().bind(nv.surNameProperty());
+			profile.bindBidirectional(InfoController.getProfile());
+			profileText.textProperty().bindBidirectional(profile.get().nameProfileProperty());
+			nameText.textProperty().bindBidirectional(nv.nameProperty());
+			surnameText.textProperty().bindBidirectional(nv.surNameProperty());
 			Bindings.bindBidirectional(ageText.textProperty(),nv.ageProperty(),new NumberStringConverter());
 			Bindings.bindBidirectional(weightText.textProperty(),nv.weightProperty(),new NumberStringConverter());
 			Bindings.bindBidirectional(heighText.textProperty(),nv.heightProperty(),new NumberStringConverter());
@@ -248,34 +247,55 @@ public class DataController implements Initializable {
 	String name= nameText.textProperty().get();
 	String surname= surnameText.textProperty().get();
 	int age= Integer.parseInt( ageText.textProperty().get());
-	String weight= weightText.textProperty().get();
-	String height=heighText.textProperty().get();
-	Double imc= imcProperty.get();
-	String image= avatarImageView.getImage().getUrl();
+	int weight= Integer.parseInt(weightText.textProperty().get());
+	int height=Integer.parseInt(heighText.textProperty().get());
+	double imc= imcProperty.get();
+	int genderN=1;
+	Gender genderG=Gender.HOMBRE;
 	
-			//Avisar de si el nombre de perfil existe, se sobrescribirán esos datos.
+	if(manRadio.isSelected()) {
+		genderN=1;
+		 genderG=Gender.HOMBRE;
+
 	
+	}else if(womanRadio.isSelected()) {
+		genderN=2;
+		 genderG=Gender.MUJER;
 	
-	
-	
-	/*
-	try {
-		String sql = "insert into Profile (name,surname,age,weight,height,imc,) values()";
-		PreparedStatement query = App.connection.prepareStatement(sql);
-		query.setInt(1, id);
-		ResultSet result = query.executeQuery();
-		while (result.next()) {
-			profile = new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
-					result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(7)));
-		}
-	} catch (SQLException e) {
-		Messages.error("Error al obtenner el perfil selecionado", e.getMessage());
 	}
-	*/
 	
+	//String image= avatarImageView.getImage().getUrl();
+	
+	//Avisar de si el nombre de perfil existe, se sobrescribirán esos datos.
+	
+	
+	
+	
+	try {
+		String sql = "insert into Profile (name_profile,name,surname,age,weight,height,imc,gender) values(?,?,?,?,?,?,?,?)";
+		PreparedStatement query = App.connection.prepareStatement(sql);
+		 query.setString(1,profileName);
+		 query.setString(2,name);
+		 query.setString(3,surname);
+		 query.setInt(4,age);
+		 query.setInt(5,weight);
+		 query.setInt(6,height);
+		 query.setDouble(7,imc);
+		 query.setInt(8, genderN);
+		 query.executeUpdate();
+		 
+		 
+		 InfoController.loadProfiles();
 		
+		// Profile inserted= new Profile(2,profileName,name,surname,age,weight,height,imc,genderG);
+		// InfoController.getProfileList().add(inserted);
 		
-	//InfoController.getProfileList().add();
+	} catch (SQLException ex) {
+		Messages.error("Error al guardar el perfil ", ex.getMessage());
+	}
+	
+	
+
 		
 		
 		
@@ -352,6 +372,10 @@ public class DataController implements Initializable {
 			}
 		}
 		
+
+	
+	
+	
 
 	
 
