@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="view" alignment="CENTER" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="view" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox HBox.hgrow="ALWAYS">
          <children>
@@ -347,11 +347,6 @@
                            </font>
                         </Button>
                         <Button fx:id="saveDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveDietButtonAction" text="Guardar dieta" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold Italic" size="14.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="deleteCurrentMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onDeleteCurrentMenuButtonAction" text="Eliminar menú actual">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>

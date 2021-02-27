@@ -96,10 +96,10 @@ INSERT INTO diets (name, profile_id) VALUES
 ('Dieta inicial', 1);
 
 INSERT INTO menu (name, profile_id) VALUES
-('Menú Lunes', 1);
+('Menú Inicial', 1);
 
 INSERT INTO diets_menus (id_diets, id_menu, id_weekday) VALUES
-(1, 1, 1);
+(1, 1, 2);
 
 INSERT INTO product (nombre, kcal, hydrates, fats, protein, fibres, id_origin, id_type, image) VALUES ('Leche con miel', '131', '14', '5', '5', '0', '2', '6', 'https://alimentapp.diginalia.com/images/1.jpg');
 INSERT INTO product (nombre, kcal, hydrates, fats, protein, fibres, id_origin, id_type, image) VALUES ('Tortilla francesa', '104', '1', '8', '7', '0', '2', '4', 'https://alimentapp.diginalia.com/images/2.jpg');

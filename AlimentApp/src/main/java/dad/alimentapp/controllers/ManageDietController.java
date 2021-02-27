@@ -222,9 +222,8 @@ public class ManageDietController implements Initializable {
 	}
 
 	private void modifIcateStage(ControlDietMenu controlDiet, HBox view) {
+		ChoiceController.setCreateDietCustomStage(null);
 		modifIcateStage = new Stage();
-		modifIcateStage.setMinWidth(800);
-		modifIcateStage.setMinHeight(500);
 		Scene scene = new Scene(view);
 
 		modifIcateStage.setScene(scene);
@@ -241,6 +240,10 @@ public class ManageDietController implements Initializable {
 	
 	public static Stage getModificateStage() {
 		return modifIcateStage;
+	}
+	
+	public static void setModificateStage(Stage stage) {
+		modifIcateStage = stage;
 	}
 
 	public HBox getView() {
