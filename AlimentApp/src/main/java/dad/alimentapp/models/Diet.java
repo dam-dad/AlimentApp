@@ -10,6 +10,7 @@ import java.util.List;
 
 import dad.alimentapp.controllers.MainController;
 import dad.alimentapp.main.App;
+import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -92,7 +93,7 @@ public class Diet {
 			query.setInt(1, id);
 			ResultSet result = query.executeQuery();
 			while (result.next()) {
-				Profile profile = Profile.getProfile(result.getInt(3));
+				Profile profile = ProfileService.getProfile(result.getInt(3));
 				diet = new Diet(result.getInt(1), result.getString(2), profile);
 			}
 		} catch (SQLException e) {

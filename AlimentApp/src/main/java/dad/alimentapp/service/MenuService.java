@@ -14,6 +14,8 @@ import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.app.Menu;
 import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.utils.Messages;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 /**
@@ -189,4 +191,33 @@ public class MenuService {
 			Messages.error("Error al insertar el nuevo menú", e.getMessage());
 		}
 	}
+	
+	/**
+	 * Esta función deleteMenu, nos permite eliminar un menú y sus claves foráneas
+	 * 
+	 * @param menu, es el menú que se eliminará
+	 */
+	public static void deleteMenu(Menu menu) {
+		try {
+			String sql = "DELETE FROM diets_menus WHERE id_menu = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute();
+			sql = "DELETE FROM menu_product WHERE id_menu = ?";
+			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute();
+			sql = "DELETE FROM menu WHERE id = ?";
+			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Éxito en la eliminación");
+			alert.setHeaderText("Se ha eliminado el menú correctamente.");
+			alert.show();
+		} catch (SQLException e) {
+			Messages.error("Error al eliminar el menú", e.getMessage());
+		}
+	}
+	
 }
