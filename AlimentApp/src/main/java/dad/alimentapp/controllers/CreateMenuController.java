@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import dad.alimentapp.main.App;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.models.app.Menu;
 import dad.alimentapp.models.app.NutritionalValues;
@@ -339,6 +338,10 @@ public class CreateMenuController implements Initializable {
 	}
 
 	private void newSceneProduct(ProductMomentDay productMomentDay) {
+		Stage choice = ChoiceController.getCreateDietCustomStage();
+		Stage manage = ManageDietController.getModificateStage();
+		
+		Stage stage = choice != null ? choice : manage;
 		try {
 			Stage productStage = new Stage();
 			productStage.setMinWidth(750);
@@ -346,7 +349,7 @@ public class CreateMenuController implements Initializable {
 			productStage.setTitle("Productos");
 			productStage.getIcons().add(new Image("/images/logo.png"));
 			productStage.initModality(Modality.WINDOW_MODAL);
-			productStage.initOwner(App.getPrimaryStage());
+			productStage.initOwner(stage);
 
 			productController = new ProductController(productMomentDay);
 			Scene scene = new Scene(productController.getView());
@@ -370,17 +373,17 @@ public class CreateMenuController implements Initializable {
 			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}
-
+		
 	private void getPieChart() {
 
-		PieChart.Data kcal = new PieChart.Data("kcal", nutritionalValues.get().getKcalsTotals());
+		//PieChart.Data kcal = new PieChart.Data("kcal", nutritionalValues.get().getKcalsTotals());
 		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
 		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
 		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
 		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
 
-		menuChart.getData().setAll(kcal);		
-		menuChart.getData().add(proteins);
+		//menuChart.getData().setAll(kcal);		
+		menuChart.getData().setAll(proteins);
 		menuChart.getData().add(hydrates);
 		menuChart.getData().add(fats);
 		menuChart.getData().add(fibres);
@@ -390,7 +393,7 @@ public class CreateMenuController implements Initializable {
 		menuChart.setLabelLineLength(20);
 
 		menuChart.getData().forEach(this::installTooltip);
-		installTooltip(kcal);
+		//installTooltip(kcal);
 		installTooltip(proteins);
 		installTooltip(hydrates);
 		installTooltip(fats);
@@ -398,13 +401,13 @@ public class CreateMenuController implements Initializable {
 	}
 
 	public void installTooltip(PieChart.Data d) {
-
+		
 		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
 
-		Tooltip tt = new Tooltip(msg);
-		tt.setStyle("-fx-background-color: violet; -fx-text-fill: whitesmoke;");
+		Tooltip tooltip = new Tooltip(msg);
+		tooltip.setStyle("-fx-background-color: violet; -fx-text-fill: whitesmoke;");
 
-		Tooltip.install(d.getNode(), tt);
+		Tooltip.install(d.getNode(), tooltip);
 	}
 
 	public static Stage getLoadAllMenuStage() {

@@ -29,6 +29,12 @@ public class Profile {
 	private ObjectProperty<Gender> gender = new SimpleObjectProperty<>();
 	private StringProperty image = new SimpleStringProperty();
 
+	public Profile() {
+		
+	}
+	
+	
+	
 	public Profile(Integer id, String name_profile, String name, String surName, Integer age, Integer weight,
 			Integer height, Double imc, Gender gender) {
 		this.setId(id);
@@ -41,6 +47,8 @@ public class Profile {
 		this.setImc(imc);
 		this.setGender(gender);
 	}
+	
+	
 
 	public final IntegerProperty idProperty() {
 		return this.id;
@@ -151,7 +159,7 @@ public class Profile {
 	}
 
 	public String toString() {
-		return getName();
+		return getNameProfile();
 	}
 
 	public final StringProperty nameProfileProperty() {
