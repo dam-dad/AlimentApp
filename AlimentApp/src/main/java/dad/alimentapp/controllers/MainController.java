@@ -10,6 +10,9 @@ import java.util.ResourceBundle;
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.utils.Utils;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainController implements Initializable {
 
@@ -58,6 +62,9 @@ public class MainController implements Initializable {
 
 	@FXML
 	private Tab manageDietsTab;
+	
+	//Transicion
+	private FadeTransition transicion;
 
 	// Controllers
 	DataController dataController = new DataController();
@@ -132,6 +139,26 @@ public class MainController implements Initializable {
 		}
 	}
 
+	
+	//Transition
+	
+	public  void playTransition() {
+		transicion= new FadeTransition();
+		transicion.setAutoReverse(true);
+		transicion.setDelay(Duration.ZERO);
+		transicion.setDuration(Duration.seconds(3));
+		transicion.setFromValue(0.0);
+		transicion.setToValue(1.0);
+		transicion.setRate(2.0);
+		transicion.setNode(dataController.getView());
+		transicion.setInterpolator(Interpolator.LINEAR);
+		transicion.play();
+		
+	}
+	
+	
+	
+	
 	public static Profile getProfileSelected() {
 		return profileSelected;
 	}

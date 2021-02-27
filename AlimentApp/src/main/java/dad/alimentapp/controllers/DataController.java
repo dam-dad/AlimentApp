@@ -10,6 +10,11 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.print.attribute.standard.Severity;
+
+import org.controlsfx.validation.ValidationResult;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -48,6 +53,9 @@ public class DataController implements Initializable {
 	// view
 	 @FXML
 	    private BorderPane view;
+	 
+	    @FXML
+	    private TextField profileText;
 
 	    @FXML
 	    private TextField nameText;
@@ -104,11 +112,11 @@ public class DataController implements Initializable {
 	    private Label indeximcLabel;
 
 	// model
-	private StringProperty pesoStringProperty = new SimpleStringProperty();
-	private DoubleProperty pesoProperty = new SimpleDoubleProperty();
+	private StringProperty weightStringProperty = new SimpleStringProperty();
+	private DoubleProperty weightProperty = new SimpleDoubleProperty();
 
-	private StringProperty alturaStringProperty = new SimpleStringProperty();
-	private DoubleProperty alturaProperty = new SimpleDoubleProperty();
+	private StringProperty heightStringProperty = new SimpleStringProperty();
+	private DoubleProperty heightProperty = new SimpleDoubleProperty();
 
 	private StringProperty imcStringProperty = new SimpleStringProperty();
 	private DoubleProperty imcProperty = new SimpleDoubleProperty();
@@ -133,64 +141,92 @@ public class DataController implements Initializable {
 		
 		gender.getToggles().add(manRadio);
 		gender.getToggles().add(womanRadio);
-
-
 		
+		manRadio.selectedProperty().set(true);
+
 		imcImageView.setImage(new Image("images/myDataTab/no_weight.png"));
-
+		
 		changeButton.setOnAction(e -> onChangeButtonAction());
-
-		pesoStringProperty.bindBidirectional(weightText.textProperty());
-		Bindings.bindBidirectional(pesoStringProperty, pesoProperty, new NumberStringConverter());
-		pesoProperty.addListener((o, ov, nv) -> onCalculoIndice());
-
-		alturaStringProperty.bindBidirectional(heighText.textProperty());
-		Bindings.bindBidirectional(alturaStringProperty, alturaProperty, new NumberStringConverter());
-		alturaProperty.addListener((o, ov, nv) -> onCalculoIndice());
-
+		weightStringProperty.bindBidirectional(weightText.textProperty());
+		
+		Bindings.bindBidirectional(weightStringProperty, weightProperty, new NumberStringConverter());
+		weightProperty.addListener((o, ov, nv) -> onCalculateIndex());
+		heightStringProperty.bindBidirectional(heighText.textProperty());
+		
+		Bindings.bindBidirectional(heightStringProperty, heightProperty, new NumberStringConverter());
+		heightProperty.addListener((o, ov, nv) -> onCalculateIndex());
 		imcStringProperty.bindBidirectional(imcLabel.textProperty());
 		resProperty.bindBidirectional(indeximcLabel.textProperty());
-		imcProperty.addListener((o, ov, nv) -> onCalculoRes());
+		imcProperty.addListener((o, ov, nv) -> onCalculateIMC());
 		
+		womanRadio.selectedProperty().addListener((o,ov,nv)->onCalculateIndex());
+		manRadio.selectedProperty().addListener((o,ov,nv)->onCalculateIndex());
 		
+		profile.bindBidirectional(InfoController.getProfile());
 		profile.addListener((o,ov,nv)->onProfileChanged(o,ov,nv));
 		
+
+		saveButton.setOnAction(e->onSaveButtonAction(e));
+
+
+		//VALIDADORES
+		Validator<String> stringValidator=(control,value)-> {
+			boolean condition= value.isEmpty();
+			return ValidationResult.fromMessageIf(control, "Debe introducir algún carácter", org.controlsfx.validation.Severity.WARNING, condition);
+		};
 		
+		Validator<String> integerValidator=(control,value)->{
+			boolean condition= !checkNumber(value);
+			return ValidationResult.fromMessageIf(control, "Debe introducir un número", org.controlsfx.validation.Severity.ERROR, condition);
+		};
 		
 	
 		
 		
-		saveButton.setOnAction(e->onSaveButtonAction(e));
+		ValidationSupport support= new ValidationSupport();
+		support.registerValidator(nameText,false,stringValidator);
+		support.registerValidator(surnameText,false,stringValidator);
+		support.registerValidator(profileText, false,stringValidator);
+		support.registerValidator(ageText, false,integerValidator);
+		support.registerValidator(weightText, false,integerValidator);
+		support.registerValidator(heighText, false,integerValidator);
+	
+		saveButton.disableProperty().bind(support.invalidProperty());
 
 		
-
 	}
 	
 
+	
+	
 
 	private void onProfileChanged(ObservableValue<? extends Profile> o, Profile ov, Profile nv) {
 		
 		System.out.println("ov: "+ov);
 		System.out.println("nv: "+nv);
+		
+
 		if(ov!=null) {
 		
-			/*profile.unbindBidirectional(InfoController.getProfile());
-			nameText.textProperty().bind(profile.get().nameProperty());
-			surnameText.textProperty().bind(profile.get().surNameProperty());
-			Bindings.bindBidirectional(ageText.textProperty(),profile.get().ageProperty(),new NumberStringConverter());
-			Bindings.bindBidirectional(weightText.textProperty(),profile.get().weightProperty(),new NumberStringConverter());
-			Bindings.bindBidirectional(heighText.textProperty(),profile.get().heightProperty(),new NumberStringConverter());
-			*/
+			profile.unbind();
+			nameText.textProperty().unbindBidirectional(ov.nameProperty());
+			surnameText.textProperty().unbindBidirectional(ov.ageProperty());
+			Bindings.unbindBidirectional(ageText.textProperty(),ov.ageProperty());
+			Bindings.unbindBidirectional(weightText.textProperty(),ov.weightProperty());
+			Bindings.unbindBidirectional(heighText.textProperty(),ov.heightProperty());
+			
+			
 		}
 		if(nv!=null) {
 			profile.bindBidirectional(InfoController.getProfile());
-			nameText.textProperty().bind(profile.get().nameProperty());
-			surnameText.textProperty().bind(profile.get().surNameProperty());
-			Bindings.bindBidirectional(ageText.textProperty(),profile.get().ageProperty(),new NumberStringConverter());
-			Bindings.bindBidirectional(weightText.textProperty(),profile.get().weightProperty(),new NumberStringConverter());
-			Bindings.bindBidirectional(heighText.textProperty(),profile.get().heightProperty(),new NumberStringConverter());
+			profileText.textProperty().bindBidirectional(profile.get().nameProfileProperty());
+			nameText.textProperty().bindBidirectional(nv.nameProperty());
+			surnameText.textProperty().bindBidirectional(nv.surNameProperty());
+			Bindings.bindBidirectional(ageText.textProperty(),nv.ageProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(weightText.textProperty(),nv.weightProperty(),new NumberStringConverter());
+			Bindings.bindBidirectional(heighText.textProperty(),nv.heightProperty(),new NumberStringConverter());
 			
-			if(profile.get().genderProperty().get().getId()==1) {
+			if(nv.genderProperty().get().getId()==1) {
 				manRadio.setSelected(true);
 			}else {
 				womanRadio.setSelected(true);
@@ -200,41 +236,87 @@ public class DataController implements Initializable {
 		
 	}
 
+	
+
 	private void onSaveButtonAction(ActionEvent e) {
 		
-	//Dialog para perfil	
-		
-	//Recogemos los datos 	
-	String name= nameText.getText();
-	String surname= surnameText.getText();
-	int age= Integer.parseInt( ageText.getText());
-	
-	/*
-	try {
-		String sql = "insert into Profile (name,surname,age) values()";
-		PreparedStatement query = App.connection.prepareStatement(sql);
-		query.setInt(1, id);
-		ResultSet result = query.executeQuery();
-		while (result.next()) {
-			profile = new Profile(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4),
-					result.getInt(5), result.getInt(6), result.getDouble(7), Gender.valueOf(result.getInt(7)));
-		}
-	} catch (SQLException e) {
-		Messages.error("Error al obtenner el perfil selecionado", e.getMessage());
-	}
-	*/
-	
-		
-		
-	//InfoController.getProfileList().add();
-		
-		
-		
-		
-		
-	}
 
-	private void onCalculoRes() {
+		
+	//Recogemos los datos
+	String profileName= profileText.textProperty().get();
+	String name= nameText.textProperty().get();
+	String surname= surnameText.textProperty().get();
+	int age= Integer.parseInt( ageText.textProperty().get());
+	int weight= Integer.parseInt(weightText.textProperty().get());
+	int height=Integer.parseInt(heighText.textProperty().get());
+	double imc= imcProperty.get();
+	int genderN=1;
+	Gender genderG=Gender.HOMBRE;
+	
+	if(manRadio.isSelected()) {
+		genderN=1;
+		 genderG=Gender.HOMBRE;
+
+	
+	}else if(womanRadio.isSelected()) {
+		genderN=2;
+		 genderG=Gender.MUJER;
+	
+	}
+	
+	//String image= avatarImageView.getImage().getUrl();
+	
+	//Avisar de si el nombre de perfil existe, se sobrescribirán esos datos.
+	
+	
+	
+	
+	try {
+		String sql = "insert into Profile (name_profile,name,surname,age,weight,height,imc,gender) values(?,?,?,?,?,?,?,?)";
+		PreparedStatement query = App.connection.prepareStatement(sql);
+		 query.setString(1,profileName);
+		 query.setString(2,name);
+		 query.setString(3,surname);
+		 query.setInt(4,age);
+		 query.setInt(5,weight);
+		 query.setInt(6,height);
+		 query.setDouble(7,imc);
+		 query.setInt(8, genderN);
+		 query.executeUpdate();
+		 
+		 
+		 InfoController.loadProfiles();
+		
+		// Profile inserted= new Profile(2,profileName,name,surname,age,weight,height,imc,genderG);
+		// InfoController.getProfileList().add(inserted);
+		
+	} catch (SQLException ex) {
+		Messages.error("Error al guardar el perfil ", ex.getMessage());
+	}
+	
+	
+
+		
+		
+		
+		
+		
+	}
+	
+	private boolean checkNumber(String text) {
+	
+			 
+			  try {
+			    int d = Integer.parseInt(text); 
+			    return true;
+			  } catch (NumberFormatException nfe) {
+			    return false;
+			  }
+			}
+		
+	
+
+	private void onCalculateIMC() {
 		if (imcProperty.get() == 0) {
 			imcStringProperty.set("(peso * altura^ 2)");
 			resProperty.set("Bajo peso | Normal | Sobrepeso | Obeso");
@@ -242,6 +324,7 @@ public class DataController implements Initializable {
 		} else {
 			imcStringProperty.set(" "+imcProperty.get());
 			if (imcProperty.get() < 18.5) {
+				
 				resProperty.set("Bajo peso");
 				idealDietLabel.setText("Te recomendamos una dieta hipercalórica");
 				exerciseLabel.setText("Realiza ejercicio de manera poco intensa," + "\n"+ "de modo que no incluya un gasto calórico excesivo");
@@ -267,25 +350,34 @@ public class DataController implements Initializable {
 
 	}
 
-	private void onCalculoIndice() {
+	private void onCalculateIndex() {
+		Double idealWeight;
 	
 
-		if ((pesoProperty.get() == 0) || (alturaProperty.get() == 0)) 
+		if ((weightProperty.get() == 0) || (heightProperty.get() == 0)) 
 			imcProperty.set(0);	
 		else {
 
-			Double imc = (pesoProperty.get() / (Math.pow(alturaProperty.get(), 2))*10000);
+			Double imc = (weightProperty.get() / (Math.pow(heightProperty.get(), 2))*10000);
 			imcProperty.set(Math.round((imc*100.00)/100.00));
+			
+			if(manRadio.isSelected()) {
+				idealWeight=Math.round(((0.75*heightProperty.get())-62.5)*100.00)/100.00;
+				idealWeightLabel.textProperty().set("Tu peso ideal está entre "+idealWeight+"-"+(idealWeight+5.00) +" kg");
+			}else if(womanRadio.isSelected()) {
+				idealWeight=Math.round(((0.675*heightProperty.get())-56.25)*100.00)/100.00;
+				idealWeightLabel.textProperty().set("Tu peso ideal está entre "+idealWeight+"-"+(idealWeight+5.00)+" kg");
 
+			}
+			}
 		}
 		
+
 	
-		
-		
+	
+	
 
-		
-
-	}
+	
 
 	// MÉTODO PARA CAMBIAR EL AVATAR DEL USUARIO
 	private void onChangeButtonAction() {
@@ -302,7 +394,7 @@ public class DataController implements Initializable {
 				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
 				avatarImageView.setImage(image);
 			} catch (IOException ex) {
-				// TODO implementar alert
+				Messages.error("Error al cargar imagen", "No se ha podido cargar la imagen");
 			}
 		}
 

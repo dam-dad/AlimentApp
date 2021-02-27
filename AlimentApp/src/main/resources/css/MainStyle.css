@@ -1,0 +1,32 @@
+.root{
+	-fx-background-color:#7CF178;
+    
+	}
+.button{
+	-fx-background-color:orange;
+
+}
+ .button:hover {
+        -fx-background-color: white;
+        -fx-scale-y: 1.1;
+}
+
+
+
+.list-cell {
+	-fx-background-color: orange;
+    -fx-font-size: 20 ;
+     -fx-padding: 5px;
+      -fx-font-family: "Courier New";
+
+       fx-width:40;
+}
+
+
+.list-cell:filled:hover {
+    -fx-cell-hover-color: white;
+    -fx-text-fill: blue;
+}
+.textfield{
+-fx-border: none;
+}
