@@ -1,53 +1,50 @@
 package dad.alimentapp.models.app;
 
-import java.util.List;
-
 import dad.alimentapp.models.Weekday;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class DailyMenu {
 
 	private ObjectProperty<Weekday> weekday = new SimpleObjectProperty<>();
-	private ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
-	
-	public DailyMenu() {}
-	
-	public DailyMenu(Weekday weekday, List<Menu> menus) {
-		this.setWeekday(weekday);
-		this.setMenus(FXCollections.observableArrayList(menus));
+	private ObjectProperty<Menu> menu = new SimpleObjectProperty<>();
+
+	public DailyMenu() {
+		this.setWeekday(Weekday.LUNES);
+		this.setMenu(new Menu());
 	}
-	
+
+	public DailyMenu(Weekday weekday, Menu menu) {
+		this.setWeekday(weekday);
+		this.setMenu(menu);
+	}
+
 	public final ObjectProperty<Weekday> weekdayProperty() {
 		return this.weekday;
 	}
-	
+
 	public final Weekday getWeekday() {
 		return this.weekdayProperty().get();
 	}
-	
+
 	public final void setWeekday(final Weekday weekday) {
 		this.weekdayProperty().set(weekday);
 	}
-	
-	public final ListProperty<Menu> menusProperty() {
-		return this.menus;
+
+	public final ObjectProperty<Menu> menuProperty() {
+		return this.menu;
 	}
-	
-	public final ObservableList<Menu> getMenus() {
-		return this.menusProperty().get();
+
+	public final Menu getMenu() {
+		return this.menuProperty().get();
 	}
-	
-	public final void setMenus(final ObservableList<Menu> menus) {
-		this.menusProperty().set(menus);
-	}	
-	
+
+	public final void setMenu(final Menu menu) {
+		this.menuProperty().set(menu);
+	}
+
 	@Override
 	public String toString() {
-		return "[" + getMenus() + " - " + getWeekday() + "]";
+		return "[" + getMenu() + " - " + getWeekday() + "]";
 	}
 }
