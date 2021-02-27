@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.models.Product;
 import dad.alimentapp.models.app.ProductMomentDay;
+import dad.alimentapp.utils.Utils;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -137,12 +138,14 @@ public class ProductController implements Initializable {
 	void onAddButtonAction(ActionEvent event) {
 		productMomentDay.get().getProducts().add(productSelected.get());
 		defaultProducts.remove(productSelected.get());
+		Utils.popup("Se ha guardado el producto correctamente");
 	}
 
 	@FXML
 	void onRemoveButtonAction(ActionEvent event) {
 		defaultProducts.add(productMenuSelected.get());
 		productMomentDay.get().getProducts().remove(productMenuSelected.get());
+		Utils.popup("Se ha eliminado el producto correctamente");
 	}
 
 	private void filterProduct() {
