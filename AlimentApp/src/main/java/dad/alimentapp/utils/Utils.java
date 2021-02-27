@@ -34,30 +34,6 @@ public class Utils {
 	}
 
 	/**
-	 * Reemplaza las coincidencias que encuentra en la lista con el dia de la semana
-	 * que recibe en el menu el cual le pasamos por parametro.
-	 * 
-	 * @param dailyMenu le pasamos una lista de menus.
-	 * @param menu      le pasamos un menu.
-	 */
-	// TODO corregir con la version de fran
-	public static void replaceMatchesInMenu(List<DailyMenu> dailyMenu) {
-//		boolean matches = false;
-//		int count = 0;
-//		do {
-//			if (dailyMenu.get(count).getWeekday() == menu.getWeekday()) {
-//				dailyMenu.set(count, menu);
-//				matches = true;
-//			}
-//			count++;
-//		} while (!matches && count < dailyMenu.size());
-//
-//		if (!matches) {
-//			dailyMenu.add(menu);
-//		}
-	}
-
-	/**
 	 * Buscas en la lista un menu que coincida con el dia de la semana que recibe
 	 * por parametros.
 	 * 

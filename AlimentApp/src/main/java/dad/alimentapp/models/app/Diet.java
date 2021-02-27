@@ -18,7 +18,7 @@ public class Diet {
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
 	private ObjectProperty<Profile> profile = new SimpleObjectProperty<>();
-	private ListProperty<DailyMenu> dailyMenu = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private ListProperty<DailyMenu> dailyMenus = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public Diet() {
 		this.setName("Nueva Dieta");
@@ -72,20 +72,28 @@ public class Diet {
 		this.profileProperty().set(profile);
 	}
 
-	public final ListProperty<DailyMenu> dailyMenuProperty() {
-		return this.dailyMenu;
+	public final ListProperty<DailyMenu> dailyMenusProperty() {
+		return this.dailyMenus;
 	}
 
-	public final ObservableList<DailyMenu> getDailyMenu() {
-		return this.dailyMenuProperty().get();
+	public final ObservableList<DailyMenu> getDailyMenus() {
+		return this.dailyMenusProperty().get();
 	}
 
-	public final void setDailyMenu(final ObservableList<DailyMenu> dailyMenu) {
-		this.dailyMenuProperty().set(dailyMenu);
+	public final void setDailyMenus(final ObservableList<DailyMenu> dailyMenus) {
+		this.dailyMenusProperty().set(dailyMenus);
 	}
 
 	@Override
 	public String toString() {
 		return getName();
+	}
+	
+	public void clear() {
+		for (int i = 0; i < dailyMenus.size(); i++) {
+			if(dailyMenus.get(i).getMenu().isMomentsDayEmpty()) {
+				dailyMenus.remove(i);
+			}
+		}
 	}
 }

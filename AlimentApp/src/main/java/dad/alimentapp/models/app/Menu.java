@@ -156,4 +156,12 @@ public class Menu {
 	public String toString() {
 		return getName();
 	}
+
+	public boolean isMomentsDayEmpty() {
+		return (this.getBreakfastProducts().getProducts().size() == 0
+				&& this.getMidMorningProducts().getProducts().size() == 0
+				&& this.getLunchProducts().getProducts().size() == 0
+				&& this.getSnackProducts().getProducts().size() == 0
+				&& this.getDinnerProducts().getProducts().size() == 0);
+	}
 }

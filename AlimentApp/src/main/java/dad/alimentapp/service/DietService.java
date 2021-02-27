@@ -32,7 +32,7 @@ public class DietService {
 			ResultSet result = query.executeQuery();
 			while (result.next()) {
 				Diet diet = new Diet(result.getInt(1), result.getString(2), profile);
-				diet.getDailyMenu().setAll(getAllMenusForDiet(diet));
+				diet.getDailyMenus().setAll(getAllMenusForDiet(diet));
 				dietsList.add(diet);
 			}
 		} catch (SQLException e) {
@@ -94,7 +94,7 @@ public class DietService {
 	}
 
 	private static void insertAllMenusForDiet(Diet diet) {
-		for (DailyMenu dailyMenu : diet.getDailyMenu()) {
+		for (DailyMenu dailyMenu : diet.getDailyMenus()) {
 			if (dailyMenu.getMenu().getId() == 0) {
 				MenuService.insertMenu(dailyMenu.getMenu());
 			} else {
