@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
@@ -16,6 +17,16 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivos">
             <items>
+                  <MenuItem fx:id="generateReportMenu" mnemonicParsing="false" onAction="#onGenerateReportMenuAction" text="Generar informe">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/generate-report-24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="exitMenu" mnemonicParsing="false" onAction="#onExitMenuAction" text="Salir">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -38,8 +49,16 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem fx:id="aboutAppMenu" mnemonicParsing="false" onAction="#onAboutAppMenuAction" text="Acerca de la App" />
-                  <MenuItem fx:id="showUserGuidesMenu" mnemonicParsing="false" onAction="#onShowUserGuidesMenuAction" text="Mostrar guia de usuario" />
+                  <MenuItem fx:id="showUserGuidesMenu" mnemonicParsing="false" onAction="#onShowUserGuidesMenuAction" text="Mostrar guia de usuario">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/GuideUser-24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="aboutAppMenu" mnemonicParsing="false" onAction="#onAboutAppMenuAction" text="Acerca de..." />
             </items>
           </Menu>
         </menus>

@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
-import dad.alimentapp.models.DietsMenu;
-import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.app.Diet;
+import dad.alimentapp.models.app.Menu;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -46,7 +46,7 @@ public class ChoiceController implements Initializable {
 	private GenerateDietController dietController;
 
 	// VARIABLE
-	private static Stage createCustomStage; // TODO BORRAR
+	private static Stage createCustomStage; 
 	private ControlDietMenu controlDietMenu;
 	private static final String TITLE = "Crear ";
 
@@ -107,7 +107,7 @@ public class ChoiceController implements Initializable {
 	void onPersonalizedButtonAction(ActionEvent event) {
 		try {
 			if (controlDietMenu.equals(ControlDietMenu.Dieta)) {
-				createDietController = new CreateDietController(new DietsMenu());
+				createDietController = new CreateDietController(new Diet());
 				createStage(createDietController.getView());
 			} else {
 				createMenuController = new CreateMenuController(new Menu());
@@ -121,15 +121,18 @@ public class ChoiceController implements Initializable {
 	public static Stage getCreateDietCustomStage() {
 		return createCustomStage;
 	}
+	
+	public static void setCreateDietCustomStage(Stage stage) {
+		createCustomStage = stage;
+	}
 
 	public void controlChoiceLabel() {
 		title.set(TITLE + this.controlDietMenu);
 	}
 
 	private void createStage(HBox view) {
+		ManageDietController.setModificateStage(null);
 		createCustomStage = new Stage();
-		createCustomStage.setMinWidth(800);
-		createCustomStage.setMinHeight(500);
 		Scene scene = new Scene(view);
 
 		createCustomStage.setScene(scene);

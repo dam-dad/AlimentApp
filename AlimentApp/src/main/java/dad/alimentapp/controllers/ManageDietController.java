@@ -6,10 +6,11 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
-import dad.alimentapp.models.Diet;
-import dad.alimentapp.models.DietsMenu;
-import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Profile;
+import dad.alimentapp.models.app.Diet;
+import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.service.DietService;
+import dad.alimentapp.service.MenuService;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,17 +23,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-//NUESTRO CONTROLLER
 public class ManageDietController implements Initializable {
 	@FXML
 	private HBox view;
@@ -57,9 +55,6 @@ public class ManageDietController implements Initializable {
 
 	@FXML
 	private Button createDietButton;
-
-	@FXML
-	private Button viewDietButton;
 
 	@FXML
 	private Button modifyDietButton;
@@ -93,7 +88,7 @@ public class ManageDietController implements Initializable {
 
 	@FXML
 	private Label copyrightLabel;
-	// parte de visualizacion
+
 	@FXML
 	private ListView<?> breakfastListView;
 
@@ -115,9 +110,10 @@ public class ManageDietController implements Initializable {
 	private ChoiceController choiceController;
 
 	// MODEL
-	private ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private static ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
-	private ListProperty<Diet> diets = new SimpleListProperty<>(FXCollections.observableArrayList());
+	
+	private static ListProperty<Diet> diets = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Diet> dietSelected = new SimpleObjectProperty<>();
 
 	// VARIABLE
@@ -135,25 +131,24 @@ public class ManageDietController implements Initializable {
 		// BINDINGS
 		loadDietsAndMenus();
 		
-//		diets.addListener((o, ov, nv) -> {
-//			System.out.println(nv);
-//		});
-//		
-//		menus.addListener((o, ov, nv) -> {
-//			System.out.println(nv);
-//		});
-
 		menuList.itemsProperty().bindBidirectional(menus);
 		dietList.itemsProperty().bindBidirectional(diets);
 		
 		menuSelected.bind(menuList.getSelectionModel().selectedItemProperty());
 		dietSelected.bind(dietList.getSelectionModel().selectedItemProperty());
+		
+		viewMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
+		modifyMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
+		removeMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
+		
+		modifyDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
+		removeDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
 	}
 	
-	private void loadDietsAndMenus() {		
+	public static void loadDietsAndMenus() {		
 		Profile profile = MainController.getProfileSelected();		
-		diets.addAll(Diet.getAllDiets(profile));
-		menus.addAll(Menu.getAllMenus(profile));
+		diets.setAll(DietService.getAllDiets(profile));
+		menus.setAll(MenuService.getAllMenus(profile));
 	}
 
 	@FXML
@@ -180,7 +175,7 @@ public class ManageDietController implements Initializable {
 	void onModifyDietButtonAction(ActionEvent event) {
 		ControlDietMenu controlDietMenu = ControlDietMenu.Dieta;
 		try {
-			createDietController = new CreateDietController(DietsMenu.getAllMenusForDiet(dietSelected.get()));
+			createDietController = new CreateDietController(dietSelected.get());
 			modifIcateStage(controlDietMenu, createDietController.getView());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -213,11 +208,6 @@ public class ManageDietController implements Initializable {
 
 	}
 
-	@FXML
-	void onViewDietButtonAction(ActionEvent event) {
-
-	}
-
 	private void createChoiceStage() {
 		choiceStage = new Stage();
 		Scene scene = new Scene(choiceController.getView());
@@ -232,9 +222,8 @@ public class ManageDietController implements Initializable {
 	}
 
 	private void modifIcateStage(ControlDietMenu controlDiet, HBox view) {
+		ChoiceController.setCreateDietCustomStage(null);
 		modifIcateStage = new Stage();
-		modifIcateStage.setMinWidth(800);
-		modifIcateStage.setMinHeight(500);
 		Scene scene = new Scene(view);
 
 		modifIcateStage.setScene(scene);
@@ -251,6 +240,10 @@ public class ManageDietController implements Initializable {
 	
 	public static Stage getModificateStage() {
 		return modifIcateStage;
+	}
+	
+	public static void setModificateStage(Stage stage) {
+		modifIcateStage = stage;
 	}
 
 	public HBox getView() {

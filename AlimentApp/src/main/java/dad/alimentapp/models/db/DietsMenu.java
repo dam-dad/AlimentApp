@@ -1,13 +1,7 @@
-package dad.alimentapp.models;
+package dad.alimentapp.models.db;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
-import dad.alimentapp.main.App;
-import dad.alimentapp.utils.Messages;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -64,39 +58,5 @@ public class DietsMenu {
 
 	public final void setMenu(final ObservableList<Menu> menu) {
 		this.menuProperty().set(menu);
-	}
-	
-	public static DietsMenu getAllMenusForDiet(Diet diet) {
-		DietsMenu dietMenu = new DietsMenu(diet);
-		try {
-			String sql = "SELECT id_menu FROM diets_menus WHERE id_diets = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			query.setInt(1, diet.getId());
-			ResultSet result = query.executeQuery();
-			while (result.next()) {
-				dietMenu.menu.add(Menu.getMenu(result.getInt(1)));
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al obtener todos los menus de la dieta indicada",  e.getMessage());
-		}
-		return dietMenu;
-	}
-	
-	public static int insertDietMenu(Integer dietId, Integer menuId) {
-		int idResult = 0;
-		try {
-			String sql = "INSERT INTO diets_menus VALUES (?, ?)";
-			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setInt(1, dietId);
-			query.setInt(2, menuId);
-			query.execute();
-			ResultSet generatedKeys = query.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				idResult = generatedKeys.getInt(1);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo menú en la dieta", e.getMessage());
-		}
-		return idResult;
 	}
 }

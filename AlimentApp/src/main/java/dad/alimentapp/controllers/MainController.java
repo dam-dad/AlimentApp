@@ -30,6 +30,9 @@ public class MainController implements Initializable {
 	private BorderPane view;
 
 	@FXML
+	private MenuItem generateReportMenu;
+
+	@FXML
 	private MenuItem exitMenu;
 
 	@FXML
@@ -73,13 +76,17 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
 	}
 
 	// Funciones menu
+
+	@FXML
+	void onGenerateReportMenuAction(ActionEvent event) {
+
+	}
 
 	@FXML
 	void onExitMenuAction(ActionEvent event) {
@@ -137,4 +144,7 @@ public class MainController implements Initializable {
 		return view;
 	}
 
+	public TabPane getDataTab() {
+		return alimentAppTabPane;
+	}
 }

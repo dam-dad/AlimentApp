@@ -15,7 +15,8 @@ import javafx.stage.WindowEvent;
 public class App extends Application {
 
 	private static Stage primaryStage;
-	private MainController controller;
+
+	private static MainController controller;
 
 	// Almacenamos e iniciamos la conexion con la BD.
 	public static Connection connection = ConnectionDB.connection();
@@ -24,7 +25,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// Creacion inicial de la BD. Descomentar esta linea si tienes que volver a
 		// crear la BD.
-//		ConnectionDB.createDB();
+		//ConnectionDB.createDB();
 		App.primaryStage = primaryStage;
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -52,5 +53,11 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+
+	}
+
+	public static MainController getMainController() {
+		return controller;
+
 	}
 }

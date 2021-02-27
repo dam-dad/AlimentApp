@@ -5,8 +5,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dad.alimentapp.models.MenuProduct;
 import dad.alimentapp.models.Product;
+import dad.alimentapp.models.app.ProductMomentDay;
+import dad.alimentapp.utils.Utils;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -72,13 +73,13 @@ public class ProductController implements Initializable {
 	private ListView<Product> selectedProductList;
 
 	// MODEL
-	private MenuProduct menuProduct;
-	private ListProperty<Product> defaultProductList = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private ObjectProperty<ProductMomentDay> productMomentDay = new SimpleObjectProperty<>();
+	private ListProperty<Product> defaultProducts = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Product> productSelected = new SimpleObjectProperty<>();
 	private ObjectProperty<Product> productMenuSelected = new SimpleObjectProperty<>();
-
-	public ProductController(MenuProduct menuProduct) throws IOException {
-		this.menuProduct = menuProduct;
+	
+	public ProductController(ProductMomentDay productMomentDay) throws IOException {
+		this.productMomentDay.set(productMomentDay);
 		filterProduct();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Products.fxml"));
 		loader.setController(this);
@@ -88,15 +89,15 @@ public class ProductController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// BINDINGS
-		selectedProductList.itemsProperty().bindBidirectional(menuProduct.productProperty());
+		selectedProductList.itemsProperty().bindBidirectional(productMomentDay.get().productsProperty());
 
 		productSelected.bind(productList.getSelectionModel().selectedItemProperty());
-		productList.itemsProperty().bindBidirectional(defaultProductList);
+		productList.itemsProperty().bindBidirectional(defaultProducts);
 
 		removeButton.disableProperty().bind(selectedProductList.getSelectionModel().selectedItemProperty().isNull());
 		addButton.disableProperty().bind(productList.getSelectionModel().selectedItemProperty().isNull());
 
-		selectedProductList.itemsProperty().bindBidirectional(menuProduct.productProperty());
+		selectedProductList.itemsProperty().bindBidirectional(productMomentDay.get().productsProperty());
 		productMenuSelected.bind(selectedProductList.getSelectionModel().selectedItemProperty());
 
 		productSelected.addListener((o, ov, nv) -> {
@@ -130,28 +131,39 @@ public class ProductController implements Initializable {
 			}			
 		});
 
-		momentDayLabel.textProperty().bind(menuProduct.momentDayProperty().asString());
+		momentDayLabel.textProperty().bind(productMomentDay.get().momentDayProperty().asString());
 	}
 
 	@FXML
 	void onAddButtonAction(ActionEvent event) {
-		menuProduct.getProduct().add(productSelected.get());
-		defaultProductList.remove(productSelected.get());
+		productMomentDay.get().getProducts().add(productSelected.get());
+		defaultProducts.remove(productSelected.get());
+		Utils.popup("Se ha guardado el producto correctamente");
 	}
 
 	@FXML
 	void onRemoveButtonAction(ActionEvent event) {
-		defaultProductList.add(productMenuSelected.get());
-		menuProduct.getProduct().remove(productMenuSelected.get());
+		defaultProducts.add(productMenuSelected.get());
+		productMomentDay.get().getProducts().remove(productMenuSelected.get());
+		Utils.popup("Se ha eliminado el producto correctamente");
 	}
 
 	private void filterProduct() {
-		List<Product> allProduct = Product.getAllProducts();
-		allProduct.removeAll(menuProduct.getProduct());
-		defaultProductList.setAll(allProduct);
+		List<Product> allProduct = InfoController.getProducts();
+		allProduct.removeAll(productMomentDay.get().getProducts());
+		defaultProducts.setAll(allProduct);
 	}
 
 	public HBox getView() {
 		return view;
 	}
+
+	public final ObjectProperty<ProductMomentDay> productMomentDayProperty() {
+		return this.productMomentDay;
+	}
+	
+
+	public final ProductMomentDay getProductMomentDay() {
+		return this.productMomentDayProperty().get();
+	}	
 }
