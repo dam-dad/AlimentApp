@@ -135,6 +135,7 @@ public static void insertDiet(Diet diet) {
 			Messages.error("Error al insertar el nuevo menú en la dieta", e.getMessage());
 		}
 		return idResult;
+	}
 
 	private static void insertAllMenusForDiet(Diet diet) {
 		for (DailyMenu dailyMenu : diet.getDailyMenu()) {
