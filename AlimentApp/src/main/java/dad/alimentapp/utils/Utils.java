@@ -7,7 +7,11 @@ import dad.alimentapp.main.App;
 import dad.alimentapp.models.Weekday;
 import dad.alimentapp.models.app.DailyMenu;
 import dad.alimentapp.models.app.Menu;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.stage.Popup;
+import javafx.util.Duration;
 
 /**
  * La clase "Util" clase para hacer funciones que se puedan reutilizar en
@@ -28,12 +32,15 @@ public class Utils {
 			App.getPrimaryStage().close();
 		}
 	}
-/**
- * Reemplaza las coincidencias que encuentra en la lista con el dia de la semana que recibe en el menu el cual le pasamos por parametro.
- * @param dailyMenu le pasamos una lista de menus.
- * @param menu le pasamos un menu.
- */
-	//TODO corregir con la version de fran
+
+	/**
+	 * Reemplaza las coincidencias que encuentra en la lista con el dia de la semana
+	 * que recibe en el menu el cual le pasamos por parametro.
+	 * 
+	 * @param dailyMenu le pasamos una lista de menus.
+	 * @param menu      le pasamos un menu.
+	 */
+	// TODO corregir con la version de fran
 	public static void replaceMatchesInMenu(List<DailyMenu> dailyMenu) {
 //		boolean matches = false;
 //		int count = 0;
@@ -49,13 +56,16 @@ public class Utils {
 //			dailyMenu.add(menu);
 //		}
 	}
-	
-/**
- * Buscas en la lista un menu que coincida con el dia de la semana que recibe por parametros.
- * @param menuList le pasamos una lista de menus.
- * @param weekday le pasamos el objeto del dia de la semana.
- * @return si encuentra coincidencias retornamos el menu con ese dia de la semana y sino devuelve null
- */
+
+	/**
+	 * Buscas en la lista un menu que coincida con el dia de la semana que recibe
+	 * por parametros.
+	 * 
+	 * @param menuList le pasamos una lista de menus.
+	 * @param weekday  le pasamos el objeto del dia de la semana.
+	 * @return si encuentra coincidencias retornamos el menu con ese dia de la
+	 *         semana y sino devuelve null
+	 */
 	public static Menu searchMatchesInMenu(List<DailyMenu> menuList, Weekday weekday) {
 		Menu menus = null;
 		boolean matches = false;
@@ -68,5 +78,21 @@ public class Utils {
 			count++;
 		} while (!matches && count < menuList.size());
 		return menus;
+	}
+
+	public static void popup(String message) {
+		Popup popup = new Popup();
+		popup.setAutoHide(true);
+		popup.setAutoFix(true);
+		Label popupLabel = new Label(message);
+		popup.getContent().add(popupLabel);
+		popupLabel.setStyle("-fx-background-color:black;" + " -fx-text-fill: white;" + " -fx-font-size:15px;"
+				+ " -fx-padding: 10px;" + " -fx-background-radius: 6;");
+
+		PauseTransition delay = new PauseTransition(Duration.seconds(2));
+		delay.setOnFinished(e -> popup.hide());
+
+		popup.show(App.getPrimaryStage());
+		delay.play();
 	}
 }
