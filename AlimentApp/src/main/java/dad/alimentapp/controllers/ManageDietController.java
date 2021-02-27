@@ -6,11 +6,15 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
+import dad.alimentapp.models.MomentDay;
+import dad.alimentapp.models.Product;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.app.Diet;
 import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.service.DietService;
 import dad.alimentapp.service.MenuService;
+import dad.alimentapp.service.ProductService;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,12 +30,19 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 public class ManageDietController implements Initializable {
+	
+	/**
+	 * Realizamos el controlador que permitirá implementar la interfaz de Gestionar Dietas y darle toda la funcionalidad que necesita. 
+	 * @author Andy
+	 */
+	
 	@FXML
 	private HBox view;
 
@@ -90,19 +101,19 @@ public class ManageDietController implements Initializable {
 	private Label copyrightLabel;
 
 	@FXML
-	private ListView<?> breakfastListView;
+	private ListView<Product> breakfastListView;
 
 	@FXML
-	private ListView<?> midMorningListView;
+	private ListView<Product> midMorningListView;
 
 	@FXML
-	private ListView<?> lunchListView;
+	private ListView<Product> lunchListView;
 
 	@FXML
-	private ListView<?> snackListView;
+	private ListView<Product> snackListView;
 
 	@FXML
-	private ListView<?> dinnerListView;
+	private ListView<Product> dinnerListView;
 
 	// CONTROLLERS
 	private CreateDietController createDietController;
@@ -119,9 +130,14 @@ public class ManageDietController implements Initializable {
 	// VARIABLE
 	private static Stage choiceStage;
 	private static Stage modifIcateStage;
+	private ProductMomentDay breakfastProductList;
+	private ProductMomentDay midMorningProductList;
+	private ProductMomentDay lunchProductList;
+	private ProductMomentDay snackProductList;
+	private ProductMomentDay dinnerProductList;
 
 	public ManageDietController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManageDietView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManageDietView2.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -195,17 +211,52 @@ public class ManageDietController implements Initializable {
 
 	@FXML
 	void onRemoveDietButtonAction(ActionEvent event) {
+		
+		DietService.deleteDiet(dietSelected.get());
+		Profile profile = MainController.getProfileSelected();	
+		diets.setAll(DietService.getAllDiets(profile));
 
 	}
 
 	@FXML
 	void onRemoveMenuButtonAction(ActionEvent event) {
+		
+		MenuService.deleteMenu(menuSelected.get());
+		Profile profile = MainController.getProfileSelected();		
+		menus.setAll(MenuService.getAllMenus(profile));
+		resetProductsMenu();
 
+	}
+
+	private void resetProductsMenu() {
+		
+		ObservableList<Product> clearList = FXCollections.observableArrayList();
+		breakfastListView.setItems(clearList);
+		midMorningListView.setItems(clearList);
+		lunchListView.setItems(clearList);
+		snackListView.setItems(clearList);
+		dinnerListView.setItems(clearList);
+		
 	}
 
 	@FXML
 	void onViewMenuButtonAction(ActionEvent event) {
+		
+		loadProductsMenu();
+		breakfastListView.setItems(breakfastProductList.getProducts());
+		midMorningListView.setItems(midMorningProductList.getProducts());
+		lunchListView.setItems(lunchProductList.getProducts());
+		snackListView.setItems(snackProductList.getProducts());
+		dinnerListView.setItems(dinnerProductList.getProducts());
 
+	}
+	
+	private void loadProductsMenu() {
+		breakfastProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.DESAYUNO);
+		midMorningProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.MEDIA_MAÑANA);
+		lunchProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.ALMUERZO);
+		snackProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.MERIENDA);
+		dinnerProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.CENA);
 	}
 
 	private void createChoiceStage() {
