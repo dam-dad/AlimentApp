@@ -6,10 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,304 +15,168 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <bottom>
-      <GridPane prefHeight="142.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+<VBox fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="menuGrid" prefHeight="388.0" prefWidth="485.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="130.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="175.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="181.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="164.0" minHeight="1.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="164.0" minHeight="5.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Nombre:">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="nameText" prefHeight="25.0" prefWidth="190.0" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="2.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="generateButton" mnemonicParsing="false" onAction="#onGenerateButtonAction" text="Generar" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Cancelar" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children></HBox>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <RadioButton fx:id="defaultRadio" mnemonicParsing="false" text="Predeterminado" HBox.hgrow="ALWAYS">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="configure" />
-                     </toggleGroup>
-                     <HBox.margin>
-                        <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="configureRadio" mnemonicParsing="false" text="Configurar" toggleGroup="$configure" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </RadioButton>
-               </children>
-            </HBox>
+            <Label text="Menu:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Separator prefWidth="475.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="Kcal:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Hidratos:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Proteinas:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Grasas:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="kcalLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="40.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="hydratsLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="40.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="proteinLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="40.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="fatsLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="40.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Productos:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="productsLabel" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Fibra:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="fiberLabel" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="40.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="menuTypeCombo" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Elige un menú" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </ComboBox>
          </children>
-         <padding>
-            <Insets top="5.0" />
-         </padding>
       </GridPane>
-   </bottom>
-   <top>
-      <VBox fx:id="menuTypeVBox" prefHeight="95.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="40.0" />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <HBox fx:id="menuTypeBox" alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="600.0">
-               <children>
-                  <Label text="Tipo de producto:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ComboBox fx:id="productTypeCombo" maxWidth="1.7976931348623157E308" prefWidth="200.0" promptText="Selecciona el tipo">
-                     <HBox.margin>
-                        <Insets left="20.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
-            <Separator prefHeight="41.0" prefWidth="600.0" valignment="BOTTOM" VBox.vgrow="ALWAYS">
-               <VBox.margin>
+            <Label text="Nombre del Menú:" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="menuNameText" prefHeight="25.0" prefWidth="136.0" promptText="Introduzca un nombre" HBox.hgrow="ALWAYS">
+               <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Separator>
+               </HBox.margin>
+            </TextField>
+            <RadioButton fx:id="defaultRadio" mnemonicParsing="false" text="Por defecto" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="choose" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="configureRadio" mnemonicParsing="false" text="Configurar" toggleGroup="$choose" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </RadioButton>
          </children>
-      </VBox>
-   </top>
-   <center>
-      <VBox fx:id="personalizedVBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      </HBox>
+      <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="485.0" VBox.vgrow="ALWAYS">
          <children>
-            <GridPane fx:id="personalizedPane" prefHeight="374.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="0.0" prefHeight="26.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="0.0" prefHeight="17.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="0.0" prefHeight="23.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="0.0" prefHeight="26.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label text="Ajustar:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <HBox fx:id="kcalBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <children>
-                        <Label text="Kcal:">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Slider fx:id="kcalSlider" prefHeight="14.0" prefWidth="193.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="39.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Slider>
-                     </children>
-                  </HBox>
-                  <Label fx:id="recomend1Label" text="2000" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="170.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="recomendado" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="60.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="recomendado" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="60.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="recomend2Label" text="150" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="170.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="numberCalLabel" text="0" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="3000" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                     <children>
-                        <Label text="Hidratos:">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Slider fx:id="hydrartsSlider" prefHeight="14.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Slider>
-                     </children>
-                  </HBox>
-                  <Label fx:id="numberHydrLabel" text="0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="200" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
-                     <children>
-                        <Label text="Proteinas:">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Slider fx:id="proteinSlider" prefHeight="14.0" prefWidth="192.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Slider>
-                     </children>
-                  </HBox>
-                  <Label text="recomendado" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="60.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="recomend3Label" text="40" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="170.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="numberProtLabel" text="0" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="100" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="numberFatsLabel" text="0" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="recomendado" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="60.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="recomend4Label" text="55" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="170.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="100" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="8">
-                     <children>
-                        <Label text="Grasas:">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Slider fx:id="fatsSlider" prefHeight="14.0" prefWidth="193.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="24.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Slider>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <RadioButton fx:id="eats3Radio" mnemonicParsing="false" text="3 comidas" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="food" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="eats5Radio" mnemonicParsing="false" text="5 comidas" toggleGroup="$food" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                     </children>
-                  </HBox>
-               </children>
-            </GridPane>
-            <Separator prefHeight="8.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-               <VBox.margin>
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveMenuButtonAction" text="Guardar">
+               <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Separator>
+               </HBox.margin>
+            </Button>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelMenuButtonAction" text="Cancelar">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
-      </VBox>
-   </center>
-</BorderPane>
+      </HBox>
+   </children>
+</VBox>

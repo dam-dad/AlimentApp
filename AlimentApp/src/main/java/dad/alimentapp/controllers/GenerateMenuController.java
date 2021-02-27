@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dad.alimentapp.models.Type;
+import org.controlsfx.control.CheckComboBox;
+
+import dad.alimentapp.models.Product;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,100 +19,65 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GenerateMenuController implements Initializable {
 
 	@FXML
-	private BorderPane view;
+	private VBox view;
 
 	@FXML
-	private TextField nameText;
+	private GridPane menuGrid;
 
 	@FXML
-	private Button generateButton;
+	private Label kcalLabel;
 
 	@FXML
-	private Button cancelButton;
+	private Label hydratsLabel;
+
+	@FXML
+	private Label proteinLabel;
+
+	@FXML
+	private Label fatsLabel;
+
+	@FXML
+	private Label productsLabel;
+
+	@FXML
+	private Label fiberLabel;
+
+	@FXML
+	private ComboBox<String> menuTypeCombo;
+
+	@FXML
+	private TextField menuNameText;
 
 	@FXML
 	private RadioButton defaultRadio;
 
 	@FXML
-	private ToggleGroup configure;
+	private ToggleGroup choose;
 
 	@FXML
 	private RadioButton configureRadio;
 
 	@FXML
-	private VBox menuTypeVBox;
+	private Button saveButton;
 
 	@FXML
-	private HBox menuTypeBox;
+	private Button cancelButton;
 
-	@FXML
-	private ComboBox<Type> productTypeCombo;
+	private String menu1 = "MENU PROTEICO", menu2 = "MENU VEGANO", menu3 = "MENU DE PESCADO",
+			menu4 = "MENU VEGETARIANO", menu5 = "MENU ESTÁNDAR";
 
-	@FXML
-	private VBox personalizedVBox;
+	ObservableList<String> menuList = FXCollections.observableArrayList(menu1, menu2, menu3, menu4, menu5);
 
-	@FXML
-	private GridPane personalizedPane;
-
-	@FXML
-	private HBox kcalBox;
-
-	@FXML
-	private Slider kcalSlider;
-
-	@FXML
-	private Label recomend1Label;
-
-	@FXML
-	private Label recomend2Label;
-
-	@FXML
-	private Label numberCalLabel;
-
-	@FXML
-	private Slider hydrartsSlider;
-
-	@FXML
-	private Label numberHydrLabel;
-
-	@FXML
-	private Slider proteinSlider;
-
-	@FXML
-	private Label recomend3Label;
-
-	@FXML
-	private Label numberProtLabel;
-
-	@FXML
-	private Label numberFatsLabel;
-
-	@FXML
-	private Label recomend4Label;
-
-	@FXML
-	private Slider fatsSlider;
-
-	@FXML
-	private RadioButton eats3Radio;
-
-	@FXML
-	private ToggleGroup food;
-
-	@FXML
-	private RadioButton eats5Radio;
+	private Product products;
 
 	public GenerateMenuController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GenerateMenuView.fxml"));
@@ -118,93 +87,99 @@ public class GenerateMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<Type> productList = FXCollections.observableArrayList();
-		for (int i = 0; i <= 0; i++) {
-			productList.addAll(Type.values());
-		}
-		productTypeCombo.getItems().addAll(productList);
+		menuTypeCombo.getItems().addAll(menuList);
+		menuTypeCombo.setValue(menu1);
+		menuTypeCombo.setItems(menuList);
+		menuTypeCombo.setValue(menu2);
+		menuTypeCombo.setItems(menuList);
+		menuTypeCombo.setValue(menu3);
+		menuTypeCombo.setItems(menuList);
+		menuTypeCombo.setValue(menu4);
+		menuTypeCombo.setItems(menuList);
+		menuTypeCombo.setValue(menu5);
+		menuTypeCombo.setItems(menuList);
 
-		kcalSlider.setMax(3000);
-		kcalSlider.setMin(0);
-		kcalSlider.setValue(2000);
-		numberCalLabel.setText(String.valueOf(kcalSlider.getValue()));
-
-		kcalSlider.valueProperty().addListener((o, ov, nv) -> {
-			numberCalLabel.setText(String.format("%.0f", nv));
-		});
-
-		hydrartsSlider.setMax(200);
-		hydrartsSlider.setMin(0);
-		hydrartsSlider.setValue(150);
-		numberHydrLabel.setText(String.valueOf(hydrartsSlider.getValue()));
-
-		hydrartsSlider.valueProperty().addListener((o, ov, nv) -> {
-			numberHydrLabel.setText(String.format("%.0f", nv));
-		});
-
-		proteinSlider.setMax(100);
-		proteinSlider.setMin(0);
-		proteinSlider.setValue(40);
-		numberProtLabel.setText(String.valueOf(proteinSlider.getValue()));
-
-		proteinSlider.valueProperty().addListener((o, ov, nv) -> {
-			numberProtLabel.setText(String.format("%.0f", nv));
-		});
-
-		fatsSlider.setMax(100);
-		fatsSlider.setMin(0);
-		fatsSlider.setValue(55);
-		numberFatsLabel.setText(String.valueOf(fatsSlider.getValue()));
-
-		fatsSlider.valueProperty().addListener((o, ov, nv) -> {
-			numberFatsLabel.setText(String.format("%.0f", nv));
-		});
-
-		menuTypeBox.setDisable(true);
-		personalizedPane.setDisable(true);
-		
-		productTypeCombo.getSelectionModel().select(4);
+		menuGrid.setDisable(true);
 
 		defaultRadio.setSelected(true);
 
-		eats3Radio.setSelected(true);
-
 		configureRadio.selectedProperty().addListener((o, ov, nv) -> {
 			if (configureRadio.isSelected()) {
-				menuTypeBox.setDisable(false);
-				personalizedPane.setDisable(false);
-				productTypeCombo.getSelectionModel().selectFirst();
-				kcalSlider.setValue(2000);
-				hydrartsSlider.setValue(150);
-				proteinSlider.setValue(40);
-				fatsSlider.setValue(55);
-				eats3Radio.setSelected(false);
-				productTypeCombo.setPromptText("Selecciona el tipo");
+				menuGrid.setDisable(false);
+				menuTypeCombo.getSelectionModel().clearSelection();
 			} else if (defaultRadio.isSelected()) {
-				menuTypeBox.setDisable(true);
-				personalizedPane.setDisable(true);
-				productTypeCombo.getSelectionModel().select(4);
-				kcalSlider.setValue(2000);
-				hydrartsSlider.setValue(150);
-				proteinSlider.setValue(40);
-				fatsSlider.setValue(55);
-				eats3Radio.setSelected(true);
+				menuGrid.setDisable(true);
+				menuTypeCombo.getSelectionModel().select(4);
 			}
+		});
+
+		menuTypeCombo.selectionModelProperty().addListener((o, ov, nv) -> {
+			showDescriptionMenus();
+			sumMenus();
 		});
 	}
 
 	@FXML
-	void onCancelButtonAction(ActionEvent event) {
+	void onCancelMenuButtonAction(ActionEvent event) {
 		Stage stage = (Stage) this.cancelButton.getScene().getWindow();
 		stage.close();
 	}
 
 	@FXML
-	void onGenerateButtonAction(ActionEvent event) {
+	void onSaveMenuButtonAction(ActionEvent event) {
 
 	}
 
-	public BorderPane getView() {
+	private void showDescriptionMenus() {
+		try {
+			if (menuTypeCombo.getSelectionModel().getSelectedIndex() == 0) {
+				productsLabel.setText("Sandwich de pavo (desayuno), Tortitas de arroz (media-mañana), \n"
+						+ "Pollo a la plancha (Almuerzo), Huevos duros (merienda), \n"
+						+ "Pechuga de pollo al limón (cena)");
+				kcalLabel.setText("739");
+				hydratsLabel.setText("53.04");
+				proteinLabel.setText("72.96");
+				fatsLabel.setText("19.05");
+				fiberLabel.setText("4");
+			} else if (menuTypeCombo.getSelectionModel().getSelectedIndex() == 1) {
+				productsLabel.setText("Tostadas con jamón y yogur con frutas. ");
+				kcalLabel.setText("276");
+				hydratsLabel.setText("30");
+				proteinLabel.setText("12.4");
+				fatsLabel.setText("8");
+				fiberLabel.setText("2");
+			} else if (menuTypeCombo.getSelectionModel().getSelectedIndex() == 2) {
+				productsLabel.setText("Tortitas de arroz y zumo de naranja. ");
+				kcalLabel.setText("224");
+				hydratsLabel.setText("48.7");
+				proteinLabel.setText("4.3");
+				fatsLabel.setText("1.5");
+				fiberLabel.setText("1");
+			} else if (menuTypeCombo.getSelectionModel().getSelectedIndex() == 3) {
+				productsLabel.setText("Frutos secos y yogur natural. ");
+				kcalLabel.setText("563");
+				hydratsLabel.setText("11.04");
+				proteinLabel.setText("9.25");
+				fatsLabel.setText("10.55");
+				fiberLabel.setText("2");
+			} else if (menuTypeCombo.getSelectionModel().getSelectedIndex() == 4) {
+				productsLabel.setText("Pechuga de pavo y arroz. ");
+				kcalLabel.setText("308");
+				hydratsLabel.setText("48.2");
+				proteinLabel.setText("21.9");
+				fatsLabel.setText("2");
+				fiberLabel.setText("1.1");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	private void sumMenus() {
+
+	}
+
+	public VBox getView() {
 		return view;
 	}
 
