@@ -101,12 +101,14 @@ public class MainController implements Initializable {
 
 	@FXML
 	void onLightThemeMenuAction(ActionEvent event) {
-
+		App.getAppScene().getStylesheets().clear();
+		App.getAppScene().getStylesheets().add("/css/style-light.css");
 	}
 
 	@FXML
 	void onDarkThemeMenuAction(ActionEvent event) {
-
+		App.getAppScene().getStylesheets().clear();
+		App.getAppScene().getStylesheets().add("/css/style-dark.css");
 	}
 
 	@FXML
