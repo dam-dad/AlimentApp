@@ -382,23 +382,28 @@ public class CreateDietController implements Initializable {
 
 	@FXML
 	void onSaveDietButtonAction(ActionEvent event) {
+		this.diet.get().setName(this.diet.get().getName().trim());
 		this.diet.get().setDailyMenus(dailyMenusModificate);
 		this.diet.get().clear();
-		if (diet.get().getId() != 0) {
+		if (diet.get().getId() == 0) {
+			boolean isDuplicate = Utils.isMatchDietName(this.diet.get());
+			if (isDuplicate) {
+				Messages.error("Error al guardar la dieta", "No se pueden guardar dietas con el mismo nombre.");
+			} else {
+				DietService.insertDiet(diet.get());
+				ManageDietController.loadDietsAndMenus();
+				ChoiceController.getCreateDietCustomStage().close();
+			}
+		} else {
 			DietService.updateDiet(diet.get());
 			ManageDietController.loadDietsAndMenus();
 			ManageDietController.getModificateStage().close();
-		} else {
-			DietService.insertDiet(diet.get());
-			ManageDietController.loadDietsAndMenus();
-			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}
 
 	@FXML
 	void onLoadExistingMenusButtonAction(ActionEvent event) {
 		try {
-
 			Stage loadAllMenuStage = new Stage();
 			loadAllMenuStage.setTitle("Listas de Menús");
 			loadAllMenuStage.resizableProperty().setValue(Boolean.FALSE);
@@ -408,6 +413,7 @@ public class CreateDietController implements Initializable {
 
 			LoadAllMenuController loadAllMenuController = new LoadAllMenuController(loadAllMenuStage);
 			Scene scene = new Scene(loadAllMenuController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 			loadAllMenuStage.setScene(scene);
 			loadAllMenuStage.showAndWait();
@@ -517,6 +523,7 @@ public class CreateDietController implements Initializable {
 
 			productController = new ProductController(productMomentDay);
 			Scene scene = new Scene(productController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 			productStage.setScene(scene);
 			productStage.showAndWait();
@@ -526,29 +533,42 @@ public class CreateDietController implements Initializable {
 	}
 
 	private void getPieChart() {
-		// PieChart.Data kcal = new PieChart.Data("kcal",
-		// nutritionalValues.get().getKcalsTotals());
-		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
-		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
-		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
-		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
+		if (!nutritionalValues.get().isEmpty()) {
+			// nutritionalValues.get().getKcalsTotals() +
+			Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals()
+					+ nutritionalValues.get().getHydratesTotals() + nutritionalValues.get().getFatsTotals()
+					+ nutritionalValues.get().getFibresTotals();
+//				Integer kcalValue = Math.round((nutritionalValues.get().getKcalsTotals() * 100) / nutricionalsTotals);
+			Integer proteinsValue = Math
+					.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
+			Integer hydratesValue = Math
+					.round((nutritionalValues.get().getHydratesTotals() * 100) / nutricionalsTotals);
+			Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
+			Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
 
-		// menuChart.getData().setAll(kcal);
-		menuChart.getData().setAll(proteins);
-		menuChart.getData().add(hydrates);
-		menuChart.getData().add(fats);
-		menuChart.getData().add(fibres);
+//				PieChart.Data kcal = new PieChart.Data("kcal", kcalValue);
+			PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
+			PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
+			PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
+			PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
 
-		menuChart.setClockwise(true);
-		menuChart.setLabelsVisible(true);
-		menuChart.setLabelLineLength(20);
+//				menuChart.getData().setAll(kcal);
+			menuChart.getData().setAll(proteins);
+			menuChart.getData().add(hydrates);
+			menuChart.getData().add(fats);
+			menuChart.getData().add(fibres);
 
-		menuChart.getData().forEach(this::installTooltip);
-		// installTooltip(kcal);
-		installTooltip(proteins);
-		installTooltip(hydrates);
-		installTooltip(fats);
-		installTooltip(fibres);
+			menuChart.setClockwise(true);
+			menuChart.setLabelsVisible(true);
+			menuChart.setLabelLineLength(20);
+
+			menuChart.getData().forEach(this::installTooltip);
+//				installTooltip(kcal);
+			installTooltip(proteins);
+			installTooltip(hydrates);
+			installTooltip(fats);
+			installTooltip(fibres);
+		}
 	}
 
 	public void installTooltip(PieChart.Data d) {

@@ -15,7 +15,7 @@ import javafx.stage.WindowEvent;
 public class App extends Application {
 
 	private static Stage primaryStage;
-
+	private static Scene scene;
 	private static MainController controller;
 
 	// Almacenamos e iniciamos la conexion con la BD.
@@ -25,7 +25,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// Creacion inicial de la BD. Descomentar esta linea si tienes que volver a
 		// crear la BD.
-		//ConnectionDB.createDB();
+		// ConnectionDB.createDB();
 		App.primaryStage = primaryStage;
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -37,11 +37,11 @@ public class App extends Application {
 
 		controller = new MainController();
 
-		Scene scene = new Scene(controller.getView(), 950, 700);
-		
-		scene.getStylesheets().add("/css/MainStyle.css");
+		scene = new Scene(controller.getView(), 950, 700);
+		MainController.setStyleSheetActual("/css/style-light.css");
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
-		primaryStage.setMinWidth(800);
+		primaryStage.setMinWidth(950);
 		primaryStage.setMinHeight(700);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("AlimentApp");
@@ -55,11 +55,13 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 
 	public static MainController getMainController() {
 		return controller;
+	}
 
+	public static Scene getAppScene() {
+		return scene;
 	}
 }

@@ -134,7 +134,7 @@
       </VBox>
       <VBox alignment="TOP_CENTER" spacing="10.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Button fx:id="addButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonAction">
+            <Button fx:id="addButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonAction" styleClass="btn-success">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

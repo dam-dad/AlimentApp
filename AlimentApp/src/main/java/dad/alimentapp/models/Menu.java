@@ -162,4 +162,8 @@ public class Menu {
 				&& this.getSnackProducts().getProducts().size() == 0
 				&& this.getDinnerProducts().getProducts().size() == 0);
 	}
+	
+	public boolean isEqualTo(Menu menu) {
+		return name.get().equals(menu.getName());
+	}
 }

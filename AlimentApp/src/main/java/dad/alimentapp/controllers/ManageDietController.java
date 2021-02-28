@@ -165,8 +165,10 @@ public class ManageDietController implements Initializable {
 
 	public static void loadDietsAndMenus() {
 		Profile profile = MainController.getProfileSelected();
-		diets.setAll(DietService.getAllDiets(profile));
-		menus.setAll(MenuService.getAllMenus(profile));
+		if(profile != null) {
+			diets.setAll(DietService.getAllDiets(profile));
+			menus.setAll(MenuService.getAllMenus(profile));
+		}
 	}
 
 	@FXML
@@ -266,6 +268,7 @@ public class ManageDietController implements Initializable {
 	private void createChoiceStage() {
 		choiceStage = new Stage();
 		Scene scene = new Scene(choiceController.getView());
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		choiceStage.setScene(scene);
 		choiceStage.setTitle("Elección");
@@ -280,6 +283,7 @@ public class ManageDietController implements Initializable {
 		ChoiceController.setCreateDietCustomStage(null);
 		modifIcateStage = new Stage();
 		Scene scene = new Scene(view);
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		modifIcateStage.setScene(scene);
 		modifIcateStage.setTitle(controlDiet.name());
