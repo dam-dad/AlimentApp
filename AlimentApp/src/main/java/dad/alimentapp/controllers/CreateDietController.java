@@ -382,23 +382,28 @@ public class CreateDietController implements Initializable {
 
 	@FXML
 	void onSaveDietButtonAction(ActionEvent event) {
+		this.diet.get().setName(this.diet.get().getName().trim());
 		this.diet.get().setDailyMenus(dailyMenusModificate);
 		this.diet.get().clear();
-		if (diet.get().getId() != 0) {
+		if (diet.get().getId() == 0) {
+			boolean isDuplicate = Utils.isMatchDietName(this.diet.get());
+			if (isDuplicate) {
+				Messages.error("Error al guardar la dieta", "No se pueden guardar dietas con el mismo nombre.");
+			} else {
+				DietService.insertDiet(diet.get());
+				ManageDietController.loadDietsAndMenus();
+				ChoiceController.getCreateDietCustomStage().close();
+			}
+		} else {
 			DietService.updateDiet(diet.get());
 			ManageDietController.loadDietsAndMenus();
 			ManageDietController.getModificateStage().close();
-		} else {
-			DietService.insertDiet(diet.get());
-			ManageDietController.loadDietsAndMenus();
-			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}
 
 	@FXML
 	void onLoadExistingMenusButtonAction(ActionEvent event) {
 		try {
-
 			Stage loadAllMenuStage = new Stage();
 			loadAllMenuStage.setTitle("Listas de Menús");
 			loadAllMenuStage.resizableProperty().setValue(Boolean.FALSE);

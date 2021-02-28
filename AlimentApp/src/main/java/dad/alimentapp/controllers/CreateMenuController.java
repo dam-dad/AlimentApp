@@ -13,6 +13,7 @@ import dad.alimentapp.models.Product;
 import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.service.MenuService;
 import dad.alimentapp.utils.Messages;
+import dad.alimentapp.utils.Utils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -340,7 +341,7 @@ public class CreateMenuController implements Initializable {
 	private void newSceneProduct(ProductMomentDay productMomentDay) {
 		Stage choice = ChoiceController.getCreateDietCustomStage();
 		Stage manage = ManageDietController.getModificateStage();
-		
+
 		Stage stage = choice != null ? choice : manage;
 		try {
 			Stage productStage = new Stage();
@@ -363,26 +364,33 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onSaveMenuButtonAction(ActionEvent event) {
-		if (menuSelected.get().getId() != 0) {
+		menuSelected.get().setName(menuSelected.get().getName().trim());
+		if (menuSelected.get().getId() == 0) {
+			boolean isDuplicate = Utils.isMatchMenuName(menuSelected.get());
+			if (isDuplicate) {
+				Messages.error("Error al guardar el menú", "No se pueden guardar menús con el mismo nombre.");
+			} else {
+				MenuService.insertMenu(menuSelected.get());
+				ManageDietController.loadDietsAndMenus();
+				ChoiceController.getCreateDietCustomStage().close();
+			}
+		} else {
 			MenuService.updateMenu(menuSelected.get());
 			ManageDietController.loadDietsAndMenus();
 			ManageDietController.getModificateStage().close();
-		} else {
-			MenuService.insertMenu(menuSelected.get());
-			ManageDietController.loadDietsAndMenus();
-			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}
-		
+
 	private void getPieChart() {
 
-		//PieChart.Data kcal = new PieChart.Data("kcal", nutritionalValues.get().getKcalsTotals());
+		// PieChart.Data kcal = new PieChart.Data("kcal",
+		// nutritionalValues.get().getKcalsTotals());
 		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
 		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
 		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
 		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
 
-		//menuChart.getData().setAll(kcal);		
+		// menuChart.getData().setAll(kcal);
 		menuChart.getData().setAll(proteins);
 		menuChart.getData().add(hydrates);
 		menuChart.getData().add(fats);
@@ -393,7 +401,7 @@ public class CreateMenuController implements Initializable {
 		menuChart.setLabelLineLength(20);
 
 		menuChart.getData().forEach(this::installTooltip);
-		//installTooltip(kcal);
+		// installTooltip(kcal);
 		installTooltip(proteins);
 		installTooltip(hydrates);
 		installTooltip(fats);
@@ -401,7 +409,7 @@ public class CreateMenuController implements Initializable {
 	}
 
 	public void installTooltip(PieChart.Data d) {
-		
+
 		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
 
 		Tooltip tooltip = new Tooltip(msg);
