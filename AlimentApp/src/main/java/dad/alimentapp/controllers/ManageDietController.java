@@ -19,8 +19,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -36,14 +38,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+/**
+ * Realizamos el controlador que permitirá implementar la interfaz de Gestionar
+ * Dietas y darle toda la funcionalidad que necesita.
+ * 
+ * @author Andy y Antonio
+ */
 public class ManageDietController implements Initializable {
-
-	/**
-	 * Realizamos el controlador que permitirá implementar la interfaz de Gestionar
-	 * Dietas y darle toda la funcionalidad que necesita.
-	 * 
-	 * @author Andy
-	 */
 
 	@FXML
 	private HBox view;
@@ -150,7 +151,46 @@ public class ManageDietController implements Initializable {
 		loadDietsAndMenus();
 
 		menuList.itemsProperty().bindBidirectional(menus);
+		menuList.setCellFactory(menusView -> new ListCell<Menu>() {
+			private ImageView imageView = new ImageView();
+
+			@Override
+			public void updateItem(Menu menu, boolean empty) {
+				super.updateItem(menu, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Image image = new Image("images/myManageDietsTab/menus-512px.png");
+					imageView.setImage(image);
+					imageView.setFitWidth(30);
+					imageView.setFitHeight(30);
+					setText(menu.getName());
+					setGraphic(imageView);
+				}
+			}
+		});
+		
 		dietList.itemsProperty().bindBidirectional(diets);
+		dietList.setCellFactory(dietsView -> new ListCell<Diet>() {
+			private ImageView imageView = new ImageView();
+
+			@Override
+			public void updateItem(Diet diet, boolean empty) {
+				super.updateItem(diet, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Image image = new Image("images/myManageDietsTab/diets-512px.png");
+					imageView.setImage(image);
+					imageView.setFitWidth(30);
+					imageView.setFitHeight(30);
+					setText(diet.getName());
+					setGraphic(imageView);
+				}
+			}
+		});
 
 		menuSelected.bind(menuList.getSelectionModel().selectedItemProperty());
 		dietSelected.bind(dietList.getSelectionModel().selectedItemProperty());

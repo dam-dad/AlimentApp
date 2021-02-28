@@ -15,7 +15,6 @@ import dad.alimentapp.models.Gender;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.service.ProductService;
-import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
