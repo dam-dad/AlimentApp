@@ -531,14 +531,23 @@ public class CreateDietController implements Initializable {
 	}
 
 	private void getPieChart() {
-		// PieChart.Data kcal = new PieChart.Data("kcal",
-		// nutritionalValues.get().getKcalsTotals());
-		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
-		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
-		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
-		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
+		// nutritionalValues.get().getKcalsTotals() +
+		Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals()
+				+ nutritionalValues.get().getHydratesTotals() + nutritionalValues.get().getFatsTotals()
+				+ nutritionalValues.get().getFibresTotals();
+//				Integer kcalValue = Math.round((nutritionalValues.get().getKcalsTotals() * 100) / nutricionalsTotals);
+		Integer proteinsValue = Math.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
+		Integer hydratesValue = Math.round((nutritionalValues.get().getHydratesTotals() * 100) / nutricionalsTotals);
+		Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
+		Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
 
-		// menuChart.getData().setAll(kcal);
+//				PieChart.Data kcal = new PieChart.Data("kcal", kcalValue);
+		PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
+		PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
+		PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
+		PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
+
+//				menuChart.getData().setAll(kcal);
 		menuChart.getData().setAll(proteins);
 		menuChart.getData().add(hydrates);
 		menuChart.getData().add(fats);
@@ -549,7 +558,7 @@ public class CreateDietController implements Initializable {
 		menuChart.setLabelLineLength(20);
 
 		menuChart.getData().forEach(this::installTooltip);
-		// installTooltip(kcal);
+//				installTooltip(kcal);
 		installTooltip(proteins);
 		installTooltip(hydrates);
 		installTooltip(fats);
