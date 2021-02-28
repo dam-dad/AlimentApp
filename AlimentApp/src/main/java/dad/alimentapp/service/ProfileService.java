@@ -10,17 +10,21 @@ import dad.alimentapp.models.Profile;
 import dad.alimentapp.utils.Messages;
 
 /**
- *  En esta clase tenemos almacenadas todas las consultas a la base de datos, en referencia a la tabla Profile.
+ * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
+ * referencia a la tabla Profile.
+ * 
  * @author Antonio
  *
  */
 public class ProfileService {
 
-/**
- * El metodo "getProfile" lo utilizamos para obtener todos los datos del perfil indicado.
- * @param id le pasamos por parametros el identificador por parametros.
- * @return retornamos dicho perfil.
- */
+	/**
+	 * El metodo "getProfile" lo utilizamos para obtener todos los datos del perfil
+	 * indicado.
+	 * 
+	 * @param id le pasamos por parametros el identificador por parametros.
+	 * @return retornamos dicho perfil.
+	 */
 	public static Profile getProfile(Integer id) {
 		Profile profile = null;
 		try {

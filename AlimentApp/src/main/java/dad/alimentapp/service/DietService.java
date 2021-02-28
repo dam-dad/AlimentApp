@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.Weekday;
-import dad.alimentapp.models.app.DailyMenu;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
 import dad.alimentapp.utils.Messages;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

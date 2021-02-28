@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Weekday;
-import dad.alimentapp.models.app.DailyMenu;
-import dad.alimentapp.models.app.Menu;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -45,14 +45,16 @@ public class Utils {
 	public static Menu searchMatchesInMenu(List<DailyMenu> menuList, Weekday weekday) {
 		Menu menus = null;
 		boolean matches = false;
-		int count = 0;
-		do {
-			if (menuList.get(count).getWeekday() == weekday) {
-				menus = menuList.get(count).getMenu();
-				matches = true;
-			}
-			count++;
-		} while (!matches && count < menuList.size());
+		if (menuList.size() != 0) {
+			int count = 0;
+			do {
+				if (menuList.get(count).getWeekday() == weekday) {
+					menus = menuList.get(count).getMenu();
+					matches = true;
+				}
+				count++;
+			} while (!matches && count < menuList.size());
+		}
 		return menus;
 	}
 

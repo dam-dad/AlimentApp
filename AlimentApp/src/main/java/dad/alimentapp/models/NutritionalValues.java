@@ -1,4 +1,4 @@
-package dad.alimentapp.models.app;
+package dad.alimentapp.models;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

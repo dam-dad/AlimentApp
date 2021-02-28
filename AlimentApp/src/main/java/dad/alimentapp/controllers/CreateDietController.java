@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.NutritionalValues;
 import dad.alimentapp.models.Product;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.models.Weekday;
-import dad.alimentapp.models.app.DailyMenu;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.app.NutritionalValues;
-import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.service.DietService;
 import dad.alimentapp.utils.Messages;
 import dad.alimentapp.utils.Utils;
@@ -138,7 +138,8 @@ public class CreateDietController implements Initializable {
 	// MODEL
 	private ObjectProperty<Diet> diet = new SimpleObjectProperty<>();
 	private ObjectProperty<Weekday> actualWeekday = new SimpleObjectProperty<>(Weekday.LUNES);
-	private ListProperty<DailyMenu> dailyMenusModificate = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private ListProperty<DailyMenu> dailyMenusModificate = new SimpleListProperty<>(
+			FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>(new Menu());
 	private ObjectProperty<NutritionalValues> nutritionalValues = new SimpleObjectProperty<>(new NutritionalValues());
 
@@ -210,29 +211,20 @@ public class CreateDietController implements Initializable {
 		fibresTotLabel.textProperty().bindBidirectional(nutritionalValues.get().fibresTotalsProperty(),
 				new NumberStringConverter());
 
-		diet.get().dailyMenusProperty().addListener((o, ov, nv) -> {
-			System.out.println("Listener 1");
-		});
-
 		menuSelected.addListener((o, ov, nv) -> {
 			if (ov != null) {
 				nameMenuText.textProperty().unbindBidirectional(ov.nameProperty());
-				breakfastList.itemsProperty()
-						.unbindBidirectional(ov.getBreakfastProducts().productsProperty());
-				midMorningList.itemsProperty()
-						.unbindBidirectional(ov.getMidMorningProducts().productsProperty());
+				breakfastList.itemsProperty().unbindBidirectional(ov.getBreakfastProducts().productsProperty());
+				midMorningList.itemsProperty().unbindBidirectional(ov.getMidMorningProducts().productsProperty());
 				lunchList.itemsProperty().unbindBidirectional(ov.getLunchProducts().productsProperty());
 				snackList.itemsProperty().unbindBidirectional(ov.getSnackProducts().productsProperty());
-				dinnerList.itemsProperty()
-						.unbindBidirectional(ov.getDinnerProducts().productsProperty());
+				dinnerList.itemsProperty().unbindBidirectional(ov.getDinnerProducts().productsProperty());
 			}
 
 			if (nv != null) {
 				nameMenuText.textProperty().bindBidirectional(nv.nameProperty());
-				breakfastList.itemsProperty()
-						.bindBidirectional(nv.getBreakfastProducts().productsProperty());
-				midMorningList.itemsProperty()
-						.bindBidirectional(nv.getMidMorningProducts().productsProperty());
+				breakfastList.itemsProperty().bindBidirectional(nv.getBreakfastProducts().productsProperty());
+				midMorningList.itemsProperty().bindBidirectional(nv.getMidMorningProducts().productsProperty());
 				lunchList.itemsProperty().bindBidirectional(nv.getLunchProducts().productsProperty());
 				snackList.itemsProperty().bindBidirectional(nv.getSnackProducts().productsProperty());
 				dinnerList.itemsProperty().bindBidirectional(nv.getDinnerProducts().productsProperty());
@@ -247,13 +239,13 @@ public class CreateDietController implements Initializable {
 						.bind(Bindings.size(nv.getSnackProducts().getProducts()).isEqualTo(0));
 				dinnerRemoveButton.disableProperty()
 						.bind(Bindings.size(nv.getDinnerProducts().getProducts()).isEqualTo(0));
-				
-//				saveDietButton.disableProperty()
-//				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0)
-//						.and(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0))
-//						.and(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0))
-//						.and(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0))
-//						.and(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0)));
+
+				saveDietButton.disableProperty().bind(Bindings
+						.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0)
+						.and(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0)));
 			}
 		});
 	}
@@ -365,10 +357,9 @@ public class CreateDietController implements Initializable {
 		Weekday nextDay = Weekday.next(actualWeekday.get().getId());
 		actualWeekday.set(nextDay);
 		Menu menu = Utils.searchMatchesInMenu(dailyMenusModificate, nextDay);
-		if(menu != null) {
+		if (menu != null) {
 			menuSelected.set(menu);
-		} 
-		else {
+		} else {
 			Menu newMenu = new Menu();
 			dailyMenusModificate.add(new DailyMenu(nextDay, newMenu));
 			menuSelected.set(newMenu);
@@ -380,10 +371,9 @@ public class CreateDietController implements Initializable {
 		Weekday previousDay = Weekday.previous(actualWeekday.get().getId());
 		actualWeekday.set(previousDay);
 		Menu menu = Utils.searchMatchesInMenu(dailyMenusModificate, previousDay);
-		if(menu != null) {
+		if (menu != null) {
 			menuSelected.set(menu);
-		} 
-		else {
+		} else {
 			Menu newMenu = new Menu();
 			dailyMenusModificate.add(new DailyMenu(previousDay, newMenu));
 			menuSelected.set(newMenu);
