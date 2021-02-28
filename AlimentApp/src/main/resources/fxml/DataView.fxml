@@ -200,31 +200,31 @@
                </font></Label>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <children>
-                  <HBox prefHeight="50.0" prefWidth="50.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="50.0" spacing="5.0">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/myDataTab/weight_image.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="idealWeightLabel" text="-Escribe tus datos para calcular tu peso ideal" />
+                        <Label fx:id="idealWeightLabel" alignment="TOP_LEFT" text="-Escribe tus datos para calcular tu peso ideal" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="50.0" prefWidth="50.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="50.0" spacing="5.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="3.0">
                            <image>
                               <Image url="@../images/myDataTab/diet_image.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="idealDietLabel" text="-Te recomendaremos un tipo de dieta " />
+                        <Label fx:id="idealDietLabel" alignment="BASELINE_CENTER" text="-Te recomendaremos un tipo de dieta " />
                      </children>
                   </HBox>
-                  <HBox prefHeight="50.0" prefWidth="50.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="50.0" spacing="5.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/myDataTab/exercise_image.png" />
+                              <Image url="@../images/myDataTab/exrcise_image.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="exerciseLabel" text="- El ejercicio que mejor te vendrá" />

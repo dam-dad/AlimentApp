@@ -1,5 +1,5 @@
 .root{
-	-fx-background-color:#7CF178;
+	-fx-background-color:#AFF4F3;
     
 	}
 .button{
@@ -14,8 +14,8 @@
 
 
 .list-cell {
-	-fx-background-color: orange;
-    -fx-font-size: 20 ;
+	
+    -fx-font-size: 16 ;
      -fx-padding: 5px;
       -fx-font-family: "Courier New";
 

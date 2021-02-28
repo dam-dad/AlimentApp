@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
 
 /**
  * Representamos la tabla profile con un clase y generamos sus getter and
@@ -27,12 +28,23 @@ public class Profile {
 	private IntegerProperty height = new SimpleIntegerProperty();
 	private DoubleProperty imc = new SimpleDoubleProperty();
 	private ObjectProperty<Gender> gender = new SimpleObjectProperty<>();
-	private StringProperty image = new SimpleStringProperty();
+	private ObjectProperty<Image> image = new SimpleObjectProperty();
 
 	public Profile() {
 		
 	}
 	
+	public Profile(String name_profile,String name, String surName,Integer age, Integer weight,Integer height, Double imc,Gender gender) {
+		this.setNameProfile(name_profile);
+		this.setName(name);
+		this.setSurName(surName);
+		this.setAge(age);
+		this.setWeight(weight);
+		this.setHeight(height);
+		this.setImc(imc);
+		this.setGender(gender);
+		
+	}
 	
 	
 	public Profile(Integer id, String name_profile, String name, String surName, Integer age, Integer weight,
@@ -134,15 +146,15 @@ public class Profile {
 		this.genderProperty().set(gender);
 	}
 
-	public final StringProperty imageProperty() {
+	public final ObjectProperty<Image> imageProperty() {
 		return this.image;
 	}
 
-	public final String getImage() {
+	public final Image getImage() {
 		return this.imageProperty().get();
 	}
 
-	public final void setImage(final String image) {
+	public final void setImage(final Image image) {
 		this.imageProperty().set(image);
 	}
 
