@@ -10,12 +10,14 @@ import dad.alimentapp.main.App;
 import dad.alimentapp.models.MomentDay;
 import dad.alimentapp.models.Origin;
 import dad.alimentapp.models.Product;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.models.Type;
-import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.utils.Messages;
 
 /**
- *  En esta clase tenemos almacenadas todas las consultas a la base de datos, en referencia a la tabla Product.
+ * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
+ * referencia a la tabla Product.
+ * 
  * @author Antonio
  *
  */
@@ -44,7 +46,7 @@ public class ProductService {
 		}
 		return product;
 	}
-	
+
 	/**
 	 * Esta funcion la utilizaremos para obtener todos los productos.
 	 * 
@@ -68,9 +70,10 @@ public class ProductService {
 		}
 		return products;
 	}
-	
+
 	/**
-	 * El metodo "getAllProductsToMenuOfMomentDay" obtenemos todos los productos de ese menu en un momento del dia.
+	 * El metodo "getAllProductsToMenuOfMomentDay" obtenemos todos los productos de
+	 * ese menu en un momento del dia.
 	 * 
 	 * @param menu      pasamos por parametros el menu.
 	 * @param momentDay pasamos por parametros el momento del dia.

@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;

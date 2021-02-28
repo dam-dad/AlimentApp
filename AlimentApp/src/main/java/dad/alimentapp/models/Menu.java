@@ -1,61 +1,57 @@
 package dad.alimentapp.models;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import dad.alimentapp.controllers.MainController;
-import dad.alimentapp.main.App;
-import dad.alimentapp.utils.Messages;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
-/**
- * Representamos la tabla menu con un clase y generamos sus getter and setters.
- * Para poder obtener toda la información. Además de algunos metodos.
- * 
- * @author Antonio
- *
- */
 public class Menu {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty name = new SimpleStringProperty();
-	private ObjectProperty<Weekday> weekday = new SimpleObjectProperty<>();
 	private ObjectProperty<Profile> profile = new SimpleObjectProperty<>();
+	private ObjectProperty<ProductMomentDay> breakfastProducts = new SimpleObjectProperty<>(
+			new ProductMomentDay(MomentDay.DESAYUNO));
+	private ObjectProperty<ProductMomentDay> midMorningProducts = new SimpleObjectProperty<>(
+			new ProductMomentDay(MomentDay.MEDIA_MAÑANA));
+	private ObjectProperty<ProductMomentDay> lunchProducts = new SimpleObjectProperty<>(
+			new ProductMomentDay(MomentDay.ALMUERZO));
+	private ObjectProperty<ProductMomentDay> snackProducts = new SimpleObjectProperty<>(
+			new ProductMomentDay(MomentDay.MERIENDA));
+	private ObjectProperty<ProductMomentDay> dinnerProducts = new SimpleObjectProperty<>(
+			new ProductMomentDay(MomentDay.CENA));
 
 	public Menu() {
 		this.setName("Nuevo Menú");
-		this.setWeekday(Weekday.LUNES);
-		this.setProfile(MainController.getProfileSelected());
-	}
-	
-	public Menu(Weekday weekday) {
-		this.setName("Nuevo Menú");
-		this.setWeekday(weekday);
 		this.setProfile(MainController.getProfileSelected());
 	}
 
-	public Menu(Integer id, String name, Weekday weekday) {
+	public Menu(Integer id, String name) {
 		this.setId(id);
 		this.setName(name);
-		this.setWeekday(weekday);
+		this.setProfile(MainController.getProfileSelected());
 	}
-	
-	public Menu(Integer id, String name, Weekday weekday, Profile profile) {
+
+	public Menu(Integer id, String name, Profile profile) {
 		this.setId(id);
 		this.setName(name);
-		this.setWeekday(weekday);
 		this.setProfile(profile);
+	}
+
+	public Menu(Integer id, String name, Profile profile, ProductMomentDay breakfastProducts,
+			ProductMomentDay midMorningProducts, ProductMomentDay lunchProducts, ProductMomentDay snackProducts,
+			ProductMomentDay dinnerProducts) {
+		this.setId(id);
+		this.setName(name);
+		this.setProfile(profile);
+		this.setBreakfastProducts(breakfastProducts);
+		this.setMidMorningProducts(midMorningProducts);
+		this.setLunchProducts(lunchProducts);
+		this.setSnackProducts(snackProducts);
+		this.setDinnerProducts(dinnerProducts);
 	}
 
 	public final IntegerProperty idProperty() {
@@ -82,132 +78,88 @@ public class Menu {
 		this.nameProperty().set(name);
 	}
 
-	public final ObjectProperty<Weekday> weekdayProperty() {
-		return this.weekday;
-	}
-
-	public final Weekday getWeekday() {
-		return this.weekdayProperty().get();
-	}
-
-	public final void setWeekday(final Weekday weekday) {
-		this.weekdayProperty().set(weekday);
-	}
-
 	public final ObjectProperty<Profile> profileProperty() {
 		return this.profile;
 	}
 
 	public final Profile getProfile() {
 		return this.profileProperty().get();
-	}	
+	}
 
 	public final void setProfile(final Profile profile) {
 		this.profileProperty().set(profile);
 	}
-	
+
+	public final ObjectProperty<ProductMomentDay> breakfastProductsProperty() {
+		return this.breakfastProducts;
+	}
+
+	public final ProductMomentDay getBreakfastProducts() {
+		return this.breakfastProductsProperty().get();
+	}
+
+	public final void setBreakfastProducts(final ProductMomentDay breakfastProducts) {
+		this.breakfastProductsProperty().set(breakfastProducts);
+	}
+
+	public final ObjectProperty<ProductMomentDay> midMorningProductsProperty() {
+		return this.midMorningProducts;
+	}
+
+	public final ProductMomentDay getMidMorningProducts() {
+		return this.midMorningProductsProperty().get();
+	}
+
+	public final void setMidMorningProducts(final ProductMomentDay midMorningProducts) {
+		this.midMorningProductsProperty().set(midMorningProducts);
+	}
+
+	public final ObjectProperty<ProductMomentDay> lunchProductsProperty() {
+		return this.lunchProducts;
+	}
+
+	public final ProductMomentDay getLunchProducts() {
+		return this.lunchProductsProperty().get();
+	}
+
+	public final void setLunchProducts(final ProductMomentDay lunchProducts) {
+		this.lunchProductsProperty().set(lunchProducts);
+	}
+
+	public final ObjectProperty<ProductMomentDay> snackProductsProperty() {
+		return this.snackProducts;
+	}
+
+	public final ProductMomentDay getSnackProducts() {
+		return this.snackProductsProperty().get();
+	}
+
+	public final void setSnackProducts(final ProductMomentDay snackProducts) {
+		this.snackProductsProperty().set(snackProducts);
+	}
+
+	public final ObjectProperty<ProductMomentDay> dinnerProductsProperty() {
+		return this.dinnerProducts;
+	}
+
+	public final ProductMomentDay getDinnerProducts() {
+		return this.dinnerProductsProperty().get();
+	}
+
+	public final void setDinnerProducts(final ProductMomentDay dinnerProducts) {
+		this.dinnerProductsProperty().set(dinnerProducts);
+	}
+
 	@Override
 	public String toString() {
-		return getName()+ " - " + getWeekday();
+		return getName();
 	}
 
-	/**
-	 * Esta función getMenu, nos devuelve un menu del id especificado.
-	 * 
-	 * @param id en este parametro especificaremos el id del menu.
-	 * @return retornaremos un menu con dicho id.
-	 */
-	public static Menu getMenu(Integer id) {
-		Menu menu = null;
-		try {
-			String sql = "SELECT id, name, id_weekday FROM menu WHERE id = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			query.setInt(1, id);
-			ResultSet result = query.executeQuery();
-			while (result.next()) {
-				menu = new Menu(result.getInt(1), result.getString(2), Weekday.valueOf(result.getInt(3)));
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
-		}
-		return menu;
+	public boolean isMomentsDayEmpty() {
+		return (this.getBreakfastProducts().getProducts().size() == 0
+				&& this.getMidMorningProducts().getProducts().size() == 0
+				&& this.getLunchProducts().getProducts().size() == 0
+				&& this.getSnackProducts().getProducts().size() == 0
+				&& this.getDinnerProducts().getProducts().size() == 0);
 	}
-	
-
-	public static int insertMenu(Menu menu) {
-		int idResult = 0;
-		try {
-			String sql = "INSERT INTO menu (name, id_weekday, profile_id) VALUES (?, ?, ?)";
-			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setString(1, menu.getName());
-			query.setInt(2, menu.getWeekday().getId());
-			query.setInt(3, menu.getProfile().getId());
-			query.execute();
-			ResultSet generatedKeys = query.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				idResult = generatedKeys.getInt(1);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo menú", e.getMessage());
-		}
-		return idResult;
-	}
-
-	public static void updateMenu(Menu menu) {
-		try {
-			String sql = "UPDATE menu SET name = ? , id_weekday = ? WHERE id = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			query.setString(1, menu.getName());
-			query.setInt(2, menu.getWeekday().getId());
-			query.setInt(3, menu.getId());
-			query.execute();
-		} catch (SQLException e) {
-			Messages.error("Error al modificar este menú", e.getMessage());
-		}
-	}
-	
-	/**
-	 * Esta función deleteMenu, nos permite eliminar un menú
-	 * 
-	 * @param menu, es el menú que se eliminará
-	 */
-	public static void deleteMenu(Menu menu) {
-		try {
-			String sql = "DELETE FROM diets_menus WHERE id_menu = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setInt(1, menu.getId());
-			query.execute();
-			sql = "DELETE FROM menu_product WHERE id_menu = ?";
-			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setInt(1, menu.getId());
-			query.execute();
-			sql = "DELETE FROM menu WHERE id = ?";
-			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setInt(1, menu.getId());
-			query.execute();
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Éxito en la eliminación");
-			alert.setHeaderText("Se ha eliminado el menú correctamente.");
-			alert.show();
-		} catch (SQLException e) {
-			Messages.error("Error al eliminar el menú", e.getMessage());
-		}
-	}
-	
-	public static List<Menu> getAllMenus(Profile profile) {
-		List<Menu> menuList = new ArrayList<>();
-		try {
-			String sql = "SELECT * FROM menu WHERE profile_id = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			query.setInt(1, profile.getId());
-			ResultSet result = query.executeQuery();
-			while (result.next()) {
-				Menu menu = new Menu(result.getInt(1), result.getString(2), Weekday.valueOf(result.getInt(3)), profile);
-				menuList.add(menu);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al cargar todos los menus", e.getMessage());
-		}
-		return menuList;	
-	}	
 }

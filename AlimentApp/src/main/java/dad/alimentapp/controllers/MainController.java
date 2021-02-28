@@ -12,7 +12,6 @@ import dad.alimentapp.models.Profile;
 import dad.alimentapp.utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
