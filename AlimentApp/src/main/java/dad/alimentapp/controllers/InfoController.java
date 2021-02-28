@@ -27,13 +27,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Clase que muestra el conjunto de perfiles almacenados, permite acceder a ellos y borrarlos, así como acceder a la creación de un nuevo perfil
+ * @author David_Diaz
+ *
+ */
 public class InfoController implements Initializable {
 
 	// view
@@ -41,7 +45,7 @@ public class InfoController implements Initializable {
 	private BorderPane view;
 
 	@FXML
-	private ListView<Profile> profileView;
+	private  ListView<Profile> profileView;
 
 	@FXML
 	private Button newProfileButton;
@@ -116,26 +120,33 @@ public class InfoController implements Initializable {
 
 
 
-
+/**
+ * Método para cargar la información de un nuevo perfil
+ */
 private void onNewProfileButtonAction() {
 	
 	
 	App.getMainController().getDataTab().getSelectionModel().select(1);
 	App.getMainController().playTransition();
-	MainController.setProfileSelected(new Profile());
-	profileSelected.set(new Profile());
+	App.getMainController().getMyData().setDisable(false);
+	//App.getMainController().getManageDietsTab().setDisable(false);
+	MainController.setProfileSelected(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
+	profileSelected.set(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
 	
 	
 		
 	
 	}
 
+/**
+ * Método para borrar el perfil seleccionado
+ */
 private void onDeleteButtonAction() {
 		profileSelected.set(profileView.getSelectionModel().getSelectedItem());
 		
 		Optional <ButtonType> result= Messages.confirmation("Borrar un perfil", "¿Seguro que desea borrar este perfil?");
 		
-		if(result.isPresent()) {
+		if(result.get() == ButtonType.OK) {
 			
 		int id= profileSelected.get().getId();
 		
@@ -144,23 +155,32 @@ private void onDeleteButtonAction() {
 			PreparedStatement query = App.connection.prepareStatement(sql);
 			query.setInt(1, id);
 			query.executeUpdate();
-			profileList.remove(profileSelected);	
-			Messages.info("Perfil borrado", "Se ha borrado el perfil correctamene");
+			Messages.info("Perfil borrado", "Se ha borrado el perfil correctamente");
+			profileList.clear();
+			loadProfiles();
+			App.getMainController().getMyData().setDisable(true);
+			App.getMainController().getManageDietsTab().setDisable(true);
 		}catch(Exception e) {
 			Messages.error("Ha ocurrido un error", "No se ha podido borrar el usuario seleccionado.");
-			System.out.println(e.getMessage());
+			
 		}
 		
 		
 		}
 	}
 
+
+/**
+ * Método que carga los datos del perfil seleccionado y los muestra en la pestaña correspondiente
+ */
 private void onEntryButtonAction() {
 	
-	//CARGAMOS LOS DATOS DEL PERFIL CORRESPONDIENTE
+	
 	profileSelected.set( profileView.getSelectionModel().getSelectedItem());
 	MainController.setProfileSelected(profileSelected.get());
 	App.getMainController().getDataTab().getSelectionModel().select(1);
+	App.getMainController().getMyData().setDisable(false);
+	App.getMainController().getManageDietsTab().setDisable(false);
 	App.getMainController().playTransition();
 	
 	
@@ -170,15 +190,23 @@ private void onEntryButtonAction() {
 
 
 
-//Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
+/**
+ * Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
+ */
 	private void loadMainImage() {
 
 		int nPhoto = (int) (Math.random() * (10 - 1)) + 1;
 		adviceImageView.setImage(new Image("images/infoTab/" + nPhoto + ".png"));
 	}
 
+	
 
+/**
+ * Método que carga la lista de perfiles guardados en la base de datos
+ */
 	public static void loadProfiles() {
+		
+		profileList.clear();
 
 		try {
 			String sql = "SELECT * FROM profile";
@@ -195,6 +223,9 @@ private void onEntryButtonAction() {
 
 	}
 
+	
+	
+	
 	public static ObjectProperty<Profile> getProfile() {
 		return profileSelected;
 	}

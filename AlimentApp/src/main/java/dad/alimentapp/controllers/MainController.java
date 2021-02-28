@@ -86,6 +86,9 @@ public class MainController implements Initializable {
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
+		
+		myDataTab.setDisable(true);
+		manageDietsTab.setDisable(true);
 	}
 
 	// Funciones menu
@@ -171,6 +174,13 @@ public class MainController implements Initializable {
 		return view;
 	}
 
+	public Tab getMyData() {
+		return myDataTab;
+		
+	}
+	public Tab getManageDietsTab() {
+		return manageDietsTab;
+	}
 	public TabPane getDataTab() {
 		return alimentAppTabPane;
 	}
