@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.NutritionalValues;
 import dad.alimentapp.models.Product;
-import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.app.NutritionalValues;
-import dad.alimentapp.models.app.ProductMomentDay;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.service.MenuService;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.binding.Bindings;

@@ -1,6 +1,5 @@
-package dad.alimentapp.models.app;
+package dad.alimentapp.models;
 
-import dad.alimentapp.models.Weekday;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 

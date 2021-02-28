@@ -1,8 +1,6 @@
-package dad.alimentapp.models.app;
+package dad.alimentapp.models;
 
 import dad.alimentapp.controllers.MainController;
-import dad.alimentapp.models.MomentDay;
-import dad.alimentapp.models.Profile;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -155,5 +153,13 @@ public class Menu {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	public boolean isMomentsDayEmpty() {
+		return (this.getBreakfastProducts().getProducts().size() == 0
+				&& this.getMidMorningProducts().getProducts().size() == 0
+				&& this.getLunchProducts().getProducts().size() == 0
+				&& this.getSnackProducts().getProducts().size() == 0
+				&& this.getDinnerProducts().getProducts().size() == 0);
 	}
 }

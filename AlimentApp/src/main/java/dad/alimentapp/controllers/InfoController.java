@@ -26,11 +26,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Clase que muestra el conjunto de perfiles almacenados, permite acceder a ellos y borrarlos, así como acceder a la creación de un nuevo perfil
+ * @author David_Diaz
+ *
+ */
 public class InfoController implements Initializable {
 
 	// view
@@ -38,7 +45,7 @@ public class InfoController implements Initializable {
 	private BorderPane view;
 
 	@FXML
-	private ListView<Profile> profileView;
+	private  ListView<Profile> profileView;
 
 	@FXML
 	private Button newProfileButton;
@@ -70,57 +77,136 @@ public class InfoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		
 		loadProfiles();
+		
 		profileView.itemsProperty().bind(profileList);
 
-		MainController.setProfileSelected(ProfileService.getProfile(1)); // TODO PROVISIONAL
-		products = ProductService.getAllProducts();
-		loadMainImage();
+			profileView.setCellFactory(profileView -> new ListCell<Profile>() {
+		    private ImageView imageView = new ImageView();
+		    @Override
+		    public void updateItem(Profile profile, boolean empty) {
+		        super.updateItem(profile, empty);
+		        if (empty) {
+		            setText(null);
+		            setGraphic(null);
+		        } else {
+		            Image image = new Image("images/infoTab/icon_listView.png");
+		            imageView.setImage(image);
+		            imageView.setFitWidth(40);
+		            imageView.setFitHeight(40);
+		            setText(profile.toString());
+		            setGraphic(imageView);
+		        }
+		    }
+		});
+		
 
-		entryButton.setOnAction(e -> onEntryButtonAction());
-		deleteButton.setOnAction(e -> onDeleteButtonAction());
+			profileView.itemsProperty().bind(profileList);
+
+			MainController.setProfileSelected(ProfileService.getProfile(1)); // TODO PROVISIONAL
+			products = ProductService.getAllProducts();
+			loadMainImage();
+		
+		entryButton.setOnAction(e->onEntryButtonAction());
+		deleteButton.setOnAction(e->onDeleteButtonAction());
+		newProfileButton.setOnAction(e->onNewProfileButtonAction());
+		
+		newProfileButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNotNull());
+		entryButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
+		deleteButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
-	private void onDeleteButtonAction() {
+
+
+
+/**
+ * Método para cargar la información de un nuevo perfil
+ */
+private void onNewProfileButtonAction() {
+	
+	
+	App.getMainController().getDataTab().getSelectionModel().select(1);
+	App.getMainController().playTransition();
+	App.getMainController().getMyData().setDisable(false);
+	//App.getMainController().getManageDietsTab().setDisable(false);
+	MainController.setProfileSelected(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
+	profileSelected.set(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
+	
+	
+		
+	
+	}
+
+/**
+ * Método para borrar el perfil seleccionado
+ */
+private void onDeleteButtonAction() {
 		profileSelected.set(profileView.getSelectionModel().getSelectedItem());
-
-		Optional result = Messages.confirmation("Borrar un perfil", "¿Seguro que desea borrar este perfil?");
-
-		if (result.isPresent()) {
-
-			int id = profileSelected.get().getId();
-
-			try {
-				String sql = "delete FROM profile WHERE id = ?";
-				PreparedStatement query = App.connection.prepareStatement(sql);
-				query.setInt(1, id);
-				ResultSet executeDelete = query.executeQuery();
-				profileList.remove(profileSelected);
-			} catch (Exception e) {
-				Messages.error("Ha ocurrido un error", "No se ha podido borrar el usuario seleccionado.");
-			}
-
+		
+		Optional <ButtonType> result= Messages.confirmation("Borrar un perfil", "¿Seguro que desea borrar este perfil?");
+		
+		if(result.get() == ButtonType.OK) {
+			
+		int id= profileSelected.get().getId();
+		
+		try {
+			String sql = "delete FROM profile WHERE id = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql);
+			query.setInt(1, id);
+			query.executeUpdate();
+			Messages.info("Perfil borrado", "Se ha borrado el perfil correctamente");
+			profileList.clear();
+			loadProfiles();
+			App.getMainController().getMyData().setDisable(true);
+			App.getMainController().getManageDietsTab().setDisable(true);
+		}catch(Exception e) {
+			Messages.error("Ha ocurrido un error", "No se ha podido borrar el usuario seleccionado.");
+			
+		}
+		
+		
 		}
 	}
 
-	private void onEntryButtonAction() {
 
-		// CARGAMOS LOS DATOS DEL PERFIL CORRESPONDIENTE
-		profileSelected.set(profileView.getSelectionModel().getSelectedItem());
-		DataController.setProfile(profileSelected.get());
-		App.getMainController().getDataTab().getSelectionModel().select(1);
+/**
+ * Método que carga los datos del perfil seleccionado y los muestra en la pestaña correspondiente
+ */
+private void onEntryButtonAction() {
+	
+	
+	profileSelected.set( profileView.getSelectionModel().getSelectedItem());
+	MainController.setProfileSelected(profileSelected.get());
+	App.getMainController().getDataTab().getSelectionModel().select(1);
+	App.getMainController().getMyData().setDisable(false);
+	App.getMainController().getManageDietsTab().setDisable(false);
+	App.getMainController().playTransition();
+	
+	
+}
 
-	}
 
-//Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
+
+
+
+/**
+ * Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
+ */
 	private void loadMainImage() {
 
 		int nPhoto = (int) (Math.random() * (10 - 1)) + 1;
 		adviceImageView.setImage(new Image("images/infoTab/" + nPhoto + ".png"));
-
 	}
 
-	private void loadProfiles() {
+	
+
+/**
+ * Método que carga la lista de perfiles guardados en la base de datos
+ */
+	public static void loadProfiles() {
+		
+		profileList.clear();
 
 		try {
 			String sql = "SELECT * FROM profile";
@@ -137,6 +223,9 @@ public class InfoController implements Initializable {
 
 	}
 
+	
+	
+	
 	public static ObjectProperty<Profile> getProfile() {
 		return profileSelected;
 	}

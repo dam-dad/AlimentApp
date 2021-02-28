@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Weekday;
-import dad.alimentapp.models.app.DailyMenu;
-import dad.alimentapp.models.app.Menu;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -34,30 +34,6 @@ public class Utils {
 	}
 
 	/**
-	 * Reemplaza las coincidencias que encuentra en la lista con el dia de la semana
-	 * que recibe en el menu el cual le pasamos por parametro.
-	 * 
-	 * @param dailyMenu le pasamos una lista de menus.
-	 * @param menu      le pasamos un menu.
-	 */
-	// TODO corregir con la version de fran
-	public static void replaceMatchesInMenu(List<DailyMenu> dailyMenu) {
-//		boolean matches = false;
-//		int count = 0;
-//		do {
-//			if (dailyMenu.get(count).getWeekday() == menu.getWeekday()) {
-//				dailyMenu.set(count, menu);
-//				matches = true;
-//			}
-//			count++;
-//		} while (!matches && count < dailyMenu.size());
-//
-//		if (!matches) {
-//			dailyMenu.add(menu);
-//		}
-	}
-
-	/**
 	 * Buscas en la lista un menu que coincida con el dia de la semana que recibe
 	 * por parametros.
 	 * 
@@ -69,14 +45,16 @@ public class Utils {
 	public static Menu searchMatchesInMenu(List<DailyMenu> menuList, Weekday weekday) {
 		Menu menus = null;
 		boolean matches = false;
-		int count = 0;
-		do {
-			if (menuList.get(count).getWeekday() == weekday) {
-				menus = menuList.get(count).getMenu();
-				matches = true;
-			}
-			count++;
-		} while (!matches && count < menuList.size());
+		if (menuList.size() != 0) {
+			int count = 0;
+			do {
+				if (menuList.get(count).getWeekday() == weekday) {
+					menus = menuList.get(count).getMenu();
+					matches = true;
+				}
+				count++;
+			} while (!matches && count < menuList.size());
+		}
 		return menus;
 	}
 
