@@ -38,7 +38,8 @@ public class App extends Application {
 		controller = new MainController();
 
 		scene = new Scene(controller.getView(), 800, 700);
-		scene.getStylesheets().add("/css/style-light.css");
+		MainController.setStyleSheetActual("/css/style-light.css");
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		primaryStage.setMinWidth(800);
 		primaryStage.setMinHeight(700);

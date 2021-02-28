@@ -354,6 +354,7 @@ public class CreateMenuController implements Initializable {
 
 			productController = new ProductController(productMomentDay);
 			Scene scene = new Scene(productController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 			productStage.setScene(scene);
 			productStage.showAndWait();
@@ -382,37 +383,42 @@ public class CreateMenuController implements Initializable {
 	}
 
 	private void getPieChart() {
-		//nutritionalValues.get().getKcalsTotals() + 
-		Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals() + nutritionalValues.get().getHydratesTotals() +
-				nutritionalValues.get().getFatsTotals() + nutritionalValues.get().getFibresTotals();
+		if (!nutritionalValues.get().isEmpty()) {
+			// nutritionalValues.get().getKcalsTotals() +
+			Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals()
+					+ nutritionalValues.get().getHydratesTotals() + nutritionalValues.get().getFatsTotals()
+					+ nutritionalValues.get().getFibresTotals();
 //		Integer kcalValue = Math.round((nutritionalValues.get().getKcalsTotals() * 100) / nutricionalsTotals);
-		Integer proteinsValue = Math.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
-		Integer hydratesValue = Math.round((nutritionalValues.get().getHydratesTotals() * 100) / nutricionalsTotals);
-		Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
-		Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
-		
+			Integer proteinsValue = Math
+					.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
+			Integer hydratesValue = Math
+					.round((nutritionalValues.get().getHydratesTotals() * 100) / nutricionalsTotals);
+			Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
+			Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
+
 //		PieChart.Data kcal = new PieChart.Data("kcal", kcalValue);
-		PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
-		PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
-		PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
-		PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
+			PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
+			PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
+			PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
+			PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
 
 //		menuChart.getData().setAll(kcal);
-		menuChart.getData().setAll(proteins);
-		menuChart.getData().add(hydrates);
-		menuChart.getData().add(fats);
-		menuChart.getData().add(fibres);
+			menuChart.getData().setAll(proteins);
+			menuChart.getData().add(hydrates);
+			menuChart.getData().add(fats);
+			menuChart.getData().add(fibres);
 
-		menuChart.setClockwise(true);
-		menuChart.setLabelsVisible(true);
-		menuChart.setLabelLineLength(20);
+			menuChart.setClockwise(true);
+			menuChart.setLabelsVisible(true);
+			menuChart.setLabelLineLength(20);
 
-		menuChart.getData().forEach(this::installTooltip);
+			menuChart.getData().forEach(this::installTooltip);
 //		installTooltip(kcal);
-		installTooltip(proteins);
-		installTooltip(hydrates);
-		installTooltip(fats);
-		installTooltip(fibres);
+			installTooltip(proteins);
+			installTooltip(hydrates);
+			installTooltip(fats);
+			installTooltip(fibres);
+		}
 	}
 
 	public void installTooltip(PieChart.Data d) {
