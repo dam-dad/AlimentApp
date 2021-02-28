@@ -80,26 +80,30 @@ public class Utils {
 	public static boolean isMatchMenuName(Menu menu) {
 		List<Menu> menus = MenuService.getAllMenus(menu.getProfile());
 		boolean match = false;
-		int count = 0;
-		do {
-			if(menus.get(count).isEqualTo(menu)) {
-				match = true;
-			}
-			count++;
-		} while(!match && count < menus.size());
+		if(menus.size() != 0) {
+			int count = 0;
+			do {
+				if(menus.get(count).isEqualTo(menu)) {
+					match = true;
+				}
+				count++;
+			} while(!match && count < menus.size());
+		}
 		return match;
 	}
 	
 	public static boolean isMatchDietName(Diet diet) {
 		List<Diet> diets = DietService.getAllDiets(diet.getProfile());
 		boolean match = false;
-		int count = 0;
-		do {
-			if(diets.get(count).isEqualTo(diet)) {
-				match = true;
-			}
-			count++;
-		} while(!match && count < diets.size());
+		if(diets.size() != 0) {
+			int count = 0;
+			do {
+				if(diets.get(count).isEqualTo(diet)) {
+					match = true;
+				}
+				count++;
+			} while(!match && count < diets.size());
+		}
 		return match;
 	}
 }

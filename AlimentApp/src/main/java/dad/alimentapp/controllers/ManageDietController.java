@@ -165,8 +165,10 @@ public class ManageDietController implements Initializable {
 
 	public static void loadDietsAndMenus() {
 		Profile profile = MainController.getProfileSelected();
-		diets.setAll(DietService.getAllDiets(profile));
-		menus.setAll(MenuService.getAllMenus(profile));
+		if(profile != null) {
+			diets.setAll(DietService.getAllDiets(profile));
+			menus.setAll(MenuService.getAllMenus(profile));
+		}
 	}
 
 	@FXML
