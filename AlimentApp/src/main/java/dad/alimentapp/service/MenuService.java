@@ -196,13 +196,22 @@ public class MenuService {
 	 */
 	public static void deleteMenu(Menu menu) {
 		try {
-			/*String sql = "SELECT id_diets FROM diets_menus WHERE id_menu = ?";
+			String sql = "SELECT id_diets FROM diets_menus WHERE id_menu = ?";
 			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
-			query.execute(); */
-			// System.out.println(query);
-			String sql = "DELETE FROM diets_menus WHERE id_menu = ?";
-			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = query.executeQuery();
+		    while(rs.next())
+		            {
+		                if(rs.getInt(2) == menu.getId()) {
+		                int idDieta = rs.getInt(1);
+		                sql = "DELETE FROM diets WHERE id_diet = ?";
+		    			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		    			query.setInt(1, idDieta);
+		    			query.execute();
+		                }
+		            }
+			sql = "DELETE FROM diets_menus WHERE id_menu = ?";
+			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
 			query.execute();
 			sql = "DELETE FROM menu_product WHERE id_menu = ?";
@@ -215,7 +224,7 @@ public class MenuService {
 			query.execute();
 			Messages.info("Menú eliminado", "El menú ha sido eliminado correctamente.");
 		} catch (SQLException e) {
-			Messages.error("Error al eliminar el menú", "Asegúrese de eliminar primero la dieta en la que se encuentra solitariamente el menú seleccionado para poder eliminar posteriormente el menú.");
+			Messages.error("Error al eliminar el menú", "Asegúrese de eliminar primero la dieta en la que se encuentra el menú seleccionado para poder eliminar posteriormente el menú.");
 		}
 	}
 

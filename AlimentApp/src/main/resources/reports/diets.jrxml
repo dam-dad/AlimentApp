@@ -4,6 +4,27 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[gender]]></fieldDescription>
+	</field>
+	<field name="surname" class="java.lang.String">
+		<fieldDescription><![CDATA[surname]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="weight" class="java.lang.Integer">
+		<fieldDescription><![CDATA[weight]]></fieldDescription>
+	</field>
+	<field name="age" class="java.lang.String">
+		<fieldDescription><![CDATA[age]]></fieldDescription>
+	</field>
+	<field name="imc" class="java.lang.Double">
+		<fieldDescription><![CDATA[imc]]></fieldDescription>
+	</field>
+	<field name="height" class="java.lang.Integer">
+		<fieldDescription><![CDATA[height]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -22,10 +43,72 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="40" width="100" height="30" uuid="325e0c3b-ad6d-4df7-b0bd-20670463810d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e2d6899-fcf2-415b-bf7c-d42649d4133b"/>
+				</reportElement>
+				<text><![CDATA[age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="100" height="30" uuid="fcbe0a51-8d51-47dd-97bd-9742d0a8b891">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5730916-18bc-4d85-a54e-03d95d20b43a"/>
+				</reportElement>
+				<text><![CDATA[imc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="0" width="100" height="30" uuid="534c8a46-4ace-4558-8e70-143e6a84e024">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d234187-8d38-4bdc-93f9-51d7f3e3d899"/>
+				</reportElement>
+				<text><![CDATA[height]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="0" width="100" height="30" uuid="d808df51-4415-47a8-b52e-aaf1d94bc8de">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8737df04-721b-4335-b941-c82601a7f843"/>
+				</reportElement>
+				<text><![CDATA[weight]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="16" width="100" height="30" uuid="e8e9dcd1-aa98-4a75-b554-b20a405d6880"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="16" width="100" height="30" uuid="51765d69-2d67-44f2-8cbd-373cf997c4d3"/>
+				<textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="16" width="100" height="30" uuid="ddfd7e5a-fd7e-4cb3-8f74-4c64dfc3c5e2"/>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="16" width="100" height="30" uuid="e3bd7963-9ca7-4925-8052-f0246762111f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e2d6899-fcf2-415b-bf7c-d42649d4133b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="16" width="100" height="30" uuid="8489dc39-d585-43c5-b581-52e7774bce22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5730916-18bc-4d85-a54e-03d95d20b43a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{imc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="95" width="100" height="30" uuid="f00b4a03-354d-4b18-9a6e-0615edd6fa9b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d234187-8d38-4bdc-93f9-51d7f3e3d899"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{height}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="91" width="100" height="30" uuid="bbe4383d-2685-4797-9191-def5d8383e25">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8737df04-721b-4335-b941-c82601a7f843"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{weight}]]></textFieldExpression>
+			</textField>
+		</band>
 		<band height="125">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>

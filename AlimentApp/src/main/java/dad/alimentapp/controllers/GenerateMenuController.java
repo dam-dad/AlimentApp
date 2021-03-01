@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.models.Type;
-import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.utils.Messages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

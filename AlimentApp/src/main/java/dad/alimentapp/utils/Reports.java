@@ -2,10 +2,8 @@ package dad.alimentapp.utils;
 
 public class Reports {
 	
-	/*// nombres de los menús y dietas
-	String dietsName;*/
-	
 	// datos del usuario
+	int id;
 	String name;
 	String surname;
 	String gender;
@@ -14,8 +12,9 @@ public class Reports {
 	int weight;
 	int height;
 	
-	public Reports(String name, String surname, String gender, double imc, String age, int weight, int height) {
+	public Reports(int id, String name, String surname, String gender, double imc, String age, int weight, int height) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.gender = gender;
@@ -23,6 +22,14 @@ public class Reports {
 		this.age = age;
 		this.weight = weight;
 		this.height = height;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
