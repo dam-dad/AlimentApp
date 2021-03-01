@@ -149,7 +149,7 @@ public class ProductController implements Initializable {
 	}
 
 	private void filterProduct() {
-		List<Product> allProduct = InfoController.getProducts();
+		List<Product> allProduct = ProfileController.getProducts();
 		allProduct.removeAll(productMomentDay.get().getProducts());
 		defaultProducts.setAll(allProduct);
 	}

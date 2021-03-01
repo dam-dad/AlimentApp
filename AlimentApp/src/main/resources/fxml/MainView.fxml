@@ -67,7 +67,7 @@
    <center>
       <TabPane fx:id="alimentAppTabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id="informationTab" text="Información" />
+          <Tab fx:id="profileTab" text="Perfiles" />
           <Tab fx:id="myDataTab" text="Mis datos" />
             <Tab fx:id="manageDietsTab" text="Gestionar dietas" />
         </tabs>

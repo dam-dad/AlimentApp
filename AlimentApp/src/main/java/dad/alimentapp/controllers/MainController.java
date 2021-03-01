@@ -54,7 +54,7 @@ public class MainController implements Initializable {
 	private TabPane alimentAppTabPane;
 
 	@FXML
-	private Tab informationTab;
+	private Tab profileTab;
 
 	@FXML
 	private Tab myDataTab;
@@ -67,7 +67,7 @@ public class MainController implements Initializable {
 
 	// Controllers
 	DataController dataController = new DataController();
-	InfoController infoController = new InfoController();
+	ProfileController profileController = new ProfileController();
 	AboutAppController aboutAppController;
 	ManageDietController manageDietController = new ManageDietController();
 
@@ -83,7 +83,7 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		myDataTab.setContent(dataController.getView());
-		informationTab.setContent(infoController.getView());
+		profileTab.setContent(profileController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
 		
 		myDataTab.setDisable(true);

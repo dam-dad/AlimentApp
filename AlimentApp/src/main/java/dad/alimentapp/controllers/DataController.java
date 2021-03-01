@@ -30,6 +30,7 @@ import javafx.event.ActionEvent;
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Gender;
 import dad.alimentapp.models.Profile;
+import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;
 import dad.alimentapp.utils.Utils;
 import javafx.fxml.FXML;
@@ -170,7 +171,7 @@ public class DataController implements Initializable {
 		womanRadio.selectedProperty().addListener((o, ov, nv) -> onCalculateIndex());
 		manRadio.selectedProperty().addListener((o, ov, nv) -> onCalculateIndex());
 
-		profile.bind(InfoController.getProfile());
+		profile.bind(ProfileController.getProfile());
 		profile.addListener((o, ov, nv) -> onProfileChanged(o, ov, nv));
 
 		saveButton.setOnAction(e -> onSaveButtonAction(e));
@@ -225,8 +226,8 @@ public class DataController implements Initializable {
 
 		}
 		if (nv != null) {
-			profile.bind(InfoController.getProfile());
-			profileText.textProperty().bindBidirectional(profile.get().nameProfileProperty());
+			profile.bind(ProfileController.getProfile());
+			profileText.textProperty().bindBidirectional(nv.nameProfileProperty());
 			nameText.textProperty().bindBidirectional(nv.nameProperty());
 			surnameText.textProperty().bindBidirectional(nv.surNameProperty());
 			Bindings.bindBidirectional(ageText.textProperty(), nv.ageProperty(), new NumberStringConverter());
@@ -290,7 +291,7 @@ public class DataController implements Initializable {
 			query.setString(9, image);
 			query.executeUpdate();
 
-			InfoController.loadProfiles();
+			ProfileService.loadProfiles();
 			Utils.popup("Se ha guardado el perfil correctamente");
 			App.getMainController().getManageDietsTab().setDisable(false);
 

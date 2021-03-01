@@ -38,7 +38,7 @@ import javafx.scene.layout.BorderPane;
  * @author David_Diaz
  *
  */
-public class InfoController implements Initializable {
+public class ProfileController implements Initializable {
 
 	// view
 	@FXML
@@ -60,14 +60,14 @@ public class InfoController implements Initializable {
 	private ImageView adviceImageView;
 
 	// model
-	private static ListProperty<Profile> profileList = new SimpleListProperty<>(
+	public static ListProperty<Profile> profileList = new SimpleListProperty<>(
 			FXCollections.observableArrayList(new ArrayList<>()));
 	private static ObjectProperty<Profile> profileSelected = new SimpleObjectProperty<>();	
 
 	//DATA
 	private static List<Product> products;
 
-	public InfoController() throws IOException {
+	public ProfileController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/InfoView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -78,7 +78,7 @@ public class InfoController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		
-		loadProfiles();
+		ProfileService.loadProfiles();
 		
 		profileView.itemsProperty().bind(profileList);
 
@@ -102,7 +102,6 @@ public class InfoController implements Initializable {
 		});
 		
 
-			profileView.itemsProperty().bind(profileList);
 
 			MainController.setProfileSelected(ProfileService.getProfile(1)); // TODO PROVISIONAL
 			products = ProductService.getAllProducts();
@@ -129,7 +128,7 @@ private void onNewProfileButtonAction() {
 	App.getMainController().getDataTab().getSelectionModel().select(1);
 	App.getMainController().playTransition();
 	App.getMainController().getMyData().setDisable(false);
-	//App.getMainController().getManageDietsTab().setDisable(false);
+	App.getMainController().getManageDietsTab().setDisable(true);
 	MainController.setProfileSelected(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
 	profileSelected.set(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
 	
@@ -157,7 +156,7 @@ private void onDeleteButtonAction() {
 			query.executeUpdate();
 			Messages.info("Perfil borrado", "Se ha borrado el perfil correctamente");
 			profileList.clear();
-			loadProfiles();
+			ProfileService.loadProfiles();
 			App.getMainController().getMyData().setDisable(true);
 			App.getMainController().getManageDietsTab().setDisable(true);
 		}catch(Exception e) {
@@ -201,27 +200,7 @@ private void onEntryButtonAction() {
 
 	
 
-/**
- * Método que carga la lista de perfiles guardados en la base de datos
- */
-	public static void loadProfiles() {
-		
-		profileList.clear();
 
-		try {
-			String sql = "SELECT * FROM profile";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			ResultSet result = query.executeQuery();
-			while (result.next()) {
-				profileList.add(new Profile(result.getInt(1), result.getString(2), result.getString(3),
-						result.getString(4), result.getInt(5), result.getInt(6), result.getInt(7), result.getDouble(8),
-						Gender.valueOf(result.getInt(9))));
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al obtener la lista de perfiles", e.getMessage());
-		}
-
-	}
 
 	
 	
