@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Type;
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.utils.Messages;
 import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.service.MenuService;
@@ -134,6 +137,8 @@ public class GenerateMenuController implements Initializable {
 	}
 
 	@FXML
+	void onGenerateButtonAction(ActionEvent event) {
+		
 	void onSaveMenuButtonAction(ActionEvent event) {
 		/*Menu menuName = new Menu(menuNameText.getText());
 		MenuService.insertMenu(menuName);*/

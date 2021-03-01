@@ -140,7 +140,7 @@ public class ManageDietController implements Initializable {
 	private ProductMomentDay dinnerProductList;
 
 	public ManageDietController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManageDietView2.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManageDietView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -276,7 +276,10 @@ public class ManageDietController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Esta función onRemoveDietButtonAction, nos permite eliminar la dieta seleccionada
+	 */
 	@FXML
 	void onRemoveDietButtonAction(ActionEvent event) {
 		DietService.deleteDiet(dietSelected.get());
@@ -284,7 +287,11 @@ public class ManageDietController implements Initializable {
 		diets.setAll(DietService.getAllDiets(profile));
 		ManageDietController.loadDietsAndMenus();
 	}
-
+	
+	/**
+	 * Esta función onRemoveMenuButtonAction, nos permite eliminar el menú seleccionado
+	 * y posteriormente resetea las listas de productos, por si todavía se visualizaban
+	 */
 	@FXML
 	void onRemoveMenuButtonAction(ActionEvent event) {
 		MenuService.deleteMenu(menuSelected.get());
@@ -293,7 +300,11 @@ public class ManageDietController implements Initializable {
 		resetProductsMenu();
 		ManageDietController.loadDietsAndMenus();
 	}
-
+	
+	/**
+	 * Esta función resetProductsMenu, nos permite resetear las listas donde se visualizará
+	 * cada menú, de esta manera, al eliminarlo, se limpian las listas también
+	 */
 	private void resetProductsMenu() {
 
 		ObservableList<Product> clearList = FXCollections.observableArrayList();
@@ -302,13 +313,19 @@ public class ManageDietController implements Initializable {
 		lunchListView.setItems(clearList);
 		snackListView.setItems(clearList);
 		dinnerListView.setItems(clearList);
-
+		menuDietsNameLabel.setText("Menú");
 	}
-
+	
+	/**
+	 * Esta función onViewMenuButtonAction, nos permite visualizar los productos
+	 * en cada momento del día, del menú seleccionado
+	 * @param event, es el evento que realizará al apretar el botón
+	 */
 	@FXML
 	void onViewMenuButtonAction(ActionEvent event) {
 
 		loadProductsMenu();
+		menuDietsNameLabel.setText(menuSelected.get().getName());
 		breakfastListView.setItems(breakfastProductList.getProducts());
 		midMorningListView.setItems(midMorningProductList.getProducts());
 		lunchListView.setItems(lunchProductList.getProducts());
@@ -317,6 +334,10 @@ public class ManageDietController implements Initializable {
 
 	}
 
+	/**
+	 * Esta función loadProductsMenu, nos permite cargar las listas con los productos
+	 * para cada momento del día en un determinado menú seleccionado
+	 */
 	private void loadProductsMenu() {
 		breakfastProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(),
 				MomentDay.DESAYUNO);
