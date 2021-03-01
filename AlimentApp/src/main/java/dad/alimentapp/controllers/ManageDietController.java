@@ -381,6 +381,8 @@ public class ManageDietController implements Initializable {
 		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		modifIcateStage.setScene(scene);
+		modifIcateStage.setMinWidth(900);
+		modifIcateStage.setMinHeight(700);
 		modifIcateStage.setTitle(controlDiet.name());
 		modifIcateStage.getIcons().add(new Image("/images/logo.png"));
 		modifIcateStage.initModality(Modality.WINDOW_MODAL);

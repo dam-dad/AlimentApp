@@ -42,10 +42,10 @@
             <RowConstraints maxHeight="76.00000610351563" prefHeight="36.00001831054689" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <Label text="Nombre:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label text="Apellidos:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <Label text="Edad:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Label text="Sexo:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+            <Label styleClass="label-form" text="Nombre:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label styleClass="label-form" text="Apellidos:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label styleClass="label-form" text="Edad:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label styleClass="label-form" text="Sexo:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
             <TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" top="5.0" />
@@ -63,7 +63,7 @@
             </TextField>
             <HBox prefHeight="46.0" prefWidth="340.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
-                  <RadioButton fx:id="manRadio" mnemonicParsing="false" text="Hombre">
+                  <RadioButton fx:id="manRadio" mnemonicParsing="false" styleClass="radio-btn-form" text="Hombre">
                      <HBox.margin>
                         <Insets bottom="10.0" />
                      </HBox.margin>
@@ -71,7 +71,7 @@
                         <ToggleGroup fx:id="gender" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="womanRadio" mnemonicParsing="false" text="Mujer" toggleGroup="$gender">
+                  <RadioButton fx:id="womanRadio" mnemonicParsing="false" styleClass="radio-btn-form" text="Mujer" toggleGroup="$gender">
                      <HBox.margin>
                         <Insets bottom="10.0" />
                      </HBox.margin>
@@ -90,12 +90,12 @@
                   <Image url="@../images/myDataTab/default_avatar.png" />
                </image>
             </ImageView>
-            <Button fx:id="changeButton" mnemonicParsing="false" prefWidth="150.0" text="Cambiar avatar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+            <Button fx:id="changeButton" mnemonicParsing="false" prefWidth="150.0" styleClass="btn-add" text="Cambiar avatar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>
-            <Label text="Peso:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <Label text="Altura:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <Label styleClass="label-form" text="Peso:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <Label styleClass="label-form" text="Altura:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <TextField fx:id="weightText" prefWidth="40.0">
@@ -103,7 +103,7 @@
                         <Insets left="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="kg">
+                  <Label styleClass="label-form" text="kg">
                      <HBox.margin>
                         <Insets top="8.0" />
                      </HBox.margin>
@@ -117,27 +117,27 @@
                         <Insets left="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="cm">
+                  <Label styleClass="label-form" text="cm">
                      <HBox.margin>
                         <Insets top="8.0" />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
-            <Label text="IMC:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+            <Label styleClass="label-form" text="IMC:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
             <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Label fx:id="imcLabel" text="(peso*altura^ 2)" />
+                  <Label fx:id="imcLabel" styleClass="label-form" text="(peso*altura^ 2)" />
                </children>
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </HBox>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefWidth="150.0" text="Guardar datos" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Button fx:id="saveButton" mnemonicParsing="false" prefWidth="150.0" styleClass="btn-add" text="Guardar datos" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>
-            <Label text="Nombre perfil:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Label styleClass="label-form" text="Nombre perfil:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <TextField fx:id="profileText" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" top="5.0" />
@@ -204,7 +204,7 @@
                               <Image url="@../images/myDataTab/weight_image.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="idealWeightLabel" alignment="TOP_LEFT" text="-Escribe tus datos para calcular tu peso ideal" />
+                        <Label fx:id="idealWeightLabel" alignment="TOP_LEFT" styleClass="label-subtitle" text="-Escribe tus datos para calcular tu peso ideal" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="50.0" spacing="5.0">
@@ -214,7 +214,7 @@
                               <Image url="@../images/myDataTab/diet_image.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="idealDietLabel" alignment="BASELINE_CENTER" text="-Te recomendaremos un tipo de dieta " />
+                        <Label fx:id="idealDietLabel" alignment="BASELINE_CENTER" styleClass="label-subtitle" text="-Te recomendaremos un tipo de dieta " />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="50.0" spacing="5.0">
@@ -224,7 +224,7 @@
                               <Image url="@../images/myDataTab/exrcise_image.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="exerciseLabel" text="- El ejercicio que mejor te vendrá" />
+                        <Label fx:id="exerciseLabel" styleClass="label-subtitle" text="- El ejercicio que mejor te vendrá" />
                      </children>
                   </HBox>
                </children>
@@ -245,7 +245,7 @@
                         <Insets />
                      </VBox.margin>
                   </ImageView>
-                  <Label fx:id="indeximcLabel" text="Bajo peso  | Normal  | Sobrepeso  | Obeso">
+                  <Label fx:id="indeximcLabel" styleClass="label-subtitle" text="Bajo peso  | Normal  | Sobrepeso  | Obeso">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
