@@ -359,7 +359,7 @@ public class DataController implements Initializable {
 			
 			
 		 catch (SQLException exc) {
-			Messages.error("Ha ocurrido un error", exc.getMessage());
+			Messages.error("Ha ocurrido un error", "No se ha podido procesar la petición");
 		
 
 		
@@ -409,8 +409,8 @@ public class DataController implements Initializable {
 			} else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
 				resProperty.set("Sobrepeso");
 				idealDietLabel.setText("Te recomendamos seguir una dieta hipocalórica");
-				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude a quemar" + "\n"
-						+ "más calorías de las que consumes");
+				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude" + "\n"
+						+ " a quemar más calorías de las que consumes");
 				imcImageView.setImage(new Image("images/myDataTab/over_weight.png"));
 			} else {
 				resProperty.set("Obeso");
@@ -439,11 +439,11 @@ public class DataController implements Initializable {
 			if (manRadio.isSelected()) {
 				idealWeight = Math.round(((0.75 * heightProperty.get()) - 62.5) * 100.00) / 100.00;
 				idealWeightLabel.textProperty()
-						.set("Tu peso ideal está entre " + idealWeight + "-" + (idealWeight + 5.00) + " kg");
+						.set("Tu peso ideal está entre " + (idealWeight-5.00) + "-" + (idealWeight + 5.00) + " kg");
 			} else if (womanRadio.isSelected()) {
 				idealWeight = Math.round(((0.675 * heightProperty.get()) - 56.25) * 100.00) / 100.00;
 				idealWeightLabel.textProperty()
-						.set("Tu peso ideal está entre " + idealWeight + "-" + (idealWeight + 5.00) + " kg");
+						.set("Tu peso ideal está entre " + (idealWeight-5.00) + "-" + (idealWeight + 5.00) + " kg");
 
 			}
 		}
