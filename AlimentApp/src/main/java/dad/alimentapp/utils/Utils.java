@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Diet;
 import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Weekday;
+import dad.alimentapp.service.DietService;
+import dad.alimentapp.service.MenuService;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -72,5 +75,35 @@ public class Utils {
 
 		popup.show(App.getPrimaryStage());
 		delay.play();
+	}
+	
+	public static boolean isMatchMenuName(Menu menu) {
+		List<Menu> menus = MenuService.getAllMenus(menu.getProfile());
+		boolean match = false;
+		if(menus.size() != 0) {
+			int count = 0;
+			do {
+				if(menus.get(count).isEqualTo(menu)) {
+					match = true;
+				}
+				count++;
+			} while(!match && count < menus.size());
+		}
+		return match;
+	}
+	
+	public static boolean isMatchDietName(Diet diet) {
+		List<Diet> diets = DietService.getAllDiets(diet.getProfile());
+		boolean match = false;
+		if(diets.size() != 0) {
+			int count = 0;
+			do {
+				if(diets.get(count).isEqualTo(diet)) {
+					match = true;
+				}
+				count++;
+			} while(!match && count < diets.size());
+		}
+		return match;
 	}
 }
