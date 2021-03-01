@@ -2,11 +2,16 @@ package dad.alimentapp.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.NutritionalValues;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.service.MenuService;
+import dad.alimentapp.utils.Messages;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,19 +61,19 @@ public class GenerateMenuController implements Initializable {
 	private ComboBox<String> menuTypeCombo;
 
 	@FXML
-	private ListView<Product> breakfastListView;
+	private ListView<String> breakfastListView;
 
 	@FXML
-	private ListView<Product> midMorningListView;
+	private ListView<String> midMorningListView;
 
 	@FXML
-	private ListView<Product> lunchListView;
+	private ListView<String> lunchListView;
 
 	@FXML
-	private ListView<Product> snackListView;
+	private ListView<String> snackListView;
 
 	@FXML
-	private ListView<Product> dinnerListView;
+	private ListView<String> dinnerListView;
 
 	@FXML
 	private TextField menuNameText;
@@ -93,6 +98,12 @@ public class GenerateMenuController implements Initializable {
 
 	ObservableList<String> menuList = FXCollections.observableArrayList(menu1, menu2, menu3, menu4, menu5);
 
+	/*
+	 * private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
+	 * private ObjectProperty<NutritionalValues> nutritionalValues = new
+	 * SimpleObjectProperty<>(new NutritionalValues());
+	 */
+
 	public GenerateMenuController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GenerateMenuView.fxml"));
 		loader.setController(this);
@@ -114,11 +125,11 @@ public class GenerateMenuController implements Initializable {
 		menuTypeCombo.setItems(menuList);
 
 		menuTypeCombo.getSelectionModel().selectFirst();
-		System.out.println(menuTypeCombo.getSelectionModel().getSelectedIndex());
 
-		menuTypeCombo.selectionModelProperty().addListener((o, ov, nv) -> {
-			listProductList();
-		});
+		/*
+		 * menuTypeCombo.selectionModelProperty().addListener((o, ov, nv) -> {
+		 * listProductList(); });
+		 */
 	}
 
 	/**
@@ -133,47 +144,61 @@ public class GenerateMenuController implements Initializable {
 		stage.close();
 	}
 
+	/**
+	 * Guardará el menú en la lista de menus y en el listView de momentos del dia en
+	 * ManageDietController
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void onSaveMenuButtonAction(ActionEvent event) {
-		/*Menu menuName = new Menu(menuNameText.getText());
-		MenuService.insertMenu(menuName);*/
+		/*
+		 * Menu menuName = new Menu(); menuName.setName(menuNameText.getText());
+		 * menuName.setBreakfastProducts(breakfastProducts);
+		 * menuName.setMidMorningProducts(midMorningProducts);
+		 * menuName.setLunchProducts(lunchProducts);
+		 * menuName.setSnackProducts(snackProducts);
+		 * menuName.setDinnerProducts(dinnerProducts); Messages.info("Menú generado",
+		 * "Se ha generado el menú correctamente.");
+		 */
+
 	}
 
-	private void listProductList() {
-		/*if (menuTypeCombo.getSelectionModel().isSelected(0)) {
-			breakfastListView.getItems().add(product4B);
-			breakfastListView.getItems().add(product5B);
-			breakfastListView.getItems().add(product6B);
-			midMorningListView.getItems().add(product1MM);
-			midMorningListView.getItems().add(product2MM);
-			midMorningListView.getItems().add(product4MM);
-			lunchListView.getItems().add(product5L);
-			lunchListView.getItems().add(product2L);
-			lunchListView.getItems().add(product4L);
-			snackListView.getItems().add(product1S);
-			snackListView.getItems().add(product2S);
-			snackListView.getItems().add(product3S);
-			dinnerListView.getItems().add(product1D);
-			dinnerListView.getItems().add(product4D);
-			dinnerListView.getItems().add(product5D);
-		} else if (menuTypeCombo.getSelectionModel().isSelected(4)) {
-			breakfastListView.getItems().add(product1B);
-			breakfastListView.getItems().add(product2B);
-			breakfastListView.getItems().add(product3B);
-			midMorningListView.getItems().add(product1MM);
-			midMorningListView.getItems().add(product2MM);
-			midMorningListView.getItems().add(product3MM);
-			lunchListView.getItems().add(product1L);
-			lunchListView.getItems().add(product2L);
-			lunchListView.getItems().add(product3L);
-			snackListView.getItems().add(product1S);
-			snackListView.getItems().add(product2S);
-			snackListView.getItems().add(product3S);
-			dinnerListView.getItems().add(product1D);
-			dinnerListView.getItems().add(product2D);
-			dinnerListView.getItems().add(product3D);
-		}*/
-	}
+	/*
+	 * private void listProductList() { if
+	 * (menuTypeCombo.getSelectionModel().getSelectedIndex() == 0) {
+	 * breakfastListView.getItems().add(product4B);
+	 * breakfastListView.getItems().add(product5B);
+	 * breakfastListView.getItems().add(product6B);
+	 * midMorningListView.getItems().add(product1MM);
+	 * midMorningListView.getItems().add(product2MM);
+	 * midMorningListView.getItems().add(product4MM);
+	 * lunchListView.getItems().add(product5L);
+	 * lunchListView.getItems().add(product2L);
+	 * lunchListView.getItems().add(product4L);
+	 * snackListView.getItems().add(product1S);
+	 * snackListView.getItems().add(product2S);
+	 * snackListView.getItems().add(product3S);
+	 * dinnerListView.getItems().add(product1D);
+	 * dinnerListView.getItems().add(product4D);
+	 * dinnerListView.getItems().add(product5D); } else if
+	 * (menuTypeCombo.getSelectionModel().isSelected(4)) {
+	 * breakfastListView.getItems().add(product1B);
+	 * breakfastListView.getItems().add(product2B);
+	 * breakfastListView.getItems().add(product3B);
+	 * midMorningListView.getItems().add(product1MM);
+	 * midMorningListView.getItems().add(product2MM);
+	 * midMorningListView.getItems().add(product3MM);
+	 * lunchListView.getItems().add(product1L);
+	 * lunchListView.getItems().add(product2L);
+	 * lunchListView.getItems().add(product3L);
+	 * snackListView.getItems().add(product1S);
+	 * snackListView.getItems().add(product2S);
+	 * snackListView.getItems().add(product3S);
+	 * dinnerListView.getItems().add(product1D);
+	 * dinnerListView.getItems().add(product2D);
+	 * dinnerListView.getItems().add(product3D); } }
+	 */
 
 	public VBox getView() {
 		return view;

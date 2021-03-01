@@ -34,7 +34,7 @@
             <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Menu:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <Label text="Menu:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -110,7 +110,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="menuTypeCombo" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="190.0" promptText="Elige un menú" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <ComboBox fx:id="menuTypeCombo" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="190.0" promptText="Elige un menú" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
