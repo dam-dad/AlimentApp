@@ -14,8 +14,6 @@ import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.app.Menu;
 import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.utils.Messages;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 
 /**
@@ -199,6 +197,11 @@ public class MenuService {
 	 */
 	public static void deleteMenu(Menu menu) {
 		try {
+			/*String sql = "SELECT id_diets FROM diets_menus WHERE id_menu = ?";
+			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, menu.getId());
+			query.execute(); */
+			// System.out.println(query);
 			String sql = "DELETE FROM diets_menus WHERE id_menu = ?";
 			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
@@ -211,12 +214,9 @@ public class MenuService {
 			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
 			query.execute();
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Éxito en la eliminación");
-			alert.setHeaderText("Se ha eliminado el menú correctamente.");
-			alert.show();
+			Messages.info("Menú eliminado", "El menú ha sido eliminado correctamente.");
 		} catch (SQLException e) {
-			Messages.error("Error al eliminar el menú", e.getMessage());
+			Messages.error("Error al eliminar el menú", "Asegúrese de eliminar primero la dieta en la que se encuentra solitariamente el menú seleccionado para poder eliminar posteriormente el menú.");
 		}
 	}
 	

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.models.Type;
+import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.utils.Messages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -201,7 +203,7 @@ public class GenerateMenuController implements Initializable {
 
 	@FXML
 	void onGenerateButtonAction(ActionEvent event) {
-
+		
 	}
 
 	public BorderPane getView() {

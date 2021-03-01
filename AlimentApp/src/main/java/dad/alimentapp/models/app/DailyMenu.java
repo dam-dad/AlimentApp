@@ -1,3 +1,4 @@
+
 package dad.alimentapp.models.app;
 
 import dad.alimentapp.models.Weekday;
