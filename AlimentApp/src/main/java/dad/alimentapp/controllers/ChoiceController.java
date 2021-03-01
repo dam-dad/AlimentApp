@@ -169,6 +169,8 @@ public class ChoiceController implements Initializable {
 		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		createCustomStage.setScene(scene);
+		createCustomStage.setMinWidth(900);
+		createCustomStage.setMinHeight(700);
 		createCustomStage.setTitle(controlDietMenu.name());
 		createCustomStage.getIcons().add(new Image("/images/logo.png"));
 		createCustomStage.initModality(Modality.WINDOW_MODAL);

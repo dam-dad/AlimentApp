@@ -25,7 +25,6 @@ import javafx.util.Duration;
  */
 public class Utils {
 	/** 
-	 * @author Antonio
 	 * Esta funcion "closeApp" la utilizamos para sacar un alert de confimacion a la
 	 * hora de intentar salir de nuestra aplicación.
 	 */
@@ -38,7 +37,6 @@ public class Utils {
 	}
 
 	/** 
-	 * @author Antonio
 	 * Buscas en la lista un menu que coincida con el dia de la semana que recibe
 	 * por parametros.
 	 * 
@@ -64,7 +62,6 @@ public class Utils {
 	}
 
 	/**
-	 *  @author Antonio
 	 * El metodo "popup" lanza un dialogo emergente con un mensaje para el usuario.
 	 * 
 	 * @param message le pasamos por parametros el mensaje a mostrar al usuario.
@@ -86,7 +83,6 @@ public class Utils {
 	}
 
 	/**
-	 *  @author Antonio
 	 * El metodo "isMatchMenuName" se encarga de compara si exite otro menú con el
 	 * mismo nombre del el menu que recibimos por parametros.
 	 * 
@@ -109,7 +105,6 @@ public class Utils {
 	}
 
 	/**
-	 *  @author Antonio
 	 * El metodo "isMatchDietName" se encarga de compara si exite otra dieta con el
 	 * mismo nombre de la dieta que recibimos por parametros.
 	 * 

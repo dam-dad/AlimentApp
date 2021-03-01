@@ -24,8 +24,7 @@ import dad.alimentapp.utils.Messages;
  *
  */
 public class DietService {
-	/**
-	 * @author Antonio 
+	/** 
 	 * El metodo "getAllDiets" lo utilizamos para obtener una lista
 	 *         de dietas del perfil indicado.
 	 *
@@ -51,7 +50,7 @@ public class DietService {
 		return dietsList;
 	}
 	/**
-	 *  @author Antonio
+	 *
 	 *  El metodo "getAllMenusForDiet" se encarga de cargar todos los menus para la dieta indicada.
 	 * @param diet le pasamos la dieta por parametros.
 	 * @return retornamos el menu con su dia de la semana correspondiente.
@@ -76,7 +75,6 @@ public class DietService {
 		return dailyMenu;
 	}
 	/**
-	 *  @author Antonio
 	 *  El metodo "insertDiet" se encarga de insertar una dieta.
 	 * @param diet le pasamos la dieta por parametros.
 	 */
@@ -97,7 +95,6 @@ public class DietService {
 		}
 	}
 	/**
-	 * @author Antonio
 	 * El metodo "updateDiet" se encarga de modificar una dieta.
 	 * @param diet le pasamos por parametros la dieta a actualizar.
 	 */
@@ -138,7 +135,6 @@ public class DietService {
 	}
 	
 	/**
-	 *  @author Antonio
 	 * El metodo "insertAllMenusForDiet" se encarga de insertar todos los menus para la dieta indicada.
 	 * @param diet le pasamos por parametros la dieta.
 	 */
@@ -153,7 +149,6 @@ public class DietService {
 		}
 	}
 	/**
-	 *  @author Antonio
 	 *  El metodo "insertMenuForDietInWeekday" se encarga de insertar un menu en una dieta para un dia de la semana.
 	 * @param dietId le pasamos id de la dieta
 	 * @param dailyMenu le pasamos el menu con su dia de la semana correspondiente
@@ -171,7 +166,6 @@ public class DietService {
 		}
 	}
 	/**
-	 *  @author Antonio
 	 *  El metodo "deleteAllMenusForDiet" se encarga de eliminar todos los menus de una dieta.
 	 * @param idDiet le pasamos el id de la dieta.
 	 */

@@ -230,10 +230,6 @@ public class DataController implements Initializable {
 	 * @param nv Nuevo Valor que tiene el parámetro
 	 */
 	private void onProfileChanged(ObservableValue<? extends Profile> o, Profile ov, Profile nv) {
-
-		System.out.println("ov: " + ov);
-		System.out.println("nv: " + nv);
-
 		if (ov != null) {
 			
 			profile.unbind();

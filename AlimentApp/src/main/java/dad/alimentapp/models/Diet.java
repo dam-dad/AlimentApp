@@ -12,6 +12,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * La clase "Diet" la utilizamos para almacenar la informacion de una dieta
+ * junto con la lista de menus que posee.
+ * 
+ * @author Antonio
+ *
+ */
 public class Diet {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
@@ -87,13 +94,13 @@ public class Diet {
 	public String toString() {
 		return getName();
 	}
-	
+
 	public boolean isEqualTo(Diet diet) {
 		return name.get().equals(diet.getName());
 	}
-	
+
 	public void clear() {
-		for (int i = dailyMenus.size()-1; i >= 0; i--) {
+		for (int i = dailyMenus.size() - 1; i >= 0; i--) {
 			if (dailyMenus.get(i).getMenu().isMomentsDayEmpty()) {
 				dailyMenus.removeAll(dailyMenus.get(i));
 			}
