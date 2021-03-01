@@ -3,8 +3,6 @@ package dad.alimentapp.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +12,7 @@ import dad.alimentapp.models.Gender;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.service.ProductService;
+import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -114,12 +113,15 @@ public class ProfileController implements Initializable {
 		newProfileButton.setOnAction(e->onNewProfileButtonAction());
 		
 
+
 		newProfileButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNotNull());
 		entryButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
 		deleteButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	
+
+
 
 
 

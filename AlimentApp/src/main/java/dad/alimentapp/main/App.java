@@ -37,12 +37,12 @@ public class App extends Application {
 
 		controller = new MainController();
 
-		scene = new Scene(controller.getView(), 950, 700);
+		scene = new Scene(controller.getView(), 950, 750);
 		MainController.setStyleSheetActual("/css/style-light.css");
 		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		primaryStage.setMinWidth(950);
-		primaryStage.setMinHeight(700);
+		primaryStage.setMinHeight(750);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("AlimentApp");
 		primaryStage.getIcons().add(new Image("/images/logo.png"));

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -170,17 +170,14 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <BarChart fx:id="historicChart">
+                  <LineChart fx:id="imcLineChart">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <CategoryAxis fx:id="weekAxis" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" />
+                      <NumberAxis fx:id="numberAxis" side="LEFT" />
                     </yAxis>
-                     <VBox.margin>
-                        <Insets top="40.0" />
-                     </VBox.margin>
-                  </BarChart>
+                  </LineChart>
                </children>
             </VBox>
             <Label text="Histórico de registros:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -240,7 +237,7 @@
             <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <children>
-                  <ImageView fx:id="imcImageView" fitHeight="230.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imcImageView" fitHeight="200.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../../Desktop/ALIMENTAPP/low_weight.png" />
                      </image>
