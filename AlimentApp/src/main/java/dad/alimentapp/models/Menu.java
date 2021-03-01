@@ -8,6 +8,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * La clase "Menu" la utilizamos para almacenar los datos de un menu y la lista
+ * de productos que posee para cada momento del dia.
+ * 
+ * @author Antonio
+ *
+ */
 public class Menu {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
@@ -162,7 +169,7 @@ public class Menu {
 				&& this.getSnackProducts().getProducts().size() == 0
 				&& this.getDinnerProducts().getProducts().size() == 0);
 	}
-	
+
 	public boolean isEqualTo(Menu menu) {
 		return name.get().equals(menu.getName());
 	}

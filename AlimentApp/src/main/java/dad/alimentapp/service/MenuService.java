@@ -24,8 +24,8 @@ import dad.alimentapp.utils.Messages;
  */
 public class MenuService {
 	/**
-	 * @author Antonio El metodo "getAllMenus" lo utilizamos para obtener una lista
-	 *         de menus del perfil indicado.
+	 * El metodo "getAllMenus" lo utilizamos para obtener una lista de menus del
+	 * perfil indicado.
 	 *
 	 * @param profile le pasamos el objeto profile para realizar la busqueda de los
 	 *                menus que le pertenecen.
@@ -57,9 +57,8 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio 
-	 * El metodo "getMenu" lo utilizamos para obtener un menu a
-	 *         través de su identificador el cual recibimos por parametros.
+	 * El metodo "getMenu" lo utilizamos para obtener un menu a través de su
+	 * identificador el cual recibimos por parametros.
 	 * 
 	 * @param menu_id le pasamos el identificador del menu.
 	 * @return retornamos el menu resultante.
@@ -89,8 +88,8 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "updateMenu" lo utilizamos para actualizar la
-	 *         informacion de un menu que recibimos por parametros.
+	 * El metodo "updateMenu" lo utilizamos para actualizar la informacion de un
+	 * menu que recibimos por parametros.
 	 * 
 	 * @param menu recibimos el menu que vamos a actualizar.
 	 */
@@ -110,8 +109,9 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "insertAllProductsInMenuForAllMomentDay" se encarga
-	 *         de insertar cada menu en sus respectivo momento del dia.
+	 * El metodo "insertAllProductsInMenuForAllMomentDay" se encarga de insertar
+	 * cada menu en sus respectivo momento del dia.
+	 * 
 	 * @param menu
 	 */
 	private static void insertAllProductsInMenuForAllMomentDay(Menu menu) {
@@ -123,8 +123,9 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "insertProductsInMenuForMomentDay" se encarga de
-	 *         insertar todos los productos de un menu para un momento del dia.
+	 * El metodo "insertProductsInMenuForMomentDay" se encarga de insertar todos los
+	 * productos de un menu para un momento del dia.
+	 * 
 	 * @param idMenu
 	 * @param productMomentDay
 	 */
@@ -135,8 +136,9 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "insertMenuProduct" se encarga de insertar un
-	 *         productos de un menu para un momento del dia.
+	 * El metodo "insertMenuProduct" se encarga de insertar un productos de un menu
+	 * para un momento del dia.
+	 * 
 	 * @param id_menu
 	 * @param id_product
 	 * @param id_moment_day
@@ -159,8 +161,9 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "deleteAllProductsForMenuAllMomentDay" se encarga
-	 *         de eliminar todos los productos de un menu para un momento del dia.
+	 * El metodo "deleteAllProductsForMenuAllMomentDay" se encarga de eliminar todos
+	 * los productos de un menu para un momento del dia.
+	 * 
 	 * @param menuId
 	 */
 	private static void deleteAllProductsForMenuAllMomentDay(Integer menuId) {
@@ -172,8 +175,8 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "deleteAllProductsForMomentDay" lo utilizamnos para
-	 *         eliminar todos los productos de un momento del dia.
+	 * El metodo "deleteAllProductsForMomentDay" lo utilizamnos para eliminar todos
+	 * los productos de un momento del dia.
 	 * 
 	 * @param idMenu    recibimos el id del menu al cual le vamos a borrar los
 	 *                  productos.
@@ -193,8 +196,8 @@ public class MenuService {
 	}
 
 	/**
-	 * @author Antonio El metodo "insertMenu" lo utilizaremos para insertar un menu
-	 *         y todos sus productos relacionados.
+	 * El metodo "insertMenu" lo utilizaremos para insertar un menu y todos sus
+	 * productos relacionados.
 	 * 
 	 * @param menu le pasaremos el menu a insertar.
 	 */
@@ -226,16 +229,15 @@ public class MenuService {
 			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
 			ResultSet rs = query.executeQuery();
-		    while(rs.next())
-		            {
-		                if(rs.getInt(2) == menu.getId()) {
-		                int idDieta = rs.getInt(1);
-		                sql = "DELETE FROM diets WHERE id_diet = ?";
-		    			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		    			query.setInt(1, idDieta);
-		    			query.execute();
-		                }
-		            }
+			while (rs.next()) {
+				if (rs.getInt(2) == menu.getId()) {
+					int idDieta = rs.getInt(1);
+					sql = "DELETE FROM diets WHERE id_diet = ?";
+					query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					query.setInt(1, idDieta);
+					query.execute();
+				}
+			}
 			sql = "DELETE FROM diets_menus WHERE id_menu = ?";
 			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
@@ -250,7 +252,8 @@ public class MenuService {
 			query.execute();
 			Messages.info("Menú eliminado", "El menú ha sido eliminado correctamente.");
 		} catch (SQLException e) {
-			Messages.error("Error al eliminar el menú", "Asegúrese de eliminar primero la dieta en la que se encuentra el menú seleccionado para poder eliminar posteriormente el menú.");
+			Messages.error("Error al eliminar el menú",
+					"Asegúrese de eliminar primero la dieta en la que se encuentra el menú seleccionado para poder eliminar posteriormente el menú.");
 		}
 	}
 

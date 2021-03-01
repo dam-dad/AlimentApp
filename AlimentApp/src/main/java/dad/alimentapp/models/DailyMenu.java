@@ -3,6 +3,13 @@ package dad.alimentapp.models;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+/**
+ * La clase "DailyMenu" la utilizamos para almacenar un menu junto al dia de la
+ * semana en el que este asignado.
+ * 
+ * @author Antonio
+ *
+ */
 public class DailyMenu {
 
 	private ObjectProperty<Weekday> weekday = new SimpleObjectProperty<>();
