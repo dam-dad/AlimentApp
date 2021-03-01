@@ -24,7 +24,8 @@ import javafx.util.Duration;
  *
  */
 public class Utils {
-	/**
+	/** 
+	 * @author Antonio
 	 * Esta funcion "closeApp" la utilizamos para sacar un alert de confimacion a la
 	 * hora de intentar salir de nuestra aplicación.
 	 */
@@ -36,7 +37,8 @@ public class Utils {
 		}
 	}
 
-	/**
+	/** 
+	 * @author Antonio
 	 * Buscas en la lista un menu que coincida con el dia de la semana que recibe
 	 * por parametros.
 	 * 
@@ -61,6 +63,12 @@ public class Utils {
 		return menus;
 	}
 
+	/**
+	 *  @author Antonio
+	 * El metodo "popup" lanza un dialogo emergente con un mensaje para el usuario.
+	 * 
+	 * @param message le pasamos por parametros el mensaje a mostrar al usuario.
+	 */
 	public static void popup(String message) {
 		Popup popup = new Popup();
 		popup.setAutoHide(true);
@@ -76,33 +84,49 @@ public class Utils {
 		popup.show(App.getPrimaryStage());
 		delay.play();
 	}
-	
+
+	/**
+	 *  @author Antonio
+	 * El metodo "isMatchMenuName" se encarga de compara si exite otro menú con el
+	 * mismo nombre del el menu que recibimos por parametros.
+	 * 
+	 * @param menu le pasamos por parametros el menu a comparar con los ya existentes.
+	 * @return retornamos un true si encuentra coincidencias y en caso contrario retornamos false.
+	 */
 	public static boolean isMatchMenuName(Menu menu) {
 		List<Menu> menus = MenuService.getAllMenus(menu.getProfile());
 		boolean match = false;
-		if(menus.size() != 0) {
+		if (menus.size() != 0) {
 			int count = 0;
 			do {
-				if(menus.get(count).isEqualTo(menu)) {
+				if (menus.get(count).isEqualTo(menu)) {
 					match = true;
 				}
 				count++;
-			} while(!match && count < menus.size());
+			} while (!match && count < menus.size());
 		}
 		return match;
 	}
-	
+
+	/**
+	 *  @author Antonio
+	 * El metodo "isMatchDietName" se encarga de compara si exite otra dieta con el
+	 * mismo nombre de la dieta que recibimos por parametros.
+	 * 
+	 * @param diet le pasamos por parametros la dieta a comparar con las ya existentes.
+	 * @return retornamos un true si encuentra coincidencias y en caso contrario retornamos false.
+	 */
 	public static boolean isMatchDietName(Diet diet) {
 		List<Diet> diets = DietService.getAllDiets(diet.getProfile());
 		boolean match = false;
-		if(diets.size() != 0) {
+		if (diets.size() != 0) {
 			int count = 0;
 			do {
-				if(diets.get(count).isEqualTo(diet)) {
+				if (diets.get(count).isEqualTo(diet)) {
 					match = true;
 				}
 				count++;
-			} while(!match && count < diets.size());
+			} while (!match && count < diets.size());
 		}
 		return match;
 	}

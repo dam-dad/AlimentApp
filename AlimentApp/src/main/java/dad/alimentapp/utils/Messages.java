@@ -31,7 +31,6 @@ public class Messages {
 		alert.setHeaderText("");
 		alert.setContentText(content);
 
-		// PONER ICONO DEL PADRE
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().setAll(App.getPrimaryStage().getIcons());
 
@@ -43,16 +42,16 @@ public class Messages {
 	 * El metodo "info" nos permite crear un alert personalizado de tipo
 	 * información.
 	 * 
-	 * @param title   debera definir el titulo del alert.
+	 * @param header   debera definir el titulo del alert.
 	 * @param content debera definir el contenido de dicho alert.
 	 */
+
 	public static void info(String header, String content) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Info");
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 
-		// PONER ICONO DEL PADRE
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().setAll(App.getPrimaryStage().getIcons());
 
@@ -62,7 +61,7 @@ public class Messages {
 	/**
 	 * El metodo "error" nos permite crear un alert personalizado de tipo error.
 	 * 
-	 * @param title   debera definir el titulo del alert.
+	 * @param header   debera definir el titulo del alert.
 	 * @param content debera definir el contenido de dicho alert.
 	 */
 	public static void error(String header, String content) {
@@ -71,7 +70,6 @@ public class Messages {
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 
-		// PONER ICONO DEL PADRE
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().setAll(App.getPrimaryStage().getIcons());
 

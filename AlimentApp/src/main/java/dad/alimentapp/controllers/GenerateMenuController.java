@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Type;
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.utils.Messages;
 import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.NutritionalValues;
 import dad.alimentapp.models.Product;

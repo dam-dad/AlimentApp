@@ -3,7 +3,7 @@
     
 	}
 .button{
-	-fx-background-color:orange;
+	-fx-background-color:#00796B;
 
 }
  .button:hover {
@@ -15,11 +15,11 @@
 
 .list-cell {
 	
-    -fx-font-size: 16 ;
-     -fx-padding: 5px;
+    -fx-font-size: 12.0 ;
+     -fx-padding: 5.0px;
       -fx-font-family: "Courier New";
 
-       fx-width:40;
+       fx-width:40.0;
 }
 
 
@@ -29,4 +29,16 @@
 }
 .textfield{
 -fx-border: none;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#0D47A1,10.0%);
+}
+.tab-pane{
+	 -fx-background-color:#AFF4F3;
+}
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 16;
+  -fx-background-color:royalblue ;
 }
