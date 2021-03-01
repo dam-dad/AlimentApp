@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import dad.alimentapp.models.Product;
-import dad.alimentapp.models.app.ProductMomentDay;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.utils.Utils;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

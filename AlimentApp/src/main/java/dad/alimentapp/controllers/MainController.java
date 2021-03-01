@@ -12,7 +12,6 @@ import dad.alimentapp.models.Profile;
 import dad.alimentapp.utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,6 +73,9 @@ public class MainController implements Initializable {
 
 	// Profile
 	private static Profile profileSelected;
+	
+	//VARIABLES
+	private static String styleSheetsActual;
 
 	public MainController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
@@ -86,6 +88,9 @@ public class MainController implements Initializable {
 		myDataTab.setContent(dataController.getView());
 		informationTab.setContent(infoController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
+		
+		myDataTab.setDisable(true);
+		manageDietsTab.setDisable(true);
 	}
 
 	// Funciones menu
@@ -102,12 +107,16 @@ public class MainController implements Initializable {
 
 	@FXML
 	void onLightThemeMenuAction(ActionEvent event) {
-
+		App.getAppScene().getStylesheets().clear();
+		styleSheetsActual = "/css/style-light.css";
+		App.getAppScene().getStylesheets().add(styleSheetsActual);
 	}
 
 	@FXML
 	void onDarkThemeMenuAction(ActionEvent event) {
-
+		App.getAppScene().getStylesheets().clear();
+		styleSheetsActual = "/css/style-dark.css";
+		App.getAppScene().getStylesheets().add(styleSheetsActual);
 	}
 
 	@FXML
@@ -166,11 +175,26 @@ public class MainController implements Initializable {
 	public static void setProfileSelected(Profile profileSelected) {
 		MainController.profileSelected = profileSelected;
 	}
+	
+	public static String getStyleSheetActual() {
+		return styleSheetsActual;
+	}
+	
+	public static void setStyleSheetActual(String style) {
+		styleSheetsActual = style;
+	}
 
 	public BorderPane getView() {
 		return view;
 	}
 
+	public Tab getMyData() {
+		return myDataTab;
+		
+	}
+	public Tab getManageDietsTab() {
+		return manageDietsTab;
+	}
 	public TabPane getDataTab() {
 		return alimentAppTabPane;
 	}

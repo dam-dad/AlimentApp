@@ -1,4 +1,4 @@
-package dad.alimentapp.models.app;
+package dad.alimentapp.models;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -88,5 +88,9 @@ public class NutritionalValues {
 		this.hydratesTotals.set(0);
 		this.fatsTotals.set(0);
 		this.fibresTotals.set(0);
+	}
+	
+	public boolean isEmpty() {
+		return getKcalsTotals() == 0 && getProteinsTotals() == 0 && getHydratesTotals() == 0 && getFatsTotals() == 0 && getFibresTotals() == 0;
 	}
 }

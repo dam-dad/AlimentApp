@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.NutritionalValues;
 import dad.alimentapp.models.Product;
-import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.app.NutritionalValues;
-import dad.alimentapp.models.app.ProductMomentDay;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.service.MenuService;
 import dad.alimentapp.utils.Messages;
+import dad.alimentapp.utils.Utils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -340,7 +341,7 @@ public class CreateMenuController implements Initializable {
 	private void newSceneProduct(ProductMomentDay productMomentDay) {
 		Stage choice = ChoiceController.getCreateDietCustomStage();
 		Stage manage = ManageDietController.getModificateStage();
-		
+
 		Stage stage = choice != null ? choice : manage;
 		try {
 			Stage productStage = new Stage();
@@ -353,6 +354,7 @@ public class CreateMenuController implements Initializable {
 
 			productController = new ProductController(productMomentDay);
 			Scene scene = new Scene(productController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 			productStage.setScene(scene);
 			productStage.showAndWait();
@@ -363,45 +365,64 @@ public class CreateMenuController implements Initializable {
 
 	@FXML
 	void onSaveMenuButtonAction(ActionEvent event) {
-		if (menuSelected.get().getId() != 0) {
+		menuSelected.get().setName(menuSelected.get().getName().trim());
+		if (menuSelected.get().getId() == 0) {
+			boolean isDuplicate = Utils.isMatchMenuName(menuSelected.get());
+			if (isDuplicate) {
+				Messages.error("Error al guardar el menú", "No se pueden guardar menús con el mismo nombre.");
+			} else {
+				MenuService.insertMenu(menuSelected.get());
+				ManageDietController.loadDietsAndMenus();
+				ChoiceController.getCreateDietCustomStage().close();
+			}
+		} else {
 			MenuService.updateMenu(menuSelected.get());
 			ManageDietController.loadDietsAndMenus();
 			ManageDietController.getModificateStage().close();
-		} else {
-			MenuService.insertMenu(menuSelected.get());
-			ManageDietController.loadDietsAndMenus();
-			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}
-		
+
 	private void getPieChart() {
+		if (!nutritionalValues.get().isEmpty()) {
+			// nutritionalValues.get().getKcalsTotals() +
+			Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals()
+					+ nutritionalValues.get().getHydratesTotals() + nutritionalValues.get().getFatsTotals()
+					+ nutritionalValues.get().getFibresTotals();
+//		Integer kcalValue = Math.round((nutritionalValues.get().getKcalsTotals() * 100) / nutricionalsTotals);
+			Integer proteinsValue = Math
+					.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
+			Integer hydratesValue = Math
+					.round((nutritionalValues.get().getHydratesTotals() * 100) / nutricionalsTotals);
+			Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
+			Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
 
-		//PieChart.Data kcal = new PieChart.Data("kcal", nutritionalValues.get().getKcalsTotals());
-		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
-		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
-		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
-		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
+//		PieChart.Data kcal = new PieChart.Data("kcal", kcalValue);
+			PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
+			PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
+			PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
+			PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
 
-		//menuChart.getData().setAll(kcal);		
-		menuChart.getData().setAll(proteins);
-		menuChart.getData().add(hydrates);
-		menuChart.getData().add(fats);
-		menuChart.getData().add(fibres);
+//		menuChart.getData().setAll(kcal);
+			menuChart.getData().setAll(proteins);
+			menuChart.getData().add(hydrates);
+			menuChart.getData().add(fats);
+			menuChart.getData().add(fibres);
 
-		menuChart.setClockwise(true);
-		menuChart.setLabelsVisible(true);
-		menuChart.setLabelLineLength(20);
+			menuChart.setClockwise(true);
+			menuChart.setLabelsVisible(true);
+			menuChart.setLabelLineLength(20);
 
-		menuChart.getData().forEach(this::installTooltip);
-		//installTooltip(kcal);
-		installTooltip(proteins);
-		installTooltip(hydrates);
-		installTooltip(fats);
-		installTooltip(fibres);
+			menuChart.getData().forEach(this::installTooltip);
+//		installTooltip(kcal);
+			installTooltip(proteins);
+			installTooltip(hydrates);
+			installTooltip(fats);
+			installTooltip(fibres);
+		}
 	}
 
 	public void installTooltip(PieChart.Data d) {
-		
+
 		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
 
 		Tooltip tooltip = new Tooltip(msg);

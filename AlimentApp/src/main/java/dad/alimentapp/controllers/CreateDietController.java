@@ -7,19 +7,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
+import dad.alimentapp.models.NutritionalValues;
 import dad.alimentapp.models.Product;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.models.Weekday;
-import dad.alimentapp.models.app.DailyMenu;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.app.NutritionalValues;
-import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.service.DietService;
 import dad.alimentapp.utils.Messages;
 import dad.alimentapp.utils.Utils;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -135,6 +138,8 @@ public class CreateDietController implements Initializable {
 	// MODEL
 	private ObjectProperty<Diet> diet = new SimpleObjectProperty<>();
 	private ObjectProperty<Weekday> actualWeekday = new SimpleObjectProperty<>(Weekday.LUNES);
+	private ListProperty<DailyMenu> dailyMenusModificate = new SimpleListProperty<>(
+			FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>(new Menu());
 	private ObjectProperty<NutritionalValues> nutritionalValues = new SimpleObjectProperty<>(new NutritionalValues());
 
@@ -145,6 +150,7 @@ public class CreateDietController implements Initializable {
 		this.diet.set(diet);
 		loadActualWeekday();
 		loadMenuWeekday();
+		dailyMenusModificate.setAll(this.diet.get().getDailyMenus());
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateDietView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -205,32 +211,41 @@ public class CreateDietController implements Initializable {
 		fibresTotLabel.textProperty().bindBidirectional(nutritionalValues.get().fibresTotalsProperty(),
 				new NumberStringConverter());
 
-		diet.get().dailyMenuProperty().addListener((o, ov, nv) -> {
-			System.out.println("Listener 1");
-		});
-
 		menuSelected.addListener((o, ov, nv) -> {
 			if (ov != null) {
-				nameMenuText.textProperty().unbindBidirectional(menuSelected.get().nameProperty());
-				breakfastList.itemsProperty()
-						.unbindBidirectional(menuSelected.get().getBreakfastProducts().productsProperty());
-				midMorningList.itemsProperty()
-						.unbindBidirectional(menuSelected.get().getMidMorningProducts().productsProperty());
-				lunchList.itemsProperty().unbindBidirectional(menuSelected.get().getLunchProducts().productsProperty());
-				snackList.itemsProperty().unbindBidirectional(menuSelected.get().getSnackProducts().productsProperty());
-				dinnerList.itemsProperty()
-						.unbindBidirectional(menuSelected.get().getDinnerProducts().productsProperty());
+				nameMenuText.textProperty().unbindBidirectional(ov.nameProperty());
+				breakfastList.itemsProperty().unbindBidirectional(ov.getBreakfastProducts().productsProperty());
+				midMorningList.itemsProperty().unbindBidirectional(ov.getMidMorningProducts().productsProperty());
+				lunchList.itemsProperty().unbindBidirectional(ov.getLunchProducts().productsProperty());
+				snackList.itemsProperty().unbindBidirectional(ov.getSnackProducts().productsProperty());
+				dinnerList.itemsProperty().unbindBidirectional(ov.getDinnerProducts().productsProperty());
 			}
 
 			if (nv != null) {
-				nameMenuText.textProperty().bindBidirectional(menuSelected.get().nameProperty());
-				breakfastList.itemsProperty()
-						.bindBidirectional(menuSelected.get().getBreakfastProducts().productsProperty());
-				midMorningList.itemsProperty()
-						.bindBidirectional(menuSelected.get().getMidMorningProducts().productsProperty());
-				lunchList.itemsProperty().bindBidirectional(menuSelected.get().getLunchProducts().productsProperty());
-				snackList.itemsProperty().bindBidirectional(menuSelected.get().getSnackProducts().productsProperty());
-				dinnerList.itemsProperty().bindBidirectional(menuSelected.get().getDinnerProducts().productsProperty());
+				nameMenuText.textProperty().bindBidirectional(nv.nameProperty());
+				breakfastList.itemsProperty().bindBidirectional(nv.getBreakfastProducts().productsProperty());
+				midMorningList.itemsProperty().bindBidirectional(nv.getMidMorningProducts().productsProperty());
+				lunchList.itemsProperty().bindBidirectional(nv.getLunchProducts().productsProperty());
+				snackList.itemsProperty().bindBidirectional(nv.getSnackProducts().productsProperty());
+				dinnerList.itemsProperty().bindBidirectional(nv.getDinnerProducts().productsProperty());
+
+				breakfastRemoveButton.disableProperty()
+						.bind(Bindings.size(nv.getBreakfastProducts().getProducts()).isEqualTo(0));
+				midMorningRemoveButton.disableProperty()
+						.bind(Bindings.size(nv.getMidMorningProducts().getProducts()).isEqualTo(0));
+				lunchRemoveButton.disableProperty()
+						.bind(Bindings.size(nv.getLunchProducts().getProducts()).isEqualTo(0));
+				snackRemoveButton.disableProperty()
+						.bind(Bindings.size(nv.getSnackProducts().getProducts()).isEqualTo(0));
+				dinnerRemoveButton.disableProperty()
+						.bind(Bindings.size(nv.getDinnerProducts().getProducts()).isEqualTo(0));
+
+				saveDietButton.disableProperty().bind(Bindings
+						.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0)
+						.and(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0)));
 			}
 		});
 	}
@@ -339,51 +354,56 @@ public class CreateDietController implements Initializable {
 
 	@FXML
 	void onNextButtonAction(ActionEvent event) {
-//		Weekday nextDay = Weekday.next(menuSelected.get().getWeekday().getId());
-//		if (diet.getMenu().size() > 1) {			
-//			Menu menu = Utils.searchMatchesInMenu(diet.getMenu(), nextDay);
-//			menuSelected.set(menu != null ? menu : new Menu(nextDay));
-//			System.out.println(menuSelected);
-//		} else {
-//			Menu menu = new Menu(nextDay);
-//			diet.getMenu().add(menu);
-//			menuSelected.set(menu);
-//			System.out.println(menuSelected);
-//		}
+		Weekday nextDay = Weekday.next(actualWeekday.get().getId());
+		actualWeekday.set(nextDay);
+		Menu menu = Utils.searchMatchesInMenu(dailyMenusModificate, nextDay);
+		if (menu != null) {
+			menuSelected.set(menu);
+		} else {
+			Menu newMenu = new Menu();
+			dailyMenusModificate.add(new DailyMenu(nextDay, newMenu));
+			menuSelected.set(newMenu);
+		}
 	}
 
 	@FXML
 	void onPreviousButtonAction(ActionEvent event) {
-//		if (diet.getMenu().size() > 1) {
-//			Weekday previousDay = Weekday.previous(menuSelected.get().getWeekday().getId());
-//			Menu menu = Utils.searchMatchesInMenu(diet.getMenu(), previousDay);
-//			menuSelected.set(menu != null ? menu : new Menu(previousDay));
-//			System.out.println(menuSelected);
-//		} else {
-//			Menu menu = new Menu(Weekday.previous(menuSelected.get().getWeekday().getId()));
-//			diet.getMenu().add(menu);
-//			menuSelected.set(menu);
-//			System.out.println(menuSelected);
-//		}
+		Weekday previousDay = Weekday.previous(actualWeekday.get().getId());
+		actualWeekday.set(previousDay);
+		Menu menu = Utils.searchMatchesInMenu(dailyMenusModificate, previousDay);
+		if (menu != null) {
+			menuSelected.set(menu);
+		} else {
+			Menu newMenu = new Menu();
+			dailyMenusModificate.add(new DailyMenu(previousDay, newMenu));
+			menuSelected.set(newMenu);
+		}
 	}
 
 	@FXML
 	void onSaveDietButtonAction(ActionEvent event) {
-		if (diet.get().getId() != 0) {
+		this.diet.get().setName(this.diet.get().getName().trim());
+		this.diet.get().setDailyMenus(dailyMenusModificate);
+		this.diet.get().clear();
+		if (diet.get().getId() == 0) {
+			boolean isDuplicate = Utils.isMatchDietName(this.diet.get());
+			if (isDuplicate) {
+				Messages.error("Error al guardar la dieta", "No se pueden guardar dietas con el mismo nombre.");
+			} else {
+				DietService.insertDiet(diet.get());
+				ManageDietController.loadDietsAndMenus();
+				ChoiceController.getCreateDietCustomStage().close();
+			}
+		} else {
 			DietService.updateDiet(diet.get());
 			ManageDietController.loadDietsAndMenus();
 			ManageDietController.getModificateStage().close();
-		} else {
-			DietService.insertDiet(diet.get());
-			ManageDietController.loadDietsAndMenus();
-			ChoiceController.getCreateDietCustomStage().close();
 		}
 	}
 
 	@FXML
 	void onLoadExistingMenusButtonAction(ActionEvent event) {
 		try {
-
 			Stage loadAllMenuStage = new Stage();
 			loadAllMenuStage.setTitle("Listas de Menús");
 			loadAllMenuStage.resizableProperty().setValue(Boolean.FALSE);
@@ -393,6 +413,7 @@ public class CreateDietController implements Initializable {
 
 			LoadAllMenuController loadAllMenuController = new LoadAllMenuController(loadAllMenuStage);
 			Scene scene = new Scene(loadAllMenuController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 			loadAllMenuStage.setScene(scene);
 			loadAllMenuStage.showAndWait();
@@ -406,34 +427,34 @@ public class CreateDietController implements Initializable {
 	}
 
 	private void overrideDailyMenu(Menu menu) {
-		if (diet.get().getDailyMenu().size() != 0) {
+		if (dailyMenusModificate.size() != 0) {
 			boolean matches = false;
 			int count = 0;
 			do {
-				if (diet.get().getDailyMenu().get(count).getWeekday() == actualWeekday.get()) {
-					diet.get().getDailyMenu().get(count).setMenu(menu);
+				if (dailyMenusModificate.get(count).getWeekday() == actualWeekday.get()) {
+					dailyMenusModificate.get(count).setMenu(menu);
 					menuSelected.set(menu);
 					matches = true;
 				}
 				count++;
-			} while (!matches && count < diet.get().getDailyMenu().size());
+			} while (!matches && count < dailyMenusModificate.size());
 		} else {
-			diet.get().getDailyMenu().add(new DailyMenu(actualWeekday.get(), menu));
+			dailyMenusModificate.add(new DailyMenu(actualWeekday.get(), menu));
 			menuSelected.set(menu);
 		}
 		nutritionalValues.get().clear();
-		loadTotals();		
+		loadTotals();
 	}
 
 	private void loadActualWeekday() {
-		List<DailyMenu> dailyMenu = this.diet.get().getDailyMenu();
+		List<DailyMenu> dailyMenu = this.diet.get().getDailyMenus();
 		if (dailyMenu.size() != 0) {
 			actualWeekday.set(dailyMenu.get(0).getWeekday());
 		}
 	}
 
 	private void loadMenuWeekday() {
-		List<DailyMenu> dailyMenus = diet.get().getDailyMenu();
+		List<DailyMenu> dailyMenus = diet.get().getDailyMenus();
 		if (dailyMenus.size() != 0) {
 			menuSelected.set(Utils.searchMatchesInMenu(dailyMenus, actualWeekday.get()));
 		}
@@ -489,7 +510,7 @@ public class CreateDietController implements Initializable {
 	private void newSceneProduct(ProductMomentDay productMomentDay) {
 		Stage choice = ChoiceController.getCreateDietCustomStage();
 		Stage manage = ManageDietController.getModificateStage();
-		
+
 		Stage stage = choice != null ? choice : manage;
 		try {
 			Stage productStage = new Stage();
@@ -502,6 +523,7 @@ public class CreateDietController implements Initializable {
 
 			productController = new ProductController(productMomentDay);
 			Scene scene = new Scene(productController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 			productStage.setScene(scene);
 			productStage.showAndWait();
@@ -511,29 +533,42 @@ public class CreateDietController implements Initializable {
 	}
 
 	private void getPieChart() {
-		// PieChart.Data kcal = new PieChart.Data("kcal",
-		// nutritionalValues.get().getKcalsTotals());
-		PieChart.Data proteins = new PieChart.Data("Proteinas", nutritionalValues.get().getProteinsTotals());
-		PieChart.Data hydrates = new PieChart.Data("Hidratos", nutritionalValues.get().getHydratesTotals());
-		PieChart.Data fats = new PieChart.Data("Grasas", nutritionalValues.get().getFatsTotals());
-		PieChart.Data fibres = new PieChart.Data("Fibra", nutritionalValues.get().getFibresTotals());
+		if (!nutritionalValues.get().isEmpty()) {
+			// nutritionalValues.get().getKcalsTotals() +
+			Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals()
+					+ nutritionalValues.get().getHydratesTotals() + nutritionalValues.get().getFatsTotals()
+					+ nutritionalValues.get().getFibresTotals();
+//				Integer kcalValue = Math.round((nutritionalValues.get().getKcalsTotals() * 100) / nutricionalsTotals);
+			Integer proteinsValue = Math
+					.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
+			Integer hydratesValue = Math
+					.round((nutritionalValues.get().getHydratesTotals() * 100) / nutricionalsTotals);
+			Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
+			Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
 
-		// menuChart.getData().setAll(kcal);
-		menuChart.getData().setAll(proteins);
-		menuChart.getData().add(hydrates);
-		menuChart.getData().add(fats);
-		menuChart.getData().add(fibres);
+//				PieChart.Data kcal = new PieChart.Data("kcal", kcalValue);
+			PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
+			PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
+			PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
+			PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
 
-		menuChart.setClockwise(true);
-		menuChart.setLabelsVisible(true);
-		menuChart.setLabelLineLength(20);
+//				menuChart.getData().setAll(kcal);
+			menuChart.getData().setAll(proteins);
+			menuChart.getData().add(hydrates);
+			menuChart.getData().add(fats);
+			menuChart.getData().add(fibres);
 
-		menuChart.getData().forEach(this::installTooltip);
-		// installTooltip(kcal);
-		installTooltip(proteins);
-		installTooltip(hydrates);
-		installTooltip(fats);
-		installTooltip(fibres);
+			menuChart.setClockwise(true);
+			menuChart.setLabelsVisible(true);
+			menuChart.setLabelLineLength(20);
+
+			menuChart.getData().forEach(this::installTooltip);
+//				installTooltip(kcal);
+			installTooltip(proteins);
+			installTooltip(hydrates);
+			installTooltip(fats);
+			installTooltip(fibres);
+		}
 	}
 
 	public void installTooltip(PieChart.Data d) {

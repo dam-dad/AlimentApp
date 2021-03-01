@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.MomentDay;
 import dad.alimentapp.models.Product;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.models.Profile;
-import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.utils.Messages;
-
 
 /**
  * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
@@ -189,7 +188,7 @@ public class MenuService {
 			Messages.error("Error al insertar el nuevo menú", e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Esta función deleteMenu, nos permite eliminar un menú y sus claves foráneas
 	 * 
@@ -219,5 +218,5 @@ public class MenuService {
 			Messages.error("Error al eliminar el menú", "Asegúrese de eliminar primero la dieta en la que se encuentra solitariamente el menú seleccionado para poder eliminar posteriormente el menú.");
 		}
 	}
-	
+
 }

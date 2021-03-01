@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -75,9 +75,10 @@ public class ChoiceController implements Initializable {
 				dietController = new GenerateDietController();
 
 				Stage secondaryStage = new Stage();
-				Scene escena = new Scene(dietController.getView());
+				Scene scene = new Scene(dietController.getView());
+				scene.getStylesheets().add(MainController.getStyleSheetActual());
 
-				secondaryStage.setScene(escena);
+				secondaryStage.setScene(scene);
 				secondaryStage.setTitle("Generar Dieta");
 				secondaryStage.getIcons().add(new Image("/images/logo.png"));
 				secondaryStage.initModality(Modality.WINDOW_MODAL);
@@ -88,9 +89,10 @@ public class ChoiceController implements Initializable {
 				menuController = new GenerateMenuController();
 
 				Stage secondaryStage = new Stage();
-				Scene escena = new Scene(menuController.getView());
-
-				secondaryStage.setScene(escena);
+				Scene scene = new Scene(menuController.getView());
+				scene.getStylesheets().add(MainController.getStyleSheetActual());
+				
+				secondaryStage.setScene(scene);
 				secondaryStage.setTitle("Generar Menu");
 				secondaryStage.getIcons().add(new Image("/images/logo.png"));
 				secondaryStage.initModality(Modality.WINDOW_MODAL);
@@ -134,6 +136,7 @@ public class ChoiceController implements Initializable {
 		ManageDietController.setModificateStage(null);
 		createCustomStage = new Stage();
 		Scene scene = new Scene(view);
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		createCustomStage.setScene(scene);
 		createCustomStage.setTitle(controlDietMenu.name());

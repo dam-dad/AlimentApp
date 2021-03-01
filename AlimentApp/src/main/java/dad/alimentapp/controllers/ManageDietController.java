@@ -6,12 +6,12 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.ControlDietMenu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.MomentDay;
 import dad.alimentapp.models.Product;
+import dad.alimentapp.models.ProductMomentDay;
 import dad.alimentapp.models.Profile;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
-import dad.alimentapp.models.app.ProductMomentDay;
 import dad.alimentapp.service.DietService;
 import dad.alimentapp.service.MenuService;
 import dad.alimentapp.service.ProductService;
@@ -19,8 +19,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -36,13 +38,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+/**
+ * Realizamos el controlador que permitirá implementar la interfaz de Gestionar
+ * Dietas y darle toda la funcionalidad que necesita.
+ * 
+ * @author Andy y Antonio
+ */
 public class ManageDietController implements Initializable {
-	
-	/**
-	 * Realizamos el controlador que permitirá implementar la interfaz de Gestionar Dietas y darle toda la funcionalidad que necesita. 
-	 * @author Andy
-	 */
-	
+
 	@FXML
 	private HBox view;
 
@@ -123,7 +126,7 @@ public class ManageDietController implements Initializable {
 	// MODEL
 	private static ListProperty<Menu> menus = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menuSelected = new SimpleObjectProperty<>();
-	
+
 	private static ListProperty<Diet> diets = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Diet> dietSelected = new SimpleObjectProperty<>();
 
@@ -146,17 +149,56 @@ public class ManageDietController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// BINDINGS
 		loadDietsAndMenus();
-		
+
 		menuList.itemsProperty().bindBidirectional(menus);
-		dietList.itemsProperty().bindBidirectional(diets);
+		menuList.setCellFactory(menusView -> new ListCell<Menu>() {
+			private ImageView imageView = new ImageView();
+
+			@Override
+			public void updateItem(Menu menu, boolean empty) {
+				super.updateItem(menu, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Image image = new Image("images/myManageDietsTab/menus-512px.png");
+					imageView.setImage(image);
+					imageView.setFitWidth(30);
+					imageView.setFitHeight(30);
+					setText(menu.getName());
+					setGraphic(imageView);
+				}
+			}
+		});
 		
+		dietList.itemsProperty().bindBidirectional(diets);
+		dietList.setCellFactory(dietsView -> new ListCell<Diet>() {
+			private ImageView imageView = new ImageView();
+
+			@Override
+			public void updateItem(Diet diet, boolean empty) {
+				super.updateItem(diet, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Image image = new Image("images/myManageDietsTab/diets-512px.png");
+					imageView.setImage(image);
+					imageView.setFitWidth(30);
+					imageView.setFitHeight(30);
+					setText(diet.getName());
+					setGraphic(imageView);
+				}
+			}
+		});
+
 		menuSelected.bind(menuList.getSelectionModel().selectedItemProperty());
 		dietSelected.bind(dietList.getSelectionModel().selectedItemProperty());
-		
+
 		viewMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
 		modifyMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
 		removeMenuButton.disableProperty().bind(menuList.getSelectionModel().selectedItemProperty().isNull());
-		
+
 		modifyDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
 		removeDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
 	}
@@ -164,10 +206,12 @@ public class ManageDietController implements Initializable {
 	/**
 	 * Esta función loadDietsAndMenus, nos permite cargar un menú y sus dietas para un perfil seleccionado
 	 */
-	public static void loadDietsAndMenus() {		
-		Profile profile = MainController.getProfileSelected();		
-		diets.setAll(DietService.getAllDiets(profile));
-		menus.setAll(MenuService.getAllMenus(profile));
+	public static void loadDietsAndMenus() {
+		Profile profile = MainController.getProfileSelected();
+		if(profile != null) {
+			diets.setAll(DietService.getAllDiets(profile));
+			menus.setAll(MenuService.getAllMenus(profile));
+		}
 	}
 
 	/**
@@ -229,11 +273,10 @@ public class ManageDietController implements Initializable {
 	 */
 	@FXML
 	void onRemoveDietButtonAction(ActionEvent event) {
-		
 		DietService.deleteDiet(dietSelected.get());
-		Profile profile = MainController.getProfileSelected();	
+		Profile profile = MainController.getProfileSelected();
 		diets.setAll(DietService.getAllDiets(profile));
-
+		ManageDietController.loadDietsAndMenus();
 	}
 	
 	/**
@@ -242,12 +285,11 @@ public class ManageDietController implements Initializable {
 	 */
 	@FXML
 	void onRemoveMenuButtonAction(ActionEvent event) {
-		
 		MenuService.deleteMenu(menuSelected.get());
-		Profile profile = MainController.getProfileSelected();		
+		Profile profile = MainController.getProfileSelected();
 		menus.setAll(MenuService.getAllMenus(profile));
 		resetProductsMenu();
-
+		ManageDietController.loadDietsAndMenus();
 	}
 	
 	/**
@@ -255,7 +297,7 @@ public class ManageDietController implements Initializable {
 	 * cada menú, de esta manera, al eliminarlo, se limpian las listas también
 	 */
 	private void resetProductsMenu() {
-		
+
 		ObservableList<Product> clearList = FXCollections.observableArrayList();
 		breakfastListView.setItems(clearList);
 		midMorningListView.setItems(clearList);
@@ -263,7 +305,6 @@ public class ManageDietController implements Initializable {
 		snackListView.setItems(clearList);
 		dinnerListView.setItems(clearList);
 		menuDietsNameLabel.setText("Menú");
-		
 	}
 	
 	/**
@@ -273,7 +314,7 @@ public class ManageDietController implements Initializable {
 	 */
 	@FXML
 	void onViewMenuButtonAction(ActionEvent event) {
-		
+
 		loadProductsMenu();
 		menuDietsNameLabel.setText(menuSelected.get().getName());
 		breakfastListView.setItems(breakfastProductList.getProducts());
@@ -283,22 +324,27 @@ public class ManageDietController implements Initializable {
 		dinnerListView.setItems(dinnerProductList.getProducts());
 
 	}
-	
+
 	/**
 	 * Esta función loadProductsMenu, nos permite cargar las listas con los productos
 	 * para cada momento del día en un determinado menú seleccionado
 	 */
 	private void loadProductsMenu() {
-		breakfastProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.DESAYUNO);
-		midMorningProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.MEDIA_MAÑANA);
-		lunchProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.ALMUERZO);
-		snackProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.MERIENDA);
+		breakfastProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(),
+				MomentDay.DESAYUNO);
+		midMorningProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(),
+				MomentDay.MEDIA_MAÑANA);
+		lunchProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(),
+				MomentDay.ALMUERZO);
+		snackProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(),
+				MomentDay.MERIENDA);
 		dinnerProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.CENA);
 	}
 
 	private void createChoiceStage() {
 		choiceStage = new Stage();
 		Scene scene = new Scene(choiceController.getView());
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		choiceStage.setScene(scene);
 		choiceStage.setTitle("Elección");
@@ -313,6 +359,7 @@ public class ManageDietController implements Initializable {
 		ChoiceController.setCreateDietCustomStage(null);
 		modifIcateStage = new Stage();
 		Scene scene = new Scene(view);
+		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		modifIcateStage.setScene(scene);
 		modifIcateStage.setTitle(controlDiet.name());
@@ -325,11 +372,11 @@ public class ManageDietController implements Initializable {
 	public static Stage getChoiceStage() {
 		return choiceStage;
 	}
-	
+
 	public static Stage getModificateStage() {
 		return modifIcateStage;
 	}
-	
+
 	public static void setModificateStage(Stage stage) {
 		modifIcateStage = stage;
 	}

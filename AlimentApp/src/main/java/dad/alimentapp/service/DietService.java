@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dad.alimentapp.main.App;
+import dad.alimentapp.models.DailyMenu;
+import dad.alimentapp.models.Diet;
+import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.Weekday;
-import dad.alimentapp.models.app.DailyMenu;
-import dad.alimentapp.models.app.Diet;
-import dad.alimentapp.models.app.Menu;
 import dad.alimentapp.utils.Messages;
 
 
@@ -33,7 +33,7 @@ public class DietService {
 			ResultSet result = query.executeQuery();
 			while (result.next()) {
 				Diet diet = new Diet(result.getInt(1), result.getString(2), profile);
-				diet.getDailyMenu().setAll(getAllMenusForDiet(diet));
+				diet.getDailyMenus().setAll(getAllMenusForDiet(diet));
 				dietsList.add(diet);
 			}
 		} catch (SQLException e) {
@@ -134,7 +134,7 @@ public static void insertDiet(Diet diet) {
 	}
 
 	private static void insertAllMenusForDiet(Diet diet) {
-		for (DailyMenu dailyMenu : diet.getDailyMenu()) {
+		for (DailyMenu dailyMenu : diet.getDailyMenus()) {
 			if (dailyMenu.getMenu().getId() == 0) {
 				MenuService.insertMenu(dailyMenu.getMenu());
 			} else {
