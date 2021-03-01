@@ -23,6 +23,7 @@ llevar a cabo la aplicación.
 * [Información nutricional de los productos](https://medicinainformacion.com/tabla-de-alimentos/)
 * [Consejos para llevar una vida saludable](https://www.nestlefamilyclub.es/articulo/20-tips-para-llevar-siempre-un-estilo-de-vida-saludable#)
 * [Fórmula para cálculo de peso ideal](https://www.vitonica.com/wellness/calcula-tu-peso-ideal)
+* [Iconos de la aplicación]()
 
 
 **Licencia**  
