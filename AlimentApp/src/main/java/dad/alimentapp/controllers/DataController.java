@@ -363,7 +363,7 @@ public class DataController implements Initializable {
 			
 			
 		 catch (SQLException exc) {
-			Messages.error("Ha ocurrido un error", exc.getMessage());
+			Messages.error("Ha ocurrido un error", "No se ha podido procesar la petición");
 		
 
 		
@@ -413,8 +413,8 @@ public class DataController implements Initializable {
 			} else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
 				resProperty.set("Sobrepeso");
 				idealDietLabel.setText("Te recomendamos seguir una dieta hipocalórica");
-				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude a quemar" + "\n"
-						+ "más calorías de las que consumes");
+				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude" + "\n"
+						+ " a quemar más calorías de las que consumes");
 				imcImageView.setImage(new Image("images/myDataTab/over_weight.png"));
 			} else {
 				resProperty.set("Obeso");

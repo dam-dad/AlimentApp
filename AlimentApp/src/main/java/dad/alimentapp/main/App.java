@@ -37,7 +37,7 @@ public class App extends Application {
 
 		controller = new MainController();
 
-		scene = new Scene(controller.getView(), 950, 750);
+		scene = new Scene(controller.getView(), 980, 750);
 		MainController.setStyleSheetActual("/css/style-light.css");
 		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
