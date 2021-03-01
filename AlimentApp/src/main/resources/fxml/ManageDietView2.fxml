@@ -21,7 +21,7 @@
                <children>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Menú">
+                        <Label styleClass="label-title" text="Menú">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>
@@ -56,7 +56,7 @@
                <children>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Dieta">
+                        <Label styleClass="label-title" text="Dieta">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>
@@ -105,32 +105,32 @@
             <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="menuDietsNameLabel" alignment="CENTER" text="Menú" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label fx:id="menuDietsNameLabel" alignment="CENTER" styleClass="label-title" text="Menú" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="breakfastLabel" text="Desayuno" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Label fx:id="breakfastLabel" styleClass="label-subtitle" text="Desayuno" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="midmorningLabel" layoutX="10.0" layoutY="72.0" text="Media-Mañana" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+            <Label fx:id="midmorningLabel" layoutX="10.0" layoutY="72.0" styleClass="label-subtitle" text="Media-Mañana" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lunchLabel" layoutX="10.0" layoutY="72.0" text="Almuerzo" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label fx:id="lunchLabel" layoutX="10.0" layoutY="72.0" styleClass="label-subtitle" text="Almuerzo" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="snackLabel" layoutX="120.0" layoutY="242.0" text="Merienda" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label fx:id="snackLabel" layoutX="120.0" layoutY="242.0" styleClass="label-subtitle" text="Merienda" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="dinnerLabel" layoutX="10.0" layoutY="213.0" text="Cena" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Label fx:id="dinnerLabel" layoutX="10.0" layoutY="213.0" styleClass="label-subtitle" text="Cena" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

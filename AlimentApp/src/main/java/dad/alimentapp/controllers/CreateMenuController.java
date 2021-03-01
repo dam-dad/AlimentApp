@@ -178,9 +178,11 @@ public class CreateMenuController implements Initializable {
 		fibresTotLabel.textProperty().bindBidirectional(nutritionalValues.get().fibresTotalsProperty(),
 				new NumberStringConverter());
 	}
+
 	/**
-	 * El metodo "onBreakfastAddButtonAction" lo utilizamos para lanzar la vista de productos,
-	 *  en el cual le asignaremos una lista de productos al desayuno.
+	 * El metodo "onBreakfastAddButtonAction" lo utilizamos para lanzar la vista de
+	 * productos, en el cual le asignaremos una lista de productos al desayuno.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -194,8 +196,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onBreakfastRemoveButtonAction", lo utilizaremos para borrar la lista de productos del desayuno.
+	 * El metodo "onBreakfastRemoveButtonAction", lo utilizaremos para borrar la
+	 * lista de productos del desayuno.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -208,9 +213,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onMidMorningAddButtonAction" lo utilizamos para lanzar la vista de productos,
-	 *  en el cual le asignaremos una lista de productos a media-mañana.
+	 * El metodo "onMidMorningAddButtonAction" lo utilizamos para lanzar la vista de
+	 * productos, en el cual le asignaremos una lista de productos a media-mañana.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -224,8 +231,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onMidMorningRemoveButtonAction", lo utilizaremos para borrar la lista de productos de media-mañana.
+	 * El metodo "onMidMorningRemoveButtonAction", lo utilizaremos para borrar la
+	 * lista de productos de media-mañana.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -240,8 +250,9 @@ public class CreateMenuController implements Initializable {
 	}
 
 	/**
-	 * El metodo "onLunchAddButtonAction" lo utilizamos para lanzar la vista de productos,
-	 *  en el cual le asignaremos una lista de productos al almuerzo.
+	 * El metodo "onLunchAddButtonAction" lo utilizamos para lanzar la vista de
+	 * productos, en el cual le asignaremos una lista de productos al almuerzo.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -254,8 +265,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onLunchRemoveButtonAction", lo utilizaremos para borrar la lista de productos del almuerzo.
+	 * El metodo "onLunchRemoveButtonAction", lo utilizaremos para borrar la lista
+	 * de productos del almuerzo.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -268,9 +282,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onSnackAddButtonAction" lo utilizamos para lanzar la vista de productos,
-	 *  en el cual le asignaremos una lista de productos a la merienda.
+	 * El metodo "onSnackAddButtonAction" lo utilizamos para lanzar la vista de
+	 * productos, en el cual le asignaremos una lista de productos a la merienda.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -283,8 +299,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onSnackRemoveButtonAction", lo utilizaremos para borrar la lista de productos de la merienda.
+	 * El metodo "onSnackRemoveButtonAction", lo utilizaremos para borrar la lista
+	 * de productos de la merienda.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -297,9 +316,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onDinnerAddButtonAction" lo utilizamos para lanzar la vista de productos,
-	 *  en el cual le asignaremos una lista de productos a la cena.
+	 * El metodo "onDinnerAddButtonAction" lo utilizamos para lanzar la vista de
+	 * productos, en el cual le asignaremos una lista de productos a la cena.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -312,8 +333,11 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "onDinnerRemoveButtonAction", lo utilizaremos para borrar la lista de productos de la cena.
+	 * El metodo "onDinnerRemoveButtonAction", lo utilizaremos para borrar la lista
+	 * de productos de la cena.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -326,10 +350,14 @@ public class CreateMenuController implements Initializable {
 			loadTotals();
 		}
 	}
+
 	/**
-	 * El metodo "newSceneProduct" se encarga de lanzar una nueva vista donde podemos seleccionar 
-	 * de una lista de productos ya existente los que queremos añadir a nuestro menu o dieta.
-	 * @param productMomentDay Recibimos la lista de productos a cargar o rellenar y el momento del dia al que pertenecen.
+	 * El metodo "newSceneProduct" se encarga de lanzar una nueva vista donde
+	 * podemos seleccionar de una lista de productos ya existente los que queremos
+	 * añadir a nuestro menu o dieta.
+	 * 
+	 * @param productMomentDay Recibimos la lista de productos a cargar o rellenar y
+	 *                         el momento del dia al que pertenecen.
 	 */
 	private void newSceneProduct(ProductMomentDay productMomentDay) {
 		Stage choice = ChoiceController.getCreateDietCustomStage();
@@ -355,8 +383,11 @@ public class CreateMenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	 * El metodo "onSaveMenuButtonAction" se encarga de guardar o actualizar un menú.
+	 * El metodo "onSaveMenuButtonAction" se encarga de guardar o actualizar un
+	 * menú.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -377,46 +408,55 @@ public class CreateMenuController implements Initializable {
 			ManageDietController.getModificateStage().close();
 		}
 	}
+
 	/**
-	 * El metodo "loadTotals" se encarga de asignar los valores nutricionales totales a cada una de las properties 
-	 * correspondientes y cargar la grafica.
+	 * El metodo "loadTotals" se encarga de asignar los valores nutricionales
+	 * totales a cada una de las properties correspondientes y cargar la grafica.
 	 */
-	private void loadTotals() {
-		NutritionalValues totalsBreaksfast = loadTotalsForMomentDay(
-				menuSelected.get().getBreakfastProducts().getProducts());
-		NutritionalValues totalsMidMorning = loadTotalsForMomentDay(
-				menuSelected.get().getMidMorningProducts().getProducts());
-		NutritionalValues totalsLunch = loadTotalsForMomentDay(menuSelected.get().getLunchProducts().getProducts());
-		NutritionalValues totalsSnack = loadTotalsForMomentDay(menuSelected.get().getSnackProducts().getProducts());
-		NutritionalValues totalsDinner = loadTotalsForMomentDay(menuSelected.get().getDinnerProducts().getProducts());
+	private void loadTotals() {		
+		if (!menuSelected.get().isMomentsDayEmpty()) {
+			NutritionalValues totalsBreaksfast = loadTotalsForMomentDay(
+					menuSelected.get().getBreakfastProducts().getProducts());
+			NutritionalValues totalsMidMorning = loadTotalsForMomentDay(
+					menuSelected.get().getMidMorningProducts().getProducts());
+			NutritionalValues totalsLunch = loadTotalsForMomentDay(menuSelected.get().getLunchProducts().getProducts());
+			NutritionalValues totalsSnack = loadTotalsForMomentDay(menuSelected.get().getSnackProducts().getProducts());
+			NutritionalValues totalsDinner = loadTotalsForMomentDay(menuSelected.get().getDinnerProducts().getProducts());
+			
+			nutritionalValues.get().setKcalsTotals(totalsBreaksfast.getKcalsTotals() + totalsMidMorning.getKcalsTotals()
+					+ totalsLunch.getKcalsTotals() + totalsSnack.getKcalsTotals() + totalsDinner.getKcalsTotals());
 
-		nutritionalValues.get().setKcalsTotals(totalsBreaksfast.getKcalsTotals() + totalsMidMorning.getKcalsTotals()
-				+ totalsLunch.getKcalsTotals() + totalsSnack.getKcalsTotals() + totalsDinner.getKcalsTotals());
+			nutritionalValues.get().proteinsTotalsProperty()
+					.set(totalsBreaksfast.getProteinsTotals() + totalsMidMorning.getProteinsTotals()
+							+ totalsLunch.getProteinsTotals() + totalsSnack.getProteinsTotals()
+							+ totalsDinner.getProteinsTotals());
 
-		nutritionalValues.get().proteinsTotalsProperty()
-				.set(totalsBreaksfast.getProteinsTotals() + totalsMidMorning.getProteinsTotals()
-						+ totalsLunch.getProteinsTotals() + totalsSnack.getProteinsTotals()
-						+ totalsDinner.getProteinsTotals());
+			nutritionalValues.get().hydratesTotalsProperty()
+					.set(totalsBreaksfast.getHydratesTotals() + totalsMidMorning.getHydratesTotals()
+							+ totalsLunch.getHydratesTotals() + totalsSnack.getHydratesTotals()
+							+ totalsDinner.getHydratesTotals());
 
-		nutritionalValues.get().hydratesTotalsProperty()
-				.set(totalsBreaksfast.getHydratesTotals() + totalsMidMorning.getHydratesTotals()
-						+ totalsLunch.getHydratesTotals() + totalsSnack.getHydratesTotals()
-						+ totalsDinner.getHydratesTotals());
+			nutritionalValues.get().fatsTotalsProperty()
+					.set(totalsBreaksfast.getFatsTotals() + totalsMidMorning.getFatsTotals()
+							+ totalsLunch.getFatsTotals() + totalsSnack.getFatsTotals() + totalsDinner.getFatsTotals());
 
-		nutritionalValues.get().fatsTotalsProperty()
-				.set(totalsBreaksfast.getFatsTotals() + totalsMidMorning.getFatsTotals() + totalsLunch.getFatsTotals()
-						+ totalsSnack.getFatsTotals() + totalsDinner.getFatsTotals());
+			nutritionalValues.get().fibresTotalsProperty()
+					.set(totalsBreaksfast.getFibresTotals() + totalsMidMorning.getFibresTotals()
+							+ totalsLunch.getFibresTotals() + totalsSnack.getFibresTotals()
+							+ totalsDinner.getFibresTotals());
 
-		nutritionalValues.get().fibresTotalsProperty()
-				.set(totalsBreaksfast.getFibresTotals() + totalsMidMorning.getFibresTotals()
-						+ totalsLunch.getFibresTotals() + totalsSnack.getFibresTotals()
-						+ totalsDinner.getFibresTotals());
-
-		getPieChart();
+			getPieChart();
+		} else {
+			menuChart.getData().clear();
+		}
 	}
+
 	/**
-	 * El metodo "loadTotalsForMomentDay" se encarga de calcular los valores nutricionales totales para un momento del dia.
-	 * @param products Recibe la lista de productos correspondiente a un momento del dia.
+	 * El metodo "loadTotalsForMomentDay" se encarga de calcular los valores
+	 * nutricionales totales para un momento del dia.
+	 * 
+	 * @param products Recibe la lista de productos correspondiente a un momento del
+	 *                 dia.
 	 * @return
 	 */
 	private NutritionalValues loadTotalsForMomentDay(List<Product> products) {
@@ -431,8 +471,10 @@ public class CreateMenuController implements Initializable {
 		}
 		return new NutritionalValues(kcals, proteins, hydrates, fats, fibres);
 	}
+
 	/**
-	 * El metodo "getPieChart" crea la grafica basandose en los datos de los valores nutricionales.
+	 * El metodo "getPieChart" crea la grafica basandose en los datos de los valores
+	 * nutricionales.
 	 */
 	private void getPieChart() {
 		if (!nutritionalValues.get().isEmpty()) {
@@ -467,8 +509,11 @@ public class CreateMenuController implements Initializable {
 			installTooltip(fibres);
 		}
 	}
+
 	/**
-	 * El metodo "installTooltip" nos muestra un tooltip sobre cada valor de la grafica.
+	 * El metodo "installTooltip" nos muestra un tooltip sobre cada valor de la
+	 * grafica.
+	 * 
 	 * @param d le pasamos el valor del porcentaje de cada nodo.
 	 */
 	public void installTooltip(PieChart.Data d) {

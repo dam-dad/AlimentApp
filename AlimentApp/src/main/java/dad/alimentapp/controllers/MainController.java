@@ -75,7 +75,6 @@ public class MainController implements Initializable {
 	// CONTROLLERS
 	DataController dataController = new DataController();
 	InfoController infoController = new InfoController();
-	AboutAppController aboutAppController = new AboutAppController();
 	ManageDietController manageDietController = new ManageDietController();
 
 	// PROFILE
@@ -146,16 +145,24 @@ public class MainController implements Initializable {
 	 */
 	@FXML
 	void onAboutAppMenuAction(ActionEvent event) {
-		Stage aboutStage = new Stage();
-		Scene scene = new Scene(aboutAppController.getView());
+		try {
+			AboutAppController aboutAppController = new AboutAppController();
 
-		aboutStage.setScene(scene);
-		aboutStage.setTitle("Acerca de AlimentApp");
-		aboutStage.resizableProperty().setValue(Boolean.FALSE);
-		aboutStage.getIcons().add(new Image("/images/logo.png"));
-		aboutStage.initModality(Modality.WINDOW_MODAL);
-		aboutStage.initOwner(App.getPrimaryStage());
-		aboutStage.showAndWait();
+			Stage aboutStage = new Stage();
+			aboutStage.setTitle("Acerca de AlimentApp");
+			aboutStage.resizableProperty().setValue(Boolean.FALSE);
+			aboutStage.getIcons().add(new Image("/images/logo.png"));
+			aboutStage.initModality(Modality.WINDOW_MODAL);
+			aboutStage.initOwner(App.getPrimaryStage());
+			
+			Scene scene = new Scene(aboutAppController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
+			
+			aboutStage.setScene(scene);
+			aboutStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

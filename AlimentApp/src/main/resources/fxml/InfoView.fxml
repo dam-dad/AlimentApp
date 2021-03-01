@@ -29,16 +29,16 @@
             <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
         </rowConstraints>
          <children>
-            <ListView fx:id="profileView" prefHeight="221.0" prefWidth="525.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3">
+            <ListView fx:id="profileView" prefHeight="221.0" prefWidth="525.0" styleClass="listClass" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3">
                <GridPane.margin>
                   <Insets bottom="20.0" left="5.0" top="10.0" />
                </GridPane.margin></ListView>
-            <Label text="AlimentApp" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+            <Label styleClass="label-title" text="AlimentApp" GridPane.columnSpan="3" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Label>
-            <Label text="Lista de perfiles:" GridPane.rowIndex="1">
+            <Label styleClass="label-subtitle" text="Lista de perfiles:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -48,7 +48,7 @@
             </Label>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="TOP">
                <children>
-                  <Button fx:id="newProfileButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="btn-success">
+                  <Button fx:id="newProfileButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="btn-add">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -57,7 +57,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="entryButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                  <Button fx:id="entryButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="btn-add">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="5.0">
                            <image>
@@ -66,7 +66,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="deleteButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="90.0">
+                  <Button fx:id="deleteButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="90.0" styleClass="btn-remove">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
