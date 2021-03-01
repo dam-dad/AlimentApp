@@ -20,10 +20,19 @@ import dad.alimentapp.utils.Messages;
  * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
  * referencia a la tabla Diet.
  * 
- * @author Antonio
+ * @author Antonio y Andy
  *
  */
 public class DietService {
+	/**
+	 * @author Antonio 
+	 * El metodo "getAllDiets" lo utilizamos para obtener una lista
+	 *         de dietas del perfil indicado.
+	 *
+	 * @param profile le pasamos el objeto profile para realizar la busqueda de las
+	 *                dietas que le pertenecen.
+	 * @return retornamos la lista de dietas.
+	 */
 	public static List<Diet> getAllDiets(Profile profile) {
 		List<Diet> dietsList = new ArrayList<>();
 		try {
@@ -37,11 +46,16 @@ public class DietService {
 				dietsList.add(diet);
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al cargar todas las dietas", e.getMessage());
+			Messages.error("Error", "Error al cargar la lista de todas las dietas");
 		}
 		return dietsList;
 	}
-
+	/**
+	 *  @author Antonio
+	 *  El metodo "getAllMenusForDiet" se encarga de cargar todos los menus para la dieta indicada.
+	 * @param diet le pasamos la dieta por parametros.
+	 * @return retornamos el menu con su dia de la semana correspondiente.
+	 */
 	private static List<DailyMenu> getAllMenusForDiet(Diet diet) {
 		List<DailyMenu> dailyMenu = new ArrayList<>();
 		try {
@@ -57,12 +71,16 @@ public class DietService {
 				dailyMenu.add(new DailyMenu(weekday, menu));
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtener todos los menus de la dieta indicada", e.getMessage());
+			Messages.error("Error", "Error al obtener todos los menus de la dieta: "+diet.getName());
 		}
 		return dailyMenu;
 	}
-
-public static void insertDiet(Diet diet) {
+	/**
+	 *  @author Antonio
+	 *  El metodo "insertDiet" se encarga de insertar una dieta.
+	 * @param diet le pasamos la dieta por parametros.
+	 */
+	public static void insertDiet(Diet diet) {
 		try {
 			String sql = "INSERT INTO diets (name, profile_id) VALUES (?, ?)";
 			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -75,10 +93,14 @@ public static void insertDiet(Diet diet) {
 			}
 			insertAllMenusForDiet(diet);
 		} catch (SQLException e) {
-			Messages.error("Error al insertar la nueva dieta", e.getMessage());
+			Messages.error("Error", "Error al insertar la nueva dieta");
 		}
 	}
-
+	/**
+	 * @author Antonio
+	 * El metodo "updateDiet" se encarga de modificar una dieta.
+	 * @param diet le pasamos por parametros la dieta a actualizar.
+	 */
 	public static void updateDiet(Diet diet) {
 		try {
 			String sql = "UPDATE diets SET name = ? WHERE id = ? AND profile_id = ?";
@@ -90,7 +112,7 @@ public static void insertDiet(Diet diet) {
 			deleteAllMenusForDiet(diet.getId());
 			insertAllMenusForDiet(diet);
 		} catch (SQLException e) {
-			Messages.error("Error al modificar esta dieta", e.getMessage());
+			Messages.error("Error", "Error al modificar la dieta: "+diet.getName());
 		}
 	}
 	
@@ -114,25 +136,12 @@ public static void insertDiet(Diet diet) {
 			Messages.error("Error al eliminar la dieta", "No se pudo eliminar la dieta.");
 		}
 	}
-
-	public static int insertDietMenu(Integer dietId, Integer menuId) {
-		int idResult = 0;
-		try {
-			String sql = "INSERT INTO diets_menus VALUES (?, ?)";
-			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setInt(1, dietId);
-			query.setInt(2, menuId);
-			query.execute();
-			ResultSet generatedKeys = query.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				idResult = generatedKeys.getInt(1);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo menú en la dieta", e.getMessage());
-		}
-		return idResult;
-	}
-
+	
+	/**
+	 *  @author Antonio
+	 * El metodo "insertAllMenusForDiet" se encarga de insertar todos los menus para la dieta indicada.
+	 * @param diet le pasamos por parametros la dieta.
+	 */
 	private static void insertAllMenusForDiet(Diet diet) {
 		for (DailyMenu dailyMenu : diet.getDailyMenus()) {
 			if (dailyMenu.getMenu().getId() == 0) {
@@ -140,11 +149,16 @@ public static void insertDiet(Diet diet) {
 			} else {
 				MenuService.updateMenu(dailyMenu.getMenu());
 			}
-			insertMenuForDiet(diet.getId(), dailyMenu);
+			insertMenuForDietInWeekday(diet.getId(), dailyMenu);
 		}
 	}
-
-	private static void insertMenuForDiet(int dietId, DailyMenu dailyMenu) {
+	/**
+	 *  @author Antonio
+	 *  El metodo "insertMenuForDietInWeekday" se encarga de insertar un menu en una dieta para un dia de la semana.
+	 * @param dietId le pasamos id de la dieta
+	 * @param dailyMenu le pasamos el menu con su dia de la semana correspondiente
+	 */
+	private static void insertMenuForDietInWeekday(int dietId, DailyMenu dailyMenu) {
 		try {
 			String sql = "INSERT INTO diets_menus VALUES (?, ?, ?)";
 			PreparedStatement query = App.connection.prepareStatement(sql);
@@ -153,10 +167,14 @@ public static void insertDiet(Diet diet) {
 			query.setInt(3, dailyMenu.getWeekday().getId());
 			query.execute();
 		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo menú en la dieta", e.getMessage());
+			Messages.error("Error","Error al insertar el nuevo menú en la dieta");
 		}
 	}
-
+	/**
+	 *  @author Antonio
+	 *  El metodo "deleteAllMenusForDiet" se encarga de eliminar todos los menus de una dieta.
+	 * @param idDiet le pasamos el id de la dieta.
+	 */
 	private static void deleteAllMenusForDiet(int idDiet) {
 		try {
 			String sql = "DELETE FROM diets_menus WHERE id_diets = ?";
@@ -164,7 +182,7 @@ public static void insertDiet(Diet diet) {
 			query.setInt(1, idDiet);
 			query.execute();
 		} catch (Exception e) {
-			Messages.error("Error: No se pudo eliminar los menus para la dieta indicada", e.getMessage());
+			Messages.error("Error", "Error: No se pudieron eliminar los menus para la dieta indicada");
 		}
 	}
 

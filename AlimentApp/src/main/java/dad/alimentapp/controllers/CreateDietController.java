@@ -42,6 +42,11 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+/**
+ * Esta clase "CreateDietController" la utilizaremos para crear o modificar dietas en nuestra app.
+ * @author Antonio
+ *
+ */
 public class CreateDietController implements Initializable {
 
 	// VIEW
@@ -161,26 +166,6 @@ public class CreateDietController implements Initializable {
 		loadTotals();
 		// BINDINGS
 		nameDietText.textProperty().bindBidirectional(diet.get().nameProperty());
-
-		// BUTTONS
-		saveDietButton.disableProperty()
-				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0)
-						.and(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0))
-						.and(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0))
-						.and(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0))
-						.and(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0)));
-
-		breakfastRemoveButton.disableProperty()
-				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0));
-		midMorningRemoveButton.disableProperty()
-				.bind(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0));
-		lunchRemoveButton.disableProperty()
-				.bind(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0));
-		snackRemoveButton.disableProperty()
-				.bind(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0));
-		dinnerRemoveButton.disableProperty()
-				.bind(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0));
-
 		Bindings.bindBidirectional(weekdayLabel.textProperty(), actualWeekday, new StringConverter<Weekday>() {
 			@Override
 			public String toString(Weekday weekday) {
@@ -211,6 +196,26 @@ public class CreateDietController implements Initializable {
 		fibresTotLabel.textProperty().bindBidirectional(nutritionalValues.get().fibresTotalsProperty(),
 				new NumberStringConverter());
 
+		// BUTTONS
+		saveDietButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0)
+						.and(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0))
+						.and(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0)));
+
+		breakfastRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getBreakfastProducts().getProducts()).isEqualTo(0));
+		midMorningRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getMidMorningProducts().getProducts()).isEqualTo(0));
+		lunchRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getLunchProducts().getProducts()).isEqualTo(0));
+		snackRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getSnackProducts().getProducts()).isEqualTo(0));
+		dinnerRemoveButton.disableProperty()
+				.bind(Bindings.size(menuSelected.get().getDinnerProducts().getProducts()).isEqualTo(0));
+
+		//LISTENERS
 		menuSelected.addListener((o, ov, nv) -> {
 			if (ov != null) {
 				nameMenuText.textProperty().unbindBidirectional(ov.nameProperty());
@@ -249,7 +254,12 @@ public class CreateDietController implements Initializable {
 			}
 		});
 	}
-
+	
+	/**
+	 * El metodo "onBreakfastAddButtonAction" lo utilizamos para lanzar la vista de productos,
+	 *  en el cual le asignaremos una lista de productos al desayuno.
+	 * @param event
+	 */
 	@FXML
 	void onBreakfastAddButtonAction(ActionEvent event) {
 		newSceneProduct(menuSelected.get().getBreakfastProducts());
@@ -260,7 +270,11 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onBreakfastRemoveButtonAction", lo utilizaremos para borrar la lista de productos del desayuno.
+	 * @param event
+	 */
 	@FXML
 	void onBreakfastRemoveButtonAction(ActionEvent event) {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Desayuno",
@@ -270,7 +284,12 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onMidMorningAddButtonAction" lo utilizamos para lanzar la vista de productos,
+	 *  en el cual le asignaremos una lista de productos a media-mañana.
+	 * @param event
+	 */
 	@FXML
 	void onMidMorningAddButtonAction(ActionEvent event) {
 		newSceneProduct(menuSelected.get().getMidMorningProducts());
@@ -281,7 +300,11 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onMidMorningRemoveButtonAction", lo utilizaremos para borrar la lista de productos de media-mañana.
+	 * @param event
+	 */
 	@FXML
 	void onMidMorningRemoveButtonAction(ActionEvent event) {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de Media-Mañana",
@@ -291,7 +314,12 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onLunchAddButtonAction" lo utilizamos para lanzar la vista de productos,
+	 *  en el cual le asignaremos una lista de productos al almuerzo.
+	 * @param event
+	 */
 	@FXML
 	void onLunchAddButtonAction(ActionEvent event) {
 		newSceneProduct(menuSelected.get().getLunchProducts());
@@ -301,7 +329,11 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onLunchRemoveButtonAction", lo utilizaremos para borrar la lista de productos del almuerzo.
+	 * @param event
+	 */
 	@FXML
 	void onLunchRemoveButtonAction(ActionEvent event) {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos del Almuerzo",
@@ -311,7 +343,12 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onSnackAddButtonAction" lo utilizamos para lanzar la vista de productos,
+	 *  en el cual le asignaremos una lista de productos a la merienda.
+	 * @param event
+	 */
 	@FXML
 	void onSnackAddButtonAction(ActionEvent event) {
 		newSceneProduct(menuSelected.get().getSnackProducts());
@@ -321,7 +358,11 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onSnackRemoveButtonAction", lo utilizaremos para borrar la lista de productos de la merienda.
+	 * @param event
+	 */
 	@FXML
 	void onSnackRemoveButtonAction(ActionEvent event) {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Merienda",
@@ -331,7 +372,12 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onDinnerAddButtonAction" lo utilizamos para lanzar la vista de productos,
+	 *  en el cual le asignaremos una lista de productos a la cena.
+	 * @param event
+	 */
 	@FXML
 	void onDinnerAddButtonAction(ActionEvent event) {
 		newSceneProduct(menuSelected.get().getDinnerProducts());
@@ -341,7 +387,11 @@ public class CreateDietController implements Initializable {
 			overrideDailyMenu(this.menuSelected.get());
 		}
 	}
-
+	
+	/**
+	 * El metodo "onDinnerRemoveButtonAction", lo utilizaremos para borrar la lista de productos de la cena.
+	 * @param event
+	 */
 	@FXML
 	void onDinnerRemoveButtonAction(ActionEvent event) {
 		Optional<ButtonType> result = Messages.confirmation("Borrar los productos de la Cena",
@@ -352,6 +402,10 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "onNextButtonAction", para cambiar al siguiente dia de la semana y visualizar el menu que le corresponda.
+	 * @param event
+	 */
 	@FXML
 	void onNextButtonAction(ActionEvent event) {
 		Weekday nextDay = Weekday.next(actualWeekday.get().getId());
@@ -366,6 +420,10 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "onPreviousButtonAction", para cambiar al dia anterior de la semana y visualizar el menu que le corresponda.
+	 * @param event
+	 */
 	@FXML
 	void onPreviousButtonAction(ActionEvent event) {
 		Weekday previousDay = Weekday.previous(actualWeekday.get().getId());
@@ -380,6 +438,10 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "onSaveDietButtonAction" se encarga de guardar o actualizar una dieta y sus menus correspondientes.
+	 * @param event
+	 */
 	@FXML
 	void onSaveDietButtonAction(ActionEvent event) {
 		this.diet.get().setName(this.diet.get().getName().trim());
@@ -401,6 +463,11 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "onLoadExistingMenusButtonAction" se encarga de lanzar una nueva vista donde podemos seleccionar 
+	 * de una lista un menu ya existente para usarlo en nuestra dieta.
+	 * @param event
+	 */
 	@FXML
 	void onLoadExistingMenusButtonAction(ActionEvent event) {
 		try {
@@ -426,6 +493,10 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "overrideDailyMenu" de sobreescribir o añadir un menu a la dieta.
+	 * @param menu Le pasamos el menu por parametro.
+	 */
 	private void overrideDailyMenu(Menu menu) {
 		if (dailyMenusModificate.size() != 0) {
 			boolean matches = false;
@@ -445,7 +516,10 @@ public class CreateDietController implements Initializable {
 		nutritionalValues.get().clear();
 		loadTotals();
 	}
-
+	
+	/**
+	 * El metodo "loadActualWeekday" se utiliza para cargar inicialmente el dia de la semana que se visualizara primero.
+	 */
 	private void loadActualWeekday() {
 		List<DailyMenu> dailyMenu = this.diet.get().getDailyMenus();
 		if (dailyMenu.size() != 0) {
@@ -453,6 +527,10 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "loadMenuWeekday" se utiliza para cargar inicialmente el menu que se visualizara primero en funcion 
+	 * del dia de la semana que se haya definido como actual.
+	 */
 	private void loadMenuWeekday() {
 		List<DailyMenu> dailyMenus = diet.get().getDailyMenus();
 		if (dailyMenus.size() != 0) {
@@ -460,6 +538,10 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "loadTotals" se encarga de asignar los valores nutricionales totales a cada una de las properties 
+	 * correspondientes y cargar la grafica.
+	 */
 	private void loadTotals() {
 		NutritionalValues totalsBreaksfast = loadTotalsForMomentDay(
 				menuSelected.get().getBreakfastProducts().getProducts());
@@ -494,6 +576,11 @@ public class CreateDietController implements Initializable {
 		getPieChart();
 	}
 
+	/**
+	 * El metodo "loadTotalsForMomentDay" se encarga de calcular los valores nutricionales totales para un momento del dia.
+	 * @param products Recibe la lista de productos correspondiente a un momento del dia.
+	 * @return
+	 */
 	private NutritionalValues loadTotalsForMomentDay(List<Product> products) {
 		int kcals = 0, proteins = 0, hydrates = 0, fats = 0, fibres = 0;
 		for (Product product : products) {
@@ -507,6 +594,11 @@ public class CreateDietController implements Initializable {
 		return new NutritionalValues(kcals, proteins, hydrates, fats, fibres);
 	}
 
+	/**
+	 * El metodo "newSceneProduct" se encarga de lanzar una nueva vista donde podemos seleccionar 
+	 * de una lista de productos ya existente los que queremos añadir a nuestro menu o dieta.
+	 * @param productMomentDay Recibimos la lista de productos a cargar o rellenar y el momento del dia al que pertenecen.
+	 */
 	private void newSceneProduct(ProductMomentDay productMomentDay) {
 		Stage choice = ChoiceController.getCreateDietCustomStage();
 		Stage manage = ManageDietController.getModificateStage();
@@ -532,13 +624,14 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "getPieChart" crea la grafica basandose en los datos de los valores nutricionales.
+	 */
 	private void getPieChart() {
 		if (!nutritionalValues.get().isEmpty()) {
-			// nutritionalValues.get().getKcalsTotals() +
 			Integer nutricionalsTotals = nutritionalValues.get().getProteinsTotals()
 					+ nutritionalValues.get().getHydratesTotals() + nutritionalValues.get().getFatsTotals()
 					+ nutritionalValues.get().getFibresTotals();
-//				Integer kcalValue = Math.round((nutritionalValues.get().getKcalsTotals() * 100) / nutricionalsTotals);
 			Integer proteinsValue = Math
 					.round((nutritionalValues.get().getProteinsTotals() * 100) / nutricionalsTotals);
 			Integer hydratesValue = Math
@@ -546,13 +639,11 @@ public class CreateDietController implements Initializable {
 			Integer fatsValue = Math.round((nutritionalValues.get().getFatsTotals() * 100) / nutricionalsTotals);
 			Integer fibresValue = Math.round((nutritionalValues.get().getFibresTotals() * 100) / nutricionalsTotals);
 
-//				PieChart.Data kcal = new PieChart.Data("kcal", kcalValue);
 			PieChart.Data proteins = new PieChart.Data("Proteinas", proteinsValue);
 			PieChart.Data hydrates = new PieChart.Data("Hidratos", hydratesValue);
 			PieChart.Data fats = new PieChart.Data("Grasas", fatsValue);
 			PieChart.Data fibres = new PieChart.Data("Fibra", fibresValue);
 
-//				menuChart.getData().setAll(kcal);
 			menuChart.getData().setAll(proteins);
 			menuChart.getData().add(hydrates);
 			menuChart.getData().add(fats);
@@ -563,7 +654,6 @@ public class CreateDietController implements Initializable {
 			menuChart.setLabelLineLength(20);
 
 			menuChart.getData().forEach(this::installTooltip);
-//				installTooltip(kcal);
 			installTooltip(proteins);
 			installTooltip(hydrates);
 			installTooltip(fats);
@@ -571,15 +661,23 @@ public class CreateDietController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "installTooltip" nos muestra un tooltip sobre cada valor de la grafica.
+	 * @param d le pasamos el valor del porcentaje de cada nodo.
+	 */
 	public void installTooltip(PieChart.Data d) {
-		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
+		String msg = String.format("%s : %s", d.getName(), d.getPieValue() + "%");
 
 		Tooltip tooltip = new Tooltip(msg);
 		tooltip.setStyle("-fx-background-color: violet; -fx-text-fill: whitesmoke;");
 
 		Tooltip.install(d.getNode(), tooltip);
 	}
-
+	
+	/**
+	 * Creamos un getter para poder acceder al stage de cargar la lista de todos los menus existentes desde cualquier parte de la app.
+	 * @return retornamos el stage de cargar la lista de todos los menus existentes
+	 */
 	public static Stage getLoadAllMenuStage() {
 		return loadAllMenuStage;
 	}

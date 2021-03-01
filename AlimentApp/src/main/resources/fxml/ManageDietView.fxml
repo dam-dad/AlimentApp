@@ -19,7 +19,7 @@
                <children>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Menú">
+                        <Label styleClass="label-title" text="Menú">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>
@@ -54,7 +54,7 @@
                <children>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Dieta">
+                        <Label styleClass="label-title" text="Dieta">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>
@@ -106,32 +106,32 @@
             <RowConstraints maxHeight="167.0" minHeight="10.0" prefHeight="167.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="menuDietsNameLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Menú" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="menuDietsNameLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-title" text="Menú" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="breakfastLabel" text="Desayuno" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label fx:id="breakfastLabel" styleClass="label-subtitle" text="Desayuno" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="midmorningLabel" layoutX="10.0" layoutY="72.0" text="Media-Mañana" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label fx:id="midmorningLabel" layoutX="10.0" layoutY="72.0" styleClass="label-subtitle" text="Media-Mañana" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lunchLabel" layoutX="10.0" layoutY="72.0" text="Almuerzo" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Label fx:id="lunchLabel" layoutX="10.0" layoutY="72.0" styleClass="label-subtitle" text="Almuerzo" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="snackLabel" layoutX="120.0" layoutY="242.0" text="Merienda" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Label fx:id="snackLabel" layoutX="120.0" layoutY="242.0" styleClass="label-subtitle" text="Merienda" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="dinnerLabel" layoutX="10.0" layoutY="213.0" text="Cena" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <Label fx:id="dinnerLabel" layoutX="10.0" layoutY="213.0" styleClass="label-subtitle" text="Cena" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

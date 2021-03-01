@@ -19,16 +19,16 @@ import dad.alimentapp.utils.Messages;
  * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
  * referencia a la tabla Menu.
  * 
- * @author Antonio
+ * @author Antonio y Andy
  *
  */
 public class MenuService {
 	/**
-	 * El metodo "getAllMenus" lo utilizamos para obtener una lista de menus del
-	 * perfil indicado.
-	 * 
+	 * @author Antonio El metodo "getAllMenus" lo utilizamos para obtener una lista
+	 *         de menus del perfil indicado.
+	 *
 	 * @param profile le pasamos el objeto profile para realizar la busqueda de los
-	 *                menusque le pertenecen.
+	 *                menus que le pertenecen.
 	 * @return retornamos la lista de menus.
 	 */
 	public static List<Menu> getAllMenus(Profile profile) {
@@ -50,14 +50,16 @@ public class MenuService {
 				menuList.add(menu);
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al cargar todos los menus", e.getMessage());
+			Messages.error("Error",
+					"Error al cargar la lista con todos los menus del perfil " + profile.getNameProfile());
 		}
 		return menuList;
 	}
 
 	/**
-	 * El metodo "getMenu" lo utilizamos para obtener un menu a través de su
-	 * identificador el cual recibimos por parametros.
+	 * @author Antonio 
+	 * El metodo "getMenu" lo utilizamos para obtener un menu a
+	 *         través de su identificador el cual recibimos por parametros.
 	 * 
 	 * @param menu_id le pasamos el identificador del menu.
 	 * @return retornamos el menu resultante.
@@ -81,14 +83,14 @@ public class MenuService {
 				menu.setDinnerProducts(ProductService.getAllProductsToMenuOfMomentDay(menu_id, MomentDay.CENA));
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
+			Messages.error("Error", "Error al obtenner el menu selecionado");
 		}
 		return menu;
 	}
 
 	/**
-	 * El metodo "updateMenu" lo utilizamos para actualizar la informacion de un
-	 * menu que recibimos por parametros.
+	 * @author Antonio El metodo "updateMenu" lo utilizamos para actualizar la
+	 *         informacion de un menu que recibimos por parametros.
 	 * 
 	 * @param menu recibimos el menu que vamos a actualizar.
 	 */
@@ -103,10 +105,15 @@ public class MenuService {
 			deleteAllProductsForMenuAllMomentDay(menu.getId());
 			insertAllProductsInMenuForAllMomentDay(menu);
 		} catch (SQLException e) {
-			Messages.error("Error al modificar este menú", e.getMessage());
+			Messages.error("Error", "Error al modificar el menú: " + menu.getName());
 		}
 	}
 
+	/**
+	 * @author Antonio El metodo "insertAllProductsInMenuForAllMomentDay" se encarga
+	 *         de insertar cada menu en sus respectivo momento del dia.
+	 * @param menu
+	 */
 	private static void insertAllProductsInMenuForAllMomentDay(Menu menu) {
 		insertProductsInMenuForMomentDay(menu.getId(), menu.getBreakfastProducts());
 		insertProductsInMenuForMomentDay(menu.getId(), menu.getMidMorningProducts());
@@ -115,12 +122,26 @@ public class MenuService {
 		insertProductsInMenuForMomentDay(menu.getId(), menu.getDinnerProducts());
 	}
 
+	/**
+	 * @author Antonio El metodo "insertProductsInMenuForMomentDay" se encarga de
+	 *         insertar todos los productos de un menu para un momento del dia.
+	 * @param idMenu
+	 * @param productMomentDay
+	 */
 	private static void insertProductsInMenuForMomentDay(Integer idMenu, ProductMomentDay productMomentDay) {
 		for (Product product : productMomentDay.getProducts()) {
 			insertMenuProduct(idMenu, product.getId(), productMomentDay.getMomentDay().getId());
 		}
 	}
 
+	/**
+	 * @author Antonio El metodo "insertMenuProduct" se encarga de insertar un
+	 *         productos de un menu para un momento del dia.
+	 * @param id_menu
+	 * @param id_product
+	 * @param id_moment_day
+	 * @return
+	 */
 	private static boolean insertMenuProduct(Integer id_menu, Integer id_product, Integer id_moment_day) {
 		boolean resultado = true;
 		try {
@@ -132,11 +153,16 @@ public class MenuService {
 			resultado = query.execute();
 
 		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo producto en el menu", e.getMessage());
+			Messages.error("Error", "Error al insertar el nuevo producto en el menu");
 		}
 		return resultado;
 	}
 
+	/**
+	 * @author Antonio El metodo "deleteAllProductsForMenuAllMomentDay" se encarga
+	 *         de eliminar todos los productos de un menu para un momento del dia.
+	 * @param menuId
+	 */
 	private static void deleteAllProductsForMenuAllMomentDay(Integer menuId) {
 		deleteAllProductsForMomentDay(menuId, MomentDay.DESAYUNO);
 		deleteAllProductsForMomentDay(menuId, MomentDay.MEDIA_MAÑANA);
@@ -146,8 +172,8 @@ public class MenuService {
 	}
 
 	/**
-	 * El metodo "deleteAllProductsForMomentDay" lo utilizamnos para eliminar todos
-	 * los productos de un momento del dia.
+	 * @author Antonio El metodo "deleteAllProductsForMomentDay" lo utilizamnos para
+	 *         eliminar todos los productos de un momento del dia.
 	 * 
 	 * @param idMenu    recibimos el id del menu al cual le vamos a borrar los
 	 *                  productos.
@@ -162,13 +188,13 @@ public class MenuService {
 			query.setInt(2, momentDay.getId());
 			query.execute();
 		} catch (Exception e) {
-			Messages.error("Error: No se pudo eliminar el producto seleccionado de dicho menu", e.getMessage());
+			Messages.error("Error", "Error: No se pudo eliminar el producto seleccionado de dicho menu");
 		}
 	}
 
 	/**
-	 * El metodo "insertMenu" lo utilizaremos para insertar un menu y todos sus
-	 * productos relacionados.
+	 * @author Antonio El metodo "insertMenu" lo utilizaremos para insertar un menu
+	 *         y todos sus productos relacionados.
 	 * 
 	 * @param menu le pasaremos el menu a insertar.
 	 */
@@ -185,7 +211,7 @@ public class MenuService {
 			}
 			insertAllProductsInMenuForAllMomentDay(menu);
 		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo menú", e.getMessage());
+			Messages.error("Error", "Error al insertar el nuevo menú");
 		}
 	}
 
