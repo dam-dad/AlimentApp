@@ -7,13 +7,12 @@ Fue desarrollada por:
 * [Andy Jesús Montesdeoca Mederos](https://github.com/AbsolutCode)
 * [David Díaz Barrios](https://github.com/David18888)
 
-**Instalación de la aplicación**  
-Sigue estos pasos para descargarte nuestra aplicación:
+**Instalación de la aplicación**   
 1. Accede a nuestra pestaña de lanzamientos y descárgate la última versión creada
 2. Ejecuta el instalador que se habrá descargado
 3. Sigue los pasos indicando las preferencias que desees.
 
-**Uso de la aplicación**
+**Uso de la aplicación**  
 Consulta nuestra guía de usuario para poder conocer y llevar a cabo todas las opciones de las que dispone nuestra aplicación.
 
 
