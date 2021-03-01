@@ -28,7 +28,7 @@
 	-fx-background-color: #51A69B;
 }
 .context-menu .menu-item:focused {
-	-fx-background-color: #232f3d;
+	-fx-background-color: white;
 }
 
 /*Tabpane de la App */
