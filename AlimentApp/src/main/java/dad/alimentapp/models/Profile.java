@@ -28,7 +28,7 @@ public class Profile {
 	private IntegerProperty height = new SimpleIntegerProperty();
 	private DoubleProperty imc = new SimpleDoubleProperty();
 	private ObjectProperty<Gender> gender = new SimpleObjectProperty<>();
-	private ObjectProperty<Image> image = new SimpleObjectProperty();
+	private ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
 	public Profile() {
 		

@@ -57,7 +57,7 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="breakfastAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onBreakfastAddButtonAction">
+                              <Button fx:id="breakfastAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onBreakfastAddButtonAction" styleClass="btn-success">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -87,7 +87,7 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="midMorningAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onMidMorningAddButtonAction">
+                              <Button fx:id="midMorningAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onMidMorningAddButtonAction" styleClass="btn-success">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -117,7 +117,7 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="lunchAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onLunchAddButtonAction">
+                              <Button fx:id="lunchAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onLunchAddButtonAction" styleClass="btn-success">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -147,7 +147,7 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="snackAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onSnackAddButtonAction">
+                              <Button fx:id="snackAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onSnackAddButtonAction" styleClass="btn-success">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -177,7 +177,7 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="dinnerAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onDinnerAddButtonAction">
+                              <Button fx:id="dinnerAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onDinnerAddButtonAction" styleClass="btn-success">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

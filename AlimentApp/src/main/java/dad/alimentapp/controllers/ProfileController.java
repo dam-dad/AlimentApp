@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Gender;
 import dad.alimentapp.models.Product;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.service.ProductService;
-import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -34,7 +32,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Clase que muestra el conjunto de perfiles almacenados, permite acceder a ellos y borrarlos, así como acceder a la creación de un nuevo perfil
+ * Clase que muestra el conjunto de perfiles almacenados, permite acceder a
+ * ellos y borrarlos, así como acceder a la creación de un nuevo perfil
+ * 
  * @author David_Diaz
  *
  */
@@ -45,7 +45,7 @@ public class ProfileController implements Initializable {
 	private BorderPane view;
 
 	@FXML
-	private  ListView<Profile> profileView;
+	private ListView<Profile> profileView;
 
 	@FXML
 	private Button newProfileButton;
@@ -62,16 +62,15 @@ public class ProfileController implements Initializable {
 	// model
 	public static ListProperty<Profile> profileList = new SimpleListProperty<>(
 			FXCollections.observableArrayList(new ArrayList<>()));
-	private static ObjectProperty<Profile> profileSelected = new SimpleObjectProperty<>();	
+	private static ObjectProperty<Profile> profileSelected = new SimpleObjectProperty<>();
 
-	//DATA
+	// DATA
 	private static List<Product> products;
 
 	public ProfileController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/InfoView.fxml"));
 		loader.setController(this);
 		loader.load();
-
 	}
 
 	@Override
@@ -79,27 +78,30 @@ public class ProfileController implements Initializable {
 
 		
 		ProfileService.loadProfiles();
-		
+
+
 		profileView.itemsProperty().bind(profileList);
 
-			profileView.setCellFactory(profileView -> new ListCell<Profile>() {
-		    private ImageView imageView = new ImageView();
-		    @Override
-		    public void updateItem(Profile profile, boolean empty) {
-		        super.updateItem(profile, empty);
-		        if (empty) {
-		            setText(null);
-		            setGraphic(null);
-		        } else {
-		            Image image = new Image("images/infoTab/icon_listView.png");
-		            imageView.setImage(image);
-		            imageView.setFitWidth(40);
-		            imageView.setFitHeight(40);
-		            setText(profile.toString());
-		            setGraphic(imageView);
-		        }
-		    }
+		profileView.setCellFactory(profileView -> new ListCell<Profile>() {
+			private ImageView imageView = new ImageView();
+
+			@Override
+			public void updateItem(Profile profile, boolean empty) {
+				super.updateItem(profile, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Image image = new Image("images/infoTab/icon_listView.png");
+					imageView.setImage(image);
+					imageView.setFitWidth(40);
+					imageView.setFitHeight(40);
+					setText(profile.toString());
+					setGraphic(imageView);
+				}
+			}
 		});
+
 		
 
 
@@ -111,11 +113,13 @@ public class ProfileController implements Initializable {
 		deleteButton.setOnAction(e->onDeleteButtonAction());
 		newProfileButton.setOnAction(e->onNewProfileButtonAction());
 		
+
 		newProfileButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNotNull());
 		entryButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
 		deleteButton.disableProperty().bind(profileView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
+	
 
 
 
@@ -132,16 +136,17 @@ private void onNewProfileButtonAction() {
 	MainController.setProfileSelected(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
 	profileSelected.set(new Profile("","","",0,0,0,0.0,Gender.HOMBRE));
 	
-	
+}
 		
 	
-	}
 
-/**
- * Método para borrar el perfil seleccionado
- */
-private void onDeleteButtonAction() {
+
+	/**
+	 * Método para borrar el perfil seleccionado
+	 */
+	private void onDeleteButtonAction() {
 		profileSelected.set(profileView.getSelectionModel().getSelectedItem());
+
 		
 		Optional <ButtonType> result= Messages.confirmation("Borrar un perfil", "¿Seguro que desea borrar este perfil?");
 		
@@ -169,42 +174,34 @@ private void onDeleteButtonAction() {
 	}
 
 
-/**
- * Método que carga los datos del perfil seleccionado y los muestra en la pestaña correspondiente
- */
-private void onEntryButtonAction() {
-	
-	
-	profileSelected.set( profileView.getSelectionModel().getSelectedItem());
-	MainController.setProfileSelected(profileSelected.get());
-	App.getMainController().getDataTab().getSelectionModel().select(1);
-	App.getMainController().getMyData().setDisable(false);
-	App.getMainController().getManageDietsTab().setDisable(false);
-	App.getMainController().playTransition();
-	
-	
-}
+	/**
+	 * Método que carga los datos del perfil seleccionado y los muestra en la
+	 * pestaña correspondiente
+	 */
+	private void onEntryButtonAction() {
+		profileSelected.set(profileView.getSelectionModel().getSelectedItem());
+		MainController.setProfileSelected(profileSelected.get());
+		ManageDietController.loadDietsAndMenus();
+		App.getMainController().getDataTab().getSelectionModel().select(1);
+		App.getMainController().getMyData().setDisable(false);
+		App.getMainController().getManageDietsTab().setDisable(false);
+		App.getMainController().playTransition();
 
+	}
 
-
-
-
-/**
- * Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez que la aplicación se inicia	
- */
+	/**
+	 * Método que carga aleatoriamente una imagen en la pestaña Informacion cada vez
+	 * que la aplicación se inicia
+	 */
 	private void loadMainImage() {
 
 		int nPhoto = (int) (Math.random() * (10 - 1)) + 1;
 		adviceImageView.setImage(new Image("images/infoTab/" + nPhoto + ".png"));
 	}
 
-	
 
 
 
-	
-	
-	
 	public static ObjectProperty<Profile> getProfile() {
 		return profileSelected;
 	}
@@ -212,7 +209,7 @@ private void onEntryButtonAction() {
 	public static ListProperty<Profile> getProfileList() {
 		return profileList;
 	}
-	
+
 	public static List<Product> getProducts() {
 		return products;
 	}
