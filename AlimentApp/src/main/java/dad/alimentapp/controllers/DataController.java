@@ -439,11 +439,11 @@ public class DataController implements Initializable {
 			if (manRadio.isSelected()) {
 				idealWeight = Math.round(((0.75 * heightProperty.get()) - 62.5) * 100.00) / 100.00;
 				idealWeightLabel.textProperty()
-						.set("Tu peso ideal está entre " + idealWeight + "-" + (idealWeight + 5.00) + " kg");
+						.set("Tu peso ideal está entre " + (idealWeight-5.00) + "-" + (idealWeight + 5.00) + " kg");
 			} else if (womanRadio.isSelected()) {
 				idealWeight = Math.round(((0.675 * heightProperty.get()) - 56.25) * 100.00) / 100.00;
 				idealWeightLabel.textProperty()
-						.set("Tu peso ideal está entre " + idealWeight + "-" + (idealWeight + 5.00) + " kg");
+						.set("Tu peso ideal está entre " + (idealWeight-5.00) + "-" + (idealWeight + 5.00) + " kg");
 
 			}
 		}
