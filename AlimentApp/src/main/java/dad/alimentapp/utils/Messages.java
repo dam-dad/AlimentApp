@@ -31,7 +31,6 @@ public class Messages {
 		alert.setHeaderText("");
 		alert.setContentText(content);
 
-		// PONER ICONO DEL PADRE
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().setAll(App.getPrimaryStage().getIcons());
 
@@ -52,7 +51,6 @@ public class Messages {
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 
-		// PONER ICONO DEL PADRE
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().setAll(App.getPrimaryStage().getIcons());
 
@@ -71,7 +69,6 @@ public class Messages {
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 
-		// PONER ICONO DEL PADRE
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().setAll(App.getPrimaryStage().getIcons());
 

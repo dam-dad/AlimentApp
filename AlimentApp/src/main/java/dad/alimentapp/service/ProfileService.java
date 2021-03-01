@@ -38,7 +38,7 @@ public class ProfileService {
 						Gender.valueOf(result.getInt(8)));
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtenner el perfil selecionado", e.getMessage());
+			Messages.error("Error", "Error al obtenner el perfil selecionado");
 		}
 		return profile;
 	}

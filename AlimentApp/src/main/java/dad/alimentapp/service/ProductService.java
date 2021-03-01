@@ -42,7 +42,7 @@ public class ProductService {
 						result.getInt(5), result.getInt(6), result.getString(7), origin, type);
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtener el producto seleccionado", e.getMessage());
+			Messages.error("Error", "Error al obtener el producto seleccionado");
 		}
 		return product;
 	}
@@ -66,7 +66,7 @@ public class ProductService {
 				products.add(product);
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al cargar todos los productos", e.getMessage());
+			Messages.error("Error", "Error al cargar la lista de todos los productos");
 		}
 		return products;
 	}
@@ -92,7 +92,7 @@ public class ProductService {
 				productMomentDay.getProducts().add(getProduct(result.getInt(1)));
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtener todos los productos del menu indicado", e.getMessage());
+			Messages.error("Error", "Error al obtener todos los productos del menu indicado para " + momentDay);
 		}
 		return productMomentDay;
 	}
