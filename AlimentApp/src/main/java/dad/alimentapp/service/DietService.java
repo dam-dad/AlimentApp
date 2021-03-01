@@ -14,8 +14,7 @@ import dad.alimentapp.models.Menu;
 import dad.alimentapp.models.Profile;
 import dad.alimentapp.models.Weekday;
 import dad.alimentapp.utils.Messages;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+
 
 /**
  * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
@@ -110,12 +109,9 @@ public static void insertDiet(Diet diet) {
 			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, diet.getId());
 			query.execute();
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Éxito en la eliminación");
-			alert.setHeaderText("Se ha eliminado el menú correctamente.");
-			alert.show();
+			Messages.info("Dieta eliminada", "Se ha eliminado la dieta correctamente.");
 		} catch (SQLException e) {
-			Messages.error("Error al eliminar la dieta", e.getMessage());
+			Messages.error("Error al eliminar la dieta", "No se pudo eliminar la dieta.");
 		}
 	}
 
