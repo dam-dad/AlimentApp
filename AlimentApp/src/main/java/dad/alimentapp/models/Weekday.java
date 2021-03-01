@@ -1,13 +1,13 @@
 package dad.alimentapp.models;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Representamos la tabla weekday con un enum.
  * @author Antonio
  *
  */
-
-import java.util.HashMap;
-import java.util.Map;
-
 public enum Weekday {
 	LUNES(1),
 	MARTES(2),

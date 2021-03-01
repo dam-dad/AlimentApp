@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"dad.alimentapp.controllers"},{"l":"dad.alimentapp.models"},{"l":"dad.alimentapp.service"},{"l":"dad.alimentapp.utils"}]

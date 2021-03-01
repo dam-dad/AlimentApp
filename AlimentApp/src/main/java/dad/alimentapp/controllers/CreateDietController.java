@@ -606,8 +606,8 @@ public class CreateDietController implements Initializable {
 		Stage stage = choice != null ? choice : manage;
 		try {
 			Stage productStage = new Stage();
-			productStage.setMinWidth(750);
-			productStage.setMinHeight(450);
+			productStage.setMinWidth(800);
+			productStage.setMinHeight(500);
 			productStage.setTitle("Productos");
 			productStage.getIcons().add(new Image("/images/logo.png"));
 			productStage.initModality(Modality.WINDOW_MODAL);

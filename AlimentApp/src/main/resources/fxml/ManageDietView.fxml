@@ -32,10 +32,22 @@
                               <ListView fx:id="menuList" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <VBox alignment="CENTER" spacing="25.0">
                                  <children>
-                                    <Button fx:id="createMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreateMenuButtonAction" text="Crear menú" />
-                                    <Button fx:id="viewMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewMenuButtonAction" text="Visualizar menú" />
-                                    <Button fx:id="modifyMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModifyMenuButtonAction" text="Modificar" />
-                                    <Button fx:id="removeMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveMenuButtonAction" text="Eliminar" />
+                                    <Button fx:id="createMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCreateMenuButtonAction" styleClass="btn-add" text="Crear menú">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
+                                    <Button fx:id="viewMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewMenuButtonAction" styleClass="btn-add" text="Visualizar menú">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
+                                    <Button fx:id="modifyMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onModifyMenuButtonAction" styleClass="btn-add" text="Modificar">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
+                                    <Button fx:id="removeMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveMenuButtonAction" styleClass="btn-remove" text="Eliminar">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </VBox>
                            </children>
@@ -67,9 +79,18 @@
                               <ListView fx:id="dietList" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <VBox alignment="CENTER" spacing="25.0">
                                  <children>
-                                    <Button fx:id="createDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onCreateDietButtonAction" prefWidth="100.0" text="Crear dieta" />
-                                    <Button fx:id="modifyDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onModifyDietButtonAction" prefWidth="100.0" text="Modificar" />
-                                    <Button fx:id="removeDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onRemoveDietButtonAction" prefWidth="100.0" text="Eliminar" />
+                                    <Button fx:id="createDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onCreateDietButtonAction" prefWidth="100.0" styleClass="btn-add" text="Crear dieta">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
+                                    <Button fx:id="modifyDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onModifyDietButtonAction" prefWidth="100.0" styleClass="btn-add" text="Modificar">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
+                                    <Button fx:id="removeDietButton" maxWidth="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#onRemoveDietButtonAction" prefWidth="100.0" styleClass="btn-remove" text="Eliminar">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </VBox>
                            </children>

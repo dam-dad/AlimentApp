@@ -3,6 +3,13 @@ package dad.alimentapp.models;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+/**
+ * La clase "NutritionalValues" la utilizamos para almacenar los totales de cada
+ * uno de los valores nutricionales de los productos o menus.
+ * 
+ * @author Antonio
+ *
+ */
 public class NutritionalValues {
 
 	private IntegerProperty kcalsTotals = new SimpleIntegerProperty();
@@ -11,8 +18,9 @@ public class NutritionalValues {
 	private IntegerProperty fatsTotals = new SimpleIntegerProperty();
 	private IntegerProperty fibresTotals = new SimpleIntegerProperty();
 
-	public NutritionalValues() { }
-	
+	public NutritionalValues() {
+	}
+
 	public NutritionalValues(Integer kcalsTotals, Integer proteinsTotals, Integer hydratesTotals, Integer fatsTotals,
 			Integer fibresTotals) {
 		this.setKcalsTotals(kcalsTotals);
@@ -81,7 +89,7 @@ public class NutritionalValues {
 	public final void setFibresTotals(final int fibresTotals) {
 		this.fibresTotalsProperty().set(fibresTotals);
 	}
-	
+
 	public void clear() {
 		this.kcalsTotals.set(0);
 		this.proteinsTotals.set(0);
@@ -89,8 +97,9 @@ public class NutritionalValues {
 		this.fatsTotals.set(0);
 		this.fibresTotals.set(0);
 	}
-	
+
 	public boolean isEmpty() {
-		return getKcalsTotals() == 0 && getProteinsTotals() == 0 && getHydratesTotals() == 0 && getFatsTotals() == 0 && getFibresTotals() == 0;
+		return getKcalsTotals() == 0 && getProteinsTotals() == 0 && getHydratesTotals() == 0 && getFatsTotals() == 0
+				&& getFibresTotals() == 0;
 	}
 }

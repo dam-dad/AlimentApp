@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="view" minHeight="450.0" minWidth="750.0" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="view" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Label fx:id="productNameLabel" text="Selecciona un producto">
+            <Label fx:id="productNameLabel" styleClass="label-subtitle" text="Selecciona un producto">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
@@ -46,63 +46,63 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Label text="Kcal:">
+                  <Label styleClass="label-subtitle" text="Kcal:">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font></Label>
-                  <Label text="Hidratos:" GridPane.rowIndex="1">
+                  <Label styleClass="label-subtitle" text="Hidratos:" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font></Label>
-                  <Label text="Grasas:" GridPane.rowIndex="2">
+                  <Label styleClass="label-subtitle" text="Grasas:" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font></Label>
-                  <Label text="Proteinas" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="System Bold Italic" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label text="Fibra:" GridPane.rowIndex="4">
+                  <Label styleClass="label-subtitle" text="Proteinas" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <Label text="Origen:" GridPane.rowIndex="5">
+                  <Label styleClass="label-subtitle" text="Fibra:" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <Label text="Tipo:" GridPane.rowIndex="6">
+                  <Label styleClass="label-subtitle" text="Origen:" GridPane.rowIndex="5">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="kcalProductLabel" text="0" GridPane.columnIndex="1">
+                  <Label styleClass="label-subtitle" text="Tipo:" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="kcalProductLabel" styleClass="label-content" text="0" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="hydratesProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="hydratesProductLabel" styleClass="label-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="fatsProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="fatsProductLabel" styleClass="label-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="proteinProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="proteinProductLabel" styleClass="label-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="fibresProductLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Label fx:id="fibresProductLabel" styleClass="label-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="originProductLabel" text="INDEFINIDO" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="originProductLabel" styleClass="label-content" text="INDEFINIDO" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
-                  <Label fx:id="typeProductLabel" text="INDEFINIDO" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Label fx:id="typeProductLabel" styleClass="label-content" text="INDEFINIDO" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font></Label>
@@ -118,7 +118,7 @@
       </VBox>
       <VBox alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Label text="Productos:">
+            <Label styleClass="label-subtitle" text="Productos">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
@@ -134,7 +134,7 @@
       </VBox>
       <VBox alignment="TOP_CENTER" spacing="10.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Button fx:id="addButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonAction" styleClass="btn-success">
+            <Button fx:id="addButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonAction" styleClass="btn-add">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -146,7 +146,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="removeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveButtonAction">
+            <Button fx:id="removeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onRemoveButtonAction" styleClass="btn-remove">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -164,7 +164,7 @@
       </VBox>
       <VBox alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="SOMETIMES">
          <children>
-            <Label fx:id="momentDayLabel" text="Momento del dia:">
+            <Label fx:id="momentDayLabel" styleClass="label-subtitle" text="Momento del dia">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
