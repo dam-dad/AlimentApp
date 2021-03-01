@@ -26,6 +26,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Esta clase "MainController" la utilizaremos para lanzar los diferentes
+ * controladores de la app.
+ * 
+ * @author Antonio y David
+ *
+ */
 public class MainController implements Initializable {
 
 	// View
@@ -61,20 +68,19 @@ public class MainController implements Initializable {
 
 	@FXML
 	private Tab manageDietsTab;
-	
-	//Transicion
+
+	// TRANSITION
 	private FadeTransition transicion;
 
-	// Controllers
+	// CONTROLLERS
 	DataController dataController = new DataController();
 	ProfileController profileController = new ProfileController();
-	AboutAppController aboutAppController;
 	ManageDietController manageDietController = new ManageDietController();
 
-	// Profile
+	// PROFILE
 	private static Profile profileSelected;
-	
-	//VARIABLES
+
+	// VARIABLES
 	private static String styleSheetsActual;
 
 	public MainController() throws IOException {
@@ -88,23 +94,31 @@ public class MainController implements Initializable {
 		myDataTab.setContent(dataController.getView());
 		profileTab.setContent(profileController.getView());
 		manageDietsTab.setContent(manageDietController.getView());
-		
+
 		myDataTab.setDisable(true);
 		manageDietsTab.setDisable(true);
 	}
-
-	// Funciones menu
 
 	@FXML
 	void onGenerateReportMenuAction(ActionEvent event) {
 
 	}
 
+	/**
+	 * El metodo "onExitMenuAction" se encarga de cerrar la app, lanzando previamente un alert de confirmacion.
+	 * @author Antonio
+	 * @param event
+	 */
 	@FXML
 	void onExitMenuAction(ActionEvent event) {
 		Utils.closeApp();
 	}
 
+	/**
+	 * El metodo "onLightThemeMenuAction" se encargar de cargar la hoja de estilos con un tema claro.
+	 * @author Antonio
+	 * @param event
+	 */
 	@FXML
 	void onLightThemeMenuAction(ActionEvent event) {
 		App.getAppScene().getStylesheets().clear();
@@ -112,6 +126,11 @@ public class MainController implements Initializable {
 		App.getAppScene().getStylesheets().add(styleSheetsActual);
 	}
 
+	/**
+	 * El metodo "onDarkThemeMenuAction" se encargar de cargar la hoja de estilos con un tema oscuro.
+	 * @author Antonio
+	 * @param event
+	 */
 	@FXML
 	void onDarkThemeMenuAction(ActionEvent event) {
 		App.getAppScene().getStylesheets().clear();
@@ -119,26 +138,38 @@ public class MainController implements Initializable {
 		App.getAppScene().getStylesheets().add(styleSheetsActual);
 	}
 
+	/**
+	 * El metodo "onAboutAppMenuAction" se encarga de lanzar una nueva vista con informacion acerca de la app y sus desarrolladores.
+	 * @author Antonio
+	 * @param event
+	 */
 	@FXML
 	void onAboutAppMenuAction(ActionEvent event) {
 		try {
-			aboutAppController = new AboutAppController();
+			AboutAppController aboutAppController = new AboutAppController();
 
 			Stage aboutStage = new Stage();
-			Scene scene = new Scene(aboutAppController.getView());
-
-			aboutStage.setScene(scene);
 			aboutStage.setTitle("Acerca de AlimentApp");
 			aboutStage.resizableProperty().setValue(Boolean.FALSE);
 			aboutStage.getIcons().add(new Image("/images/logo.png"));
 			aboutStage.initModality(Modality.WINDOW_MODAL);
 			aboutStage.initOwner(App.getPrimaryStage());
+			
+			Scene scene = new Scene(aboutAppController.getView());
+			scene.getStylesheets().add(MainController.getStyleSheetActual());
+			
+			aboutStage.setScene(scene);
 			aboutStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * El metodo "onShowUserGuidesMenuAction" se encarga de abrir navegador y visualizarnos la guia de usuario de la app.
+	 * @author Antonio
+	 * @param event
+	 */
 	@FXML
 	void onShowUserGuidesMenuAction(ActionEvent event) {
 		try {
@@ -148,11 +179,10 @@ public class MainController implements Initializable {
 		}
 	}
 
-	
-	//Transition
-	
-	public  void playTransition() {
-		transicion= new FadeTransition();
+	// Transition
+
+	public void playTransition() {
+		transicion = new FadeTransition();
 		transicion.setAutoReverse(true);
 		transicion.setDelay(Duration.ZERO);
 		transicion.setDuration(Duration.seconds(3));
@@ -162,24 +192,41 @@ public class MainController implements Initializable {
 		transicion.setNode(dataController.getView());
 		transicion.setInterpolator(Interpolator.LINEAR);
 		transicion.play();
-		
+
 	}
-	
-	
-	
-	
+
+	/**
+	 * El metodo "getProfileSelected" nos permite obtener el perfil del usuario que este cargado.
+	 * @author Antonio
+	 * @return retornamos el perfil del usuario seleccionado.
+	 */
 	public static Profile getProfileSelected() {
 		return profileSelected;
 	}
 
+	/**
+	 * El metodo "setProfileSelected" nos permite asignarle el perfil del usuario que se seleccione en la vista principal.
+	 * @author Antonio
+	 * @param profileSelected Le pasamos por parametro el perfil del usuario seleccionado.
+	 */
 	public static void setProfileSelected(Profile profileSelected) {
 		MainController.profileSelected = profileSelected;
 	}
-	
+
+	/**
+	 * El metodo "getStyleSheetActual" nos permite obtener el fichero de estilo que esta siendo usado por la app.
+	 * @author Antonio
+	 * @return retornamos el fichero de estilo que esta siendo usado por la app.
+	 */
 	public static String getStyleSheetActual() {
 		return styleSheetsActual;
 	}
-	
+
+	/**
+	 * El metodo "setStyleSheetActual" nos permite definir una hoja de estilos y que toda la app tenga acceso.
+	 * @author Antonio
+	 * @param style le pasamos por parametros la ruta del fichero CSS que se va usando en la app.
+	 */
 	public static void setStyleSheetActual(String style) {
 		styleSheetsActual = style;
 	}
@@ -190,11 +237,12 @@ public class MainController implements Initializable {
 
 	public Tab getMyData() {
 		return myDataTab;
-		
 	}
+
 	public Tab getManageDietsTab() {
 		return manageDietsTab;
 	}
+
 	public TabPane getDataTab() {
 		return alimentAppTabPane;
 	}

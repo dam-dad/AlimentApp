@@ -38,7 +38,7 @@
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="versionLabel" text="Label">
+                        <Label fx:id="versionLabel" text="1.0.0">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font></Label>
