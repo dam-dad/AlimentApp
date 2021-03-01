@@ -663,7 +663,7 @@ public class CreateDietController implements Initializable {
 
 	/**
 	 * El metodo "installTooltip" nos muestra un tooltip sobre cada valor de la grafica.
-	 * @param d
+	 * @param d le pasamos el valor del porcentaje de cada nodo.
 	 */
 	public void installTooltip(PieChart.Data d) {
 		String msg = String.format("%s : %s", d.getName(), d.getPieValue() + "%");
@@ -676,7 +676,7 @@ public class CreateDietController implements Initializable {
 	
 	/**
 	 * Creamos un getter para poder acceder al stage de cargar la lista de todos los menus existentes desde cualquier parte de la app.
-	 * @return
+	 * @return retornamos el stage de cargar la lista de todos los menus existentes
 	 */
 	public static Stage getLoadAllMenuStage() {
 		return loadAllMenuStage;

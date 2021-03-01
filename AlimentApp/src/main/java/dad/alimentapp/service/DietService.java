@@ -100,7 +100,7 @@ public class DietService {
 	/**
 	 * @author Antonio
 	 * El metodo "updateDiet" se encarga de modificar una dieta.
-	 * @param diet
+	 * @param diet le pasamos por parametros la dieta a actualizar.
 	 */
 	public static void updateDiet(Diet diet) {
 		try {
@@ -140,30 +140,7 @@ public class DietService {
 			Messages.error("Error al eliminar la dieta", e.getMessage());
 		}
 	}
-	/**
-	 *  @author Antonio
-	 *  El metodo "insertDietMenu" se encarga de insertar un menu para la dieta indicada.
-	 * @param dietId id de la dieta.
-	 * @param menuId id del menu.
-	 * @return
-	 */
-	public static int insertDietMenu(Integer dietId, Integer menuId) {
-		int idResult = 0;
-		try {
-			String sql = "INSERT INTO diets_menus VALUES (?, ?)";
-			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			query.setInt(1, dietId);
-			query.setInt(2, menuId);
-			query.execute();
-			ResultSet generatedKeys = query.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				idResult = generatedKeys.getInt(1);
-			}
-		} catch (SQLException e) {
-			Messages.error("Error", "Error al insertar el nuevo menú en la dieta.");
-		}
-		return idResult;
-	}
+	
 	/**
 	 *  @author Antonio
 	 * El metodo "insertAllMenusForDiet" se encarga de insertar todos los menus para la dieta indicada.

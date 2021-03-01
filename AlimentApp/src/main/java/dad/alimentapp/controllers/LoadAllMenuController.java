@@ -89,7 +89,7 @@ public class LoadAllMenuController implements Initializable {
 
 	/**
 	 * El metodo "getMenuAccepted" se encarga de devolver el menu seleccionado para cargar.
-	 * @return
+	 * @return retornamos el menu a cargar.
 	 */
 	public Menu getMenuAccepted() {
 		return menuAccepted;

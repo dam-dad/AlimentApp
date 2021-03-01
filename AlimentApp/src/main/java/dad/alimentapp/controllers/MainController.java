@@ -191,7 +191,7 @@ public class MainController implements Initializable {
 	/**
 	 * El metodo "getProfileSelected" nos permite obtener el perfil del usuario que este cargado.
 	 * @author Antonio
-	 * @return
+	 * @return retornamos el perfil del usuario seleccionado.
 	 */
 	public static Profile getProfileSelected() {
 		return profileSelected;
@@ -209,7 +209,7 @@ public class MainController implements Initializable {
 	/**
 	 * El metodo "getStyleSheetActual" nos permite obtener el fichero de estilo que esta siendo usado por la app.
 	 * @author Antonio
-	 * @return
+	 * @return retornamos el fichero de estilo que esta siendo usado por la app.
 	 */
 	public static String getStyleSheetActual() {
 		return styleSheetsActual;
@@ -218,7 +218,7 @@ public class MainController implements Initializable {
 	/**
 	 * El metodo "setStyleSheetActual" nos permite definir una hoja de estilos y que toda la app tenga acceso.
 	 * @author Antonio
-	 * @param style
+	 * @param style le pasamos por parametros la ruta del fichero CSS que se va usando en la app.
 	 */
 	public static void setStyleSheetActual(String style) {
 		styleSheetsActual = style;

@@ -75,7 +75,7 @@ public class ProductService {
 	 * El metodo "getAllProductsToMenuOfMomentDay" obtenemos todos los productos de
 	 * ese menu en un momento del dia.
 	 * 
-	 * @param menu      pasamos por parametros el menu.
+	 * @param idMenu      pasamos por parametros el menu.
 	 * @param momentDay pasamos por parametros el momento del dia.
 	 * @return retornamos todos los productos del menu para ese momento del dia.
 	 */

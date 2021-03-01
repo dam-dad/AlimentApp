@@ -469,7 +469,7 @@ public class CreateMenuController implements Initializable {
 	}
 	/**
 	 * El metodo "installTooltip" nos muestra un tooltip sobre cada valor de la grafica.
-	 * @param d
+	 * @param d le pasamos el valor del porcentaje de cada nodo.
 	 */
 	public void installTooltip(PieChart.Data d) {
 

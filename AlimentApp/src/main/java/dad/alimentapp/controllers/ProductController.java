@@ -185,7 +185,7 @@ public class ProductController implements Initializable {
 	 * El metodo "getProductMomentDay" se encarga de obtener una lista de todos los
 	 * productos seleccionados para un momento del dia.
 	 * 
-	 * @return
+	 * @return retornara una lista de productos para un moemento del dia.
 	 */
 	public final ProductMomentDay getProductMomentDay() {
 		return this.productMomentDayProperty().get();

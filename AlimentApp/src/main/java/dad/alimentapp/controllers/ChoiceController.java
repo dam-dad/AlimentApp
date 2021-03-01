@@ -137,7 +137,7 @@ public class ChoiceController implements Initializable {
 	/**
 	 * Creamos un getter para poder acceder al stage de crear menus y dietas personalizados desde cualquier parte de la app.
 	 * @author Antonio
-	 * @return
+	 * @return retorna el stage de crear menus y dietas
 	 */
 	public static Stage getCreateDietCustomStage() {
 		return createCustomStage;
@@ -146,7 +146,7 @@ public class ChoiceController implements Initializable {
 	/**
 	 * Creamos un setter del stage para poder cambiar su valor desde cualquier parte de la app.
 	 * @author Antonio
-	 * @param stage
+	 * @param stage le pasamos por parametros el stage para crear menus y dietas.
 	 */
 	public static void setCreateDietCustomStage(Stage stage) {
 		createCustomStage = stage;

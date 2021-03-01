@@ -370,7 +370,7 @@ public class ManageDietController implements Initializable {
 	/**
 	 * Creamos un getter para poder acceder al stage de eleccion desde cualquier parte de la app.
 	 * @author Antonio
-	 * @return
+	 * @return retornamos el Stage con la vista de eleccion.
 	 */
 	public static Stage getChoiceStage() {
 		return choiceStage;
@@ -379,7 +379,7 @@ public class ManageDietController implements Initializable {
 	/**
 	 * Creamos un getter para poder acceder al stage de modificacion de los menus o dietas desde cualquier parte de la app.
 	 * @author Antonio
-	 * @return
+	 * @return retornamos el stage de modificacion de los menus o dietas.
 	 */
 	public static Stage getModificateStage() {
 		return modifIcateStage;
@@ -388,7 +388,7 @@ public class ManageDietController implements Initializable {
 	/**
 	 * Creamos un setter para poder cambiar el valor del stage de modificacion de los menus o dietas desde cualquier parte de la app.
 	 * @author Antonio
-	 * @param stage
+	 * @param stage le pasamos por parametros el stage para la vista de modificacion de menus o dietas
 	 */
 	public static void setModificateStage(Stage stage) {
 		modifIcateStage = stage;
