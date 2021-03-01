@@ -1,4 +1,4 @@
-# AlimentApp
+# AlimentApp ![Icono](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/logo.png)
 
 AlimentApp es una aplicación diseñada a la creación y gestión de menús y dietas saludables.
 Fue desarrollada por:
