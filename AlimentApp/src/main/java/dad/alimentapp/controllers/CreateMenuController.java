@@ -518,10 +518,10 @@ public class CreateMenuController implements Initializable {
 	 */
 	public void installTooltip(PieChart.Data d) {
 
-		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
+		String msg = String.format("%s : %s", d.getName(), d.getPieValue() + "%");
 
 		Tooltip tooltip = new Tooltip(msg);
-		tooltip.setStyle("-fx-background-color: violet; -fx-text-fill: whitesmoke;");
+		tooltip.setStyle("-fx-background-color: #061f33; -fx-text-fill: #FFFFFF; -fx-font-family: Segoe UI Light;");
 
 		Tooltip.install(d.getNode(), tooltip);
 	}
