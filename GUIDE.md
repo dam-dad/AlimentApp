@@ -6,7 +6,7 @@
 
 ## **Pestaña de usuarios**
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotViewUsers.PNG)
+![](https://github.com/dam-dad/AlimentApp/tree/main/AlimentApp/src/main/resources/images/screenshot/screenshotViewUsers.PNG)
 
 -  Añadir un usuario <img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainButtonAdd.PNG" style="zoom:33%;" />
 - Entrar con el usuario seleccionado <img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainButtonEnter.PNG" style="zoom:33%;" />
