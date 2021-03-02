@@ -6,7 +6,7 @@
 
 ## **Pestaña de usuarios**
 
-![](https://github.com/dam-dad/AlimentApp/tree/main/AlimentApp/src/main/resources/images/screenshot/screenshotViewUsers.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotViewUsers.PNG)
 
 -  Añadir un usuario <img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainButtonAdd.PNG" style="zoom:33%;" />
 - Entrar con el usuario seleccionado <img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainButtonEnter.PNG" style="zoom:33%;" />
@@ -19,7 +19,7 @@
 
 ## **Pestaña Mis Datos**
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotDatas.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotDatas.PNG)
 
 En esta pestaña podrá modificar o crear un usuario.
 
@@ -41,7 +41,7 @@ Para cambiar el avatar ha de darle en "Cambiar avatar", y si ha hecho algún cam
 
 ## **Gestionar Dietas**
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotManageDiets.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotManageDiets.PNG)
 
 En esta ventana podrá crear, modificar, visualizar o eliminar dietas o menús.
 
@@ -56,11 +56,11 @@ En esta ventana podrá crear, modificar, visualizar o eliminar dietas o menús.
 
 ### Personalizado:
 
-<img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotChooseMenu.PNG" style="zoom:67%;" />
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotChooseMenu.PNG)
 
 Escogerá "Personalizado".
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotPersonalizedMenu.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotPersonalizedMenu.PNG)
 
 - Para añadir productos, tendrá que darle en el botón de añadir, encima de las listas, y si quiere eliminar, el botón lo encontrara al lado del de añadir.
 - Se irán visualizando los productos en las listas
@@ -69,17 +69,17 @@ Escogerá "Personalizado".
 - Arriba del todo le pondrá el nombre al menú.
 - Para salvar el menú creado, le dará en el botón de "Guardar menú"
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotChooseProduct.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotChooseProduct.PNG)
 
 Aquí podrá escoger el producto y añadirlo a la derecha en el botón + de color verde, para quitar le dará en el de abajo. A la izquierda se le visualizará una imagen del producto y sus características.
 
 ### **Por defecto:**
 
-<img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotChooseMenu.PNG" style="zoom:67%;" />
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotChooseMenu.PNG)
 
 Escogéra "Por defecto".
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotDefaultMenu.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotDefaultMenu.PNG)
 
 - Para elegir un menú prediseñado, le dará en el combo, al lado de la palabra "Menú".
 - Abajo se le visualizará los productos según el momento del día. Habrá un máximo de 3 y mínimo de 1.
@@ -91,11 +91,11 @@ Escogéra "Por defecto".
 
 ### Personalizado:
 
-<img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotChooseDiet.PNG" style="zoom:67%;" />
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotChooseDiet.PNG)
 
 Escogerá "Personalizado".
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotPersonalizedDiet.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotPersonalizedDiet.PNG)
 
 - Para añadir productos, tendrá que darle en el botón de añadir, encima de las listas, y si quiere eliminar, el botón lo encontrara al lado del de añadir.
 - Se irán visualizando los productos en las listas.
@@ -106,17 +106,17 @@ Escogerá "Personalizado".
 - Para salvar la dieta creada, le dará en el botón de "Guardar dieta".
 - Si quiere cargar un menú le dará al botón "Cargar menús existentes".
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotChooseProduct.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotChooseProduct.PNG)
 
 Aquí podrá escoger el producto y añadirlo a la derecha en el botón + de color verde, para quitar le dará en el de abajo. A la izquierda se le visualizará una imagen del producto y sus características.
 
 ### **Por defecto:**
 
-<img src="E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotChooseDiet.PNG" style="zoom:67%;" />
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotChooseDiet.PNG)
 
 Escogerá "Por defecto".
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotDefaultDiet.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotDefaultDiet.PNG)
 
 - Para elegir una dieta prediseñada, le dará en el combo, al lado de la palabra "Dieta".
 - Abajo se le visualizará los productos según el momento del día. Habrá un máximo de 3 y mínimo de 1.
@@ -126,7 +126,7 @@ Escogerá "Por defecto".
 
 ## Menú superior**
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainMenuArchives.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotMainMenuArchives.PNG)
 
 Si le da "Archivos", en la parte superior de la aplicación, podrá generar un informe con todas las dietas o salir de la aplicación.
 
@@ -134,7 +134,7 @@ Si le da "Archivos", en la parte superior de la aplicación, podrá generar un i
 
 
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainMenuTheme.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotMainMenuTheme.PNG)
 
 Podrá escoger entre un tema oscuro o claro.
 
@@ -142,7 +142,7 @@ Podrá escoger entre un tema oscuro o claro.
 
 
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotMainMenuHelp.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotMainMenuHelp.PNG)
 
 En ayuda podrá elegir si ver esta guía de usuario o presionar en "Acerca de..." para ver más información sobre la aplicación.
 
@@ -150,7 +150,7 @@ En ayuda podrá elegir si ver esta guía de usuario o presionar en "Acerca de...
 
 ## **Acerca de...**
 
-![](E:\2020-2021\DAD\Eclipse\AlimentApp\AlimentApp\src\main\resources\images\screenshot\screenshotAbout.PNG)
+![ViewUser](https://github.com/dam-dad/AlimentApp/blob/main/AlimentApp/src/main/resources/images/screenshot/screenshotAbout.PNG)
 
 Si le da a "Acerca de..." podrá ver los nombres de los desarrolladores y acceder a su GitHub. También visualizará la versión de la aplicación y la licencia.
 
