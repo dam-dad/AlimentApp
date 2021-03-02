@@ -10,7 +10,7 @@
 		<maven.compiler.target>14</maven.compiler.target>
 		<maven.compiler.source>14</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<exec.mainClass>dad.javafx.ventana.Main</exec.mainClass>
+		<exec.mainClass>dad.alimentapp.main.Main</exec.mainClass>
 	</properties>
 
 	<dependencies>
@@ -51,5 +51,47 @@
 		</dependency>
 
 	</dependencies>
+	
+	
+	<build>
+	<plugins>
+	
+	<plugin>
+	<groupId>io.github.fvarrui</groupId>
+	<artifactId>javapackager</artifactId>
+	<version>1.5.1</version>
+	<executions>
+		<execution>
+			<phase>package</phase>
+			<goals>
+				<goal>package</goal>
+			</goals>
+			<configuration>
+				<!-- mandatory -->
+				<mainClass>dad.alimentapp.main.Main</mainClass>
+				<!-- optional -->
+				<bundleJre>true</bundleJre>
+				<generateInstaller>true</generateInstaller>
+				<platform>auto</platform>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+	
+	
+	</plugins>
+	
+	
+	
+	
+	</build>
+	
+	
+	
+	
+	
+	
+	
+	
 
 </project>
