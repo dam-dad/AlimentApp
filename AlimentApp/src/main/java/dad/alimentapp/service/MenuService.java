@@ -19,16 +19,16 @@ import dad.alimentapp.utils.Messages;
  * En esta clase tenemos almacenadas todas las consultas a la base de datos, en
  * referencia a la tabla Menu.
  * 
- * @author Antonio
+ * @author Antonio y Andy
  *
  */
 public class MenuService {
 	/**
 	 * El metodo "getAllMenus" lo utilizamos para obtener una lista de menus del
 	 * perfil indicado.
-	 * 
+	 *
 	 * @param profile le pasamos el objeto profile para realizar la busqueda de los
-	 *                menusque le pertenecen.
+	 *                menus que le pertenecen.
 	 * @return retornamos la lista de menus.
 	 */
 	public static List<Menu> getAllMenus(Profile profile) {
@@ -50,7 +50,8 @@ public class MenuService {
 				menuList.add(menu);
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al cargar todos los menus", e.getMessage());
+			Messages.error("Error",
+					"Error al cargar la lista con todos los menus del perfil " + profile.getNameProfile());
 		}
 		return menuList;
 	}
@@ -81,7 +82,7 @@ public class MenuService {
 				menu.setDinnerProducts(ProductService.getAllProductsToMenuOfMomentDay(menu_id, MomentDay.CENA));
 			}
 		} catch (SQLException e) {
-			Messages.error("Error al obtenner el menu selecionado", e.getMessage());
+			Messages.error("Error", "Error al obtenner el menu selecionado");
 		}
 		return menu;
 	}
@@ -103,10 +104,16 @@ public class MenuService {
 			deleteAllProductsForMenuAllMomentDay(menu.getId());
 			insertAllProductsInMenuForAllMomentDay(menu);
 		} catch (SQLException e) {
-			Messages.error("Error al modificar este menú", e.getMessage());
+			Messages.error("Error", "Error al modificar el menú: " + menu.getName());
 		}
 	}
 
+	/**
+	 * El metodo "insertAllProductsInMenuForAllMomentDay" se encarga de insertar
+	 * cada menu en sus respectivo momento del dia.
+	 * 
+	 * @param menu
+	 */
 	private static void insertAllProductsInMenuForAllMomentDay(Menu menu) {
 		insertProductsInMenuForMomentDay(menu.getId(), menu.getBreakfastProducts());
 		insertProductsInMenuForMomentDay(menu.getId(), menu.getMidMorningProducts());
@@ -115,12 +122,28 @@ public class MenuService {
 		insertProductsInMenuForMomentDay(menu.getId(), menu.getDinnerProducts());
 	}
 
+	/**
+	 * El metodo "insertProductsInMenuForMomentDay" se encarga de insertar todos los
+	 * productos de un menu para un momento del dia.
+	 * 
+	 * @param idMenu
+	 * @param productMomentDay
+	 */
 	private static void insertProductsInMenuForMomentDay(Integer idMenu, ProductMomentDay productMomentDay) {
 		for (Product product : productMomentDay.getProducts()) {
 			insertMenuProduct(idMenu, product.getId(), productMomentDay.getMomentDay().getId());
 		}
 	}
 
+	/**
+	 * El metodo "insertMenuProduct" se encarga de insertar un productos de un menu
+	 * para un momento del dia.
+	 * 
+	 * @param id_menu
+	 * @param id_product
+	 * @param id_moment_day
+	 * @return
+	 */
 	private static boolean insertMenuProduct(Integer id_menu, Integer id_product, Integer id_moment_day) {
 		boolean resultado = true;
 		try {
@@ -132,11 +155,17 @@ public class MenuService {
 			resultado = query.execute();
 
 		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo producto en el menu", e.getMessage());
+			Messages.error("Error", "Error al insertar el nuevo producto en el menu");
 		}
 		return resultado;
 	}
 
+	/**
+	 * El metodo "deleteAllProductsForMenuAllMomentDay" se encarga de eliminar todos
+	 * los productos de un menu para un momento del dia.
+	 * 
+	 * @param menuId
+	 */
 	private static void deleteAllProductsForMenuAllMomentDay(Integer menuId) {
 		deleteAllProductsForMomentDay(menuId, MomentDay.DESAYUNO);
 		deleteAllProductsForMomentDay(menuId, MomentDay.MEDIA_MAÑANA);
@@ -162,7 +191,7 @@ public class MenuService {
 			query.setInt(2, momentDay.getId());
 			query.execute();
 		} catch (Exception e) {
-			Messages.error("Error: No se pudo eliminar el producto seleccionado de dicho menu", e.getMessage());
+			Messages.error("Error", "Error: No se pudo eliminar el producto seleccionado de dicho menu");
 		}
 	}
 
@@ -185,7 +214,7 @@ public class MenuService {
 			}
 			insertAllProductsInMenuForAllMomentDay(menu);
 		} catch (SQLException e) {
-			Messages.error("Error al insertar el nuevo menú", e.getMessage());
+			Messages.error("Error", "Error al insertar el nuevo menú");
 		}
 	}
 
@@ -200,16 +229,15 @@ public class MenuService {
 			PreparedStatement query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
 			ResultSet rs = query.executeQuery();
-		    while(rs.next())
-		            {
-		                if(rs.getInt(2) == menu.getId()) {
-		                int idDieta = rs.getInt(1);
-		                sql = "DELETE FROM diets WHERE id_diet = ?";
-		    			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		    			query.setInt(1, idDieta);
-		    			query.execute();
-		                }
-		            }
+			while (rs.next()) {
+				if (rs.getInt(2) == menu.getId()) {
+					int idDieta = rs.getInt(1);
+					sql = "DELETE FROM diets WHERE id_diet = ?";
+					query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					query.setInt(1, idDieta);
+					query.execute();
+				}
+			}
 			sql = "DELETE FROM diets_menus WHERE id_menu = ?";
 			query = App.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			query.setInt(1, menu.getId());
@@ -224,7 +252,8 @@ public class MenuService {
 			query.execute();
 			Messages.info("Menú eliminado", "El menú ha sido eliminado correctamente.");
 		} catch (SQLException e) {
-			Messages.error("Error al eliminar el menú", "Asegúrese de eliminar primero la dieta en la que se encuentra el menú seleccionado para poder eliminar posteriormente el menú.");
+			Messages.error("Error al eliminar el menú",
+					"Asegúrese de eliminar primero la dieta en la que se encuentra el menú seleccionado para poder eliminar posteriormente el menú.");
 		}
 	}
 

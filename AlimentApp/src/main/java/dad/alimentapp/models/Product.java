@@ -7,9 +7,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
+
 /**
- * Representamos la tabla Product con un clase y generamos sus getter and setters. Para poder obtener toda la información.
- *  Además de algunos metodos.
+ * La clase "Product" la utilizamos para poder almacenar toda la información de
+ * un producto.
+ * 
  * @author Antonio
  *
  */
@@ -25,9 +27,10 @@ public class Product {
 	private ObjectProperty<Origin> origin = new SimpleObjectProperty<>();
 	private ObjectProperty<Type> type = new SimpleObjectProperty<>();
 	private ObjectProperty<Image> image = new SimpleObjectProperty<>();
-	
+
 	/**
 	 * Creamos una funcion para asignar un producto por defecto.
+	 * 
 	 * @return retorna el producto por defecto.
 	 */
 	public static Product productDefault() {

@@ -140,7 +140,7 @@ public class GenerateMenuController implements Initializable {
 	void onGenerateButtonAction(ActionEvent event) {
 		
 	}
-		
+
 	void onSaveMenuButtonAction(ActionEvent event) {
 		/*Menu menuName = new Menu(menuNameText.getText());
 		MenuService.insertMenu(menuName);*/

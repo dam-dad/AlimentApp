@@ -1,32 +1,150 @@
-.root{
-	-fx-background-color:#AFF4F3;
-    
-	}
-.button{
-	-fx-background-color:orange;
-
+/* Contendor principal */
+.root {
+    -fx-background-color: #72D8D4;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 9pt;
 }
- .button:hover {
-        -fx-background-color: white;
-        -fx-scale-y: 1.1;
+/* Barra de menu */
+.menu-bar {
+	-fx-background-color: #4C9289;
+	-fx-font-size: 12pt;
+}
+.menu-bar .label {
+    -fx-text-fill: black;
+    -fx-opacity: 0.9;
+}
+/* Archivos, Tema, Ayuda */
+.menu-bar .menu-button:showing {
+	-fx-background-color: #51A69B;
+}
+.menu-bar .menu-button:focused {
+	-fx-background-color: white;
+}
+.menu-bar .menu-button:hover {
+	-fx-background-color: white;
+}
+/* Contenido de los botones del menu */
+.context-menu {
+	-fx-background-color: #51A69B;
+}
+.context-menu .menu-item:focused {
+	-fx-background-color: #232f3d;
 }
 
-
-
-.list-cell {
-	
-    -fx-font-size: 16 ;
-     -fx-padding: 5px;
-      -fx-font-family: "Courier New";
-
-       fx-width:40;
+/*Tabpane de la App */
+.tab-pane *.tab-header-area *.tab-header-background {
+    -fx-background-color: #4BA69B;
 }
 
-
-.list-cell:filled:hover {
-    -fx-cell-hover-color: white;
-    -fx-text-fill: blue;
+.tab-pane {
+  -fx-tab-min-width:140px;
+  -fx-tab-max-width:160px;
+  -fx-tab-min-height:30px;
+  -fx-tab-max-height:30px;
 }
-.textfield{
--fx-border: none;
+
+.tab-pane .tab {
+	-fx-text-fill: black; 
+}
+.tab {
+	-fx-background-color: #4BA69B ;
+}
+
+.tab-label {
+	-fx-alignment: center ;
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 13pt;
+}
+.tab:selected {
+	-fx-background-color: #43948B ;
+	-fx-font-size: 20pt;
+	-fx-border-color: none ;
+}
+
+.tab:disabled {
+	-fx-background-color: transparent ;
+	-fx-border-color: none ;
+}
+
+.tab:focused {
+	-fx-focus-color: transparent ;
+}
+
+.tab-pane *.tab-header-background {
+	-fx-background-color: #4d636f ;
+}
+
+.tab:selected .focus-indicator {
+	-fx-focus-color: transparent;
+	-fx-border-color: transparent ;
+}
+
+/*BOTONES ADD, CARGAR,ETC. */
+.btn-add {
+    -fx-background-color: #3CBC38;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #FFFFFF;
+}
+.btn-add:hover {
+	-fx-background-color: #61B662;
+    -fx-scale-y: 1.1;
+    -fx-scale-X: 1.1;
+}
+/*BOTONES DE ELIMINAR */
+.btn-remove{
+	-fx-background-color: derive(#D50000, 60%);
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-text-fill: #FFFFFF;
+}
+
+.btn-remove:hover {
+	-fx-background-color: derive(#D50000, 45%);
+    -fx-scale-y: 1.1;
+    -fx-scale-X: 1.1;
+}
+/* BOTONES CHOICE */
+.btn-choice {
+	-fx-background-radius: 50px;
+}
+.btn-choice:hover {
+	-fx-scale-y: 1.05;
+    -fx-scale-X: 1.05;
+}
+/* LABELS */
+.label {
+    /* -fx-font-size: 11pt; */
+    -fx-text-fill: black;
+    -fx-opacity: 0.9;
+}
+
+.label-title, .label-subtitle {
+	-fx-font-family: "Segoe UI Light";
+	-fx-text-fill: black;
+}
+.label-title {
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-font-size: 20pt;
+}
+
+.label-subtitle {
+	-fx-font-size: 15pt;
+}
+
+/*About */
+.link-about {
+	-fx-font-family: "Segoe UI Light";
+}
+/*Label de productos, crear dieta y menu y generar dieta y menu */
+.label-content {
+	-fx-font-family: "Segoe UI Light";
+	-fx-font-size: 14pt;
+}
+/* Labels formulario datos perfil */
+.label-form {
+	-fx-font-family: "Segoe UI Light";
+	-fx-font-size: 12pt;
+}
+.radio-button {
+	-fx-text-fill: black;
+	-fx-font-size: 12pt;
 }

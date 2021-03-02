@@ -23,6 +23,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Esta clase "ChoiceController" Lo utilizaremos para elegir entre crear un menú
+ * personalizado o por defecto, también para crear una dieta personalizada o por
+ * defecto en nuestra app.
+ * 
+ * @author Antonio y Daniel
+ *
+ */
 public class ChoiceController implements Initializable {
 
 	// VIEW
@@ -46,7 +54,7 @@ public class ChoiceController implements Initializable {
 	private GenerateDietController dietController;
 
 	// VARIABLE
-	private static Stage createCustomStage; 
+	private static Stage createCustomStage;
 	private ControlDietMenu controlDietMenu;
 	private static final String TITLE = "Crear ";
 
@@ -91,7 +99,7 @@ public class ChoiceController implements Initializable {
 				Stage secondaryStage = new Stage();
 				Scene scene = new Scene(menuController.getView());
 				scene.getStylesheets().add(MainController.getStyleSheetActual());
-				
+
 				secondaryStage.setScene(scene);
 				secondaryStage.setTitle("Generar Menu");
 				secondaryStage.getIcons().add(new Image("/images/logo.png"));
@@ -105,6 +113,12 @@ public class ChoiceController implements Initializable {
 		}
 	}
 
+	/**
+	 * El metodo "onPersonalizedButtonAction" lo utilizaremos para lanzar la vista
+	 * de crear dieta o menu.
+	 * @author Antonio
+	 * @param event
+	 */
 	@FXML
 	void onPersonalizedButtonAction(ActionEvent event) {
 		try {
@@ -120,10 +134,20 @@ public class ChoiceController implements Initializable {
 		}
 	}
 
+	/**
+	 * Creamos un getter para poder acceder al stage de crear menus y dietas personalizados desde cualquier parte de la app.
+	 * @author Antonio
+	 * @return retorna el stage de crear menus y dietas
+	 */
 	public static Stage getCreateDietCustomStage() {
 		return createCustomStage;
 	}
-	
+
+	/**
+	 * Creamos un setter del stage para poder cambiar su valor desde cualquier parte de la app.
+	 * @author Antonio
+	 * @param stage le pasamos por parametros el stage para crear menus y dietas.
+	 */
 	public static void setCreateDietCustomStage(Stage stage) {
 		createCustomStage = stage;
 	}
@@ -132,6 +156,12 @@ public class ChoiceController implements Initializable {
 		title.set(TITLE + this.controlDietMenu);
 	}
 
+	/**
+	 * Creamos un Stage personalizado para lanzar la vista de dietas o menu segun lo
+	 * necesitemos.
+	 * @author Antonio
+	 * @param view
+	 */
 	private void createStage(HBox view) {
 		ManageDietController.setModificateStage(null);
 		createCustomStage = new Stage();
@@ -139,6 +169,8 @@ public class ChoiceController implements Initializable {
 		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		createCustomStage.setScene(scene);
+		createCustomStage.setMinWidth(900);
+		createCustomStage.setMinHeight(700);
 		createCustomStage.setTitle(controlDietMenu.name());
 		createCustomStage.getIcons().add(new Image("/images/logo.png"));
 		createCustomStage.initModality(Modality.WINDOW_MODAL);

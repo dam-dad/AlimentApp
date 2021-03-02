@@ -21,6 +21,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Esta clase "LoadAllMenuController" la utilizaremos para visualizar una lista con todos los menus del usuario.
+ * @author Antonio
+ *
+ */
 public class LoadAllMenuController implements Initializable {
 
 	@FXML
@@ -31,14 +36,14 @@ public class LoadAllMenuController implements Initializable {
 
 	@FXML
 	private Button loadAllMenuButton;
-	
-	//VARIABLE
-	private Stage stage;
 
 	// MODEL
 	private ListProperty<Menu> allMenus = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ObjectProperty<Menu> menu = new SimpleObjectProperty<>();
-	private Menu menuAccepted = null;
+	private Menu menuAccepted = null;	
+	
+	//VARIABLE
+	private Stage stage;
 
 	public LoadAllMenuController(Stage stage) throws IOException {
 		this.stage = stage;
@@ -55,15 +60,24 @@ public class LoadAllMenuController implements Initializable {
 		menu.bind(allMenuList.getSelectionModel().selectedItemProperty());
 		allMenuList.itemsProperty().bindBidirectional(allMenus);
 
+		//BUTTON
 		loadAllMenuButton.disableProperty().bind(allMenuList.getSelectionModel().selectedItemProperty().isNull());
 	}
 
+	/**
+	 * El metodo "onLoadAllMenuButtonAction" se encarga almacenar el menu seleccionado para cargar en 
+	 * la variable "menuAccepted" y de cerrar la ventana.
+	 * @param event
+	 */
 	@FXML
 	void onLoadAllMenuButtonAction(ActionEvent event) {
 		menuAccepted = menu.get();
 		stage.close();
 	}
 
+	/**
+	 * El metodo "loadMenus" se encarga de cargar la lista de todos los menus existentes de un usuario.
+	 */
 	private void loadMenus() {
 		Profile profile = MainController.getProfileSelected();
 		allMenus.addAll(MenuService.getAllMenus(profile));
@@ -73,6 +87,10 @@ public class LoadAllMenuController implements Initializable {
 		return view;
 	}
 
+	/**
+	 * El metodo "getMenuAccepted" se encarga de devolver el menu seleccionado para cargar.
+	 * @return retornamos el menu a cargar.
+	 */
 	public Menu getMenuAccepted() {
 		return menuAccepted;
 	}

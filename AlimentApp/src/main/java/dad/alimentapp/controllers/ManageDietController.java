@@ -202,9 +202,9 @@ public class ManageDietController implements Initializable {
 		modifyDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
 		removeDietButton.disableProperty().bind(dietList.getSelectionModel().selectedItemProperty().isNull());
 	}
-	
+
 	/**
-	 * Esta función loadDietsAndMenus, nos permite cargar un menú y sus dietas para un perfil seleccionado
+	 * El metodo "loadDietsAndMenus" es accesible desde toda la app y nos permite recargar la lista de dietas y menus que se visualiza en gestionar dietas.
 	 */
 	public static void loadDietsAndMenus() {
 		Profile profile = MainController.getProfileSelected();
@@ -215,7 +215,8 @@ public class ManageDietController implements Initializable {
 	}
 
 	/**
-	 * Esta función onCreateDietButtonAction, nos permite crea una dieta para un perfil determinado
+	 * El metodo "onCreateDietButtonAction" se encarga de lanzar la vista para poder crear nuevas dietas.
+	 * @param event
 	 */
 	@FXML
 	void onCreateDietButtonAction(ActionEvent event) {
@@ -228,7 +229,8 @@ public class ManageDietController implements Initializable {
 	}
 
 	/**
-	 * Esta función onCreateMenuButtonAction, nos permite crea un menú para un perfil determinado
+	 * El metodo "onCreateMenuButtonAction" se encarga de lanzar la vista para poder crear nuevos menus.
+	 * @param event
 	 */
 	@FXML
 	void onCreateMenuButtonAction(ActionEvent event) {
@@ -241,7 +243,8 @@ public class ManageDietController implements Initializable {
 	}
 
 	/**
-	 * Esta función onCreateMenuButtonAction, nos permite crea un menú para un perfil determinado
+	 * El metodo "onModifyDietButtonAction" se encarga de lanzar la vista para poder modificar la dieta que se encuentre seleccionada.
+	 * @param event
 	 */
 	@FXML
 	void onModifyDietButtonAction(ActionEvent event) {
@@ -253,9 +256,10 @@ public class ManageDietController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Esta función onModifyMenuButtonAction, nos permite modificar un menú seleccionado
+	 * El metodo "onModifyMenuButtonAction" se encarga de lanzar la vista para poder modificar el menu que se encuentre seleccionado.
+	 * @param event
 	 */
 	@FXML
 	void onModifyMenuButtonAction(ActionEvent event) {
@@ -341,6 +345,9 @@ public class ManageDietController implements Initializable {
 		dinnerProductList = ProductService.getAllProductsToMenuOfMomentDay(menuSelected.get().getId(), MomentDay.CENA);
 	}
 
+	/**
+	 * El metodo "createChoiceStage" se encargar de lanzar la vista para elegir entre menus o dietas personalizadas o por defecto.
+	 */
 	private void createChoiceStage() {
 		choiceStage = new Stage();
 		Scene scene = new Scene(choiceController.getView());
@@ -355,6 +362,11 @@ public class ManageDietController implements Initializable {
 		choiceStage.showAndWait();
 	}
 
+	/**
+	 * El metodo "modifIcateStage" se encarga de lanzar la vista para modificar el menu o la dieta selecccionada.
+	 * @param controlDiet Recibimos por parametro si se trata de una modificacion de dieta o de menu.
+	 * @param view
+	 */
 	private void modifIcateStage(ControlDietMenu controlDiet, HBox view) {
 		ChoiceController.setCreateDietCustomStage(null);
 		modifIcateStage = new Stage();
@@ -362,6 +374,8 @@ public class ManageDietController implements Initializable {
 		scene.getStylesheets().add(MainController.getStyleSheetActual());
 
 		modifIcateStage.setScene(scene);
+		modifIcateStage.setMinWidth(900);
+		modifIcateStage.setMinHeight(700);
 		modifIcateStage.setTitle(controlDiet.name());
 		modifIcateStage.getIcons().add(new Image("/images/logo.png"));
 		modifIcateStage.initModality(Modality.WINDOW_MODAL);
@@ -369,14 +383,26 @@ public class ManageDietController implements Initializable {
 		modifIcateStage.show();
 	}
 
+	/**
+	 * Creamos un getter para poder acceder al stage de eleccion desde cualquier parte de la app.
+	 * @return retornamos el Stage con la vista de eleccion.
+	 */
 	public static Stage getChoiceStage() {
 		return choiceStage;
 	}
 
+	/**
+	 * Creamos un getter para poder acceder al stage de modificacion de los menus o dietas desde cualquier parte de la app.
+	 * @return retornamos el stage de modificacion de los menus o dietas.
+	 */
 	public static Stage getModificateStage() {
 		return modifIcateStage;
 	}
 
+	/**
+	 * Creamos un setter para poder cambiar el valor del stage de modificacion de los menus o dietas desde cualquier parte de la app.
+	 * @param stage le pasamos por parametros el stage para la vista de modificacion de menus o dietas
+	 */
 	public static void setModificateStage(Stage stage) {
 		modifIcateStage = stage;
 	}

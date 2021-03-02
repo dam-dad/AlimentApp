@@ -33,12 +33,12 @@
                <children>
                   <VBox alignment="CENTER" GridPane.halignment="CENTER">
                      <children>
-                        <Label text="Versión:">
+                        <Label styleClass="label-subtitle" text="Versión:">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="versionLabel" text="Label">
+                        <Label fx:id="versionLabel" text="1.0.0">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font></Label>
@@ -65,29 +65,29 @@
                                           <Image url="@../images/logoGitHub.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Desarrolladores:">
+                                    <Label styleClass="label-subtitle" text="Desarrolladores:">
                                        <font>
                                           <Font name="System Bold Italic" size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <Hyperlink fx:id="davidLink" onAction="#onDavidLinkAction" text="David" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                              <Hyperlink fx:id="davidLink" onAction="#onDavidLinkAction" styleClass="link-about" text="David" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink fx:id="antonioLink" onAction="#onAntonioLinkAction" text="Antonio" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                              <Hyperlink fx:id="antonioLink" onAction="#onAntonioLinkAction" styleClass="link-about" text="Antonio" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink fx:id="andyLink" onAction="#onAndyLinkAction" text="Andy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                              <Hyperlink fx:id="andyLink" onAction="#onAndyLinkAction" styleClass="link-about" text="Andy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink fx:id="danielLink" onAction="#onDanielLinkAction" text="Daniel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                              <Hyperlink fx:id="danielLink" onAction="#onDanielLinkAction" styleClass="link-about" text="Daniel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
@@ -98,11 +98,11 @@
                   </HBox>
                   <VBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Label text="Licencia:">
+                        <Label styleClass="label-subtitle" text="Licencia:">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font></Label>
-                        <Hyperlink fx:id="licenceLink" onAction="#onLicenceLinkAction" text="GNU General Public License v3.0">
+                        <Hyperlink fx:id="licenceLink" onAction="#onLicenceLinkAction" styleClass="link-about" text="GNU General Public License v3.0">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font></Hyperlink>

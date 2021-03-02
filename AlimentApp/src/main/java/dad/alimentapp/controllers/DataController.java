@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -26,20 +25,22 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Gender;
 import dad.alimentapp.models.Profile;
+import dad.alimentapp.service.ProfileService;
 import dad.alimentapp.utils.Messages;
 import dad.alimentapp.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -102,8 +103,14 @@ public class DataController implements Initializable {
 	@FXML
 	private Button saveButton;
 
-	@FXML
-	private BarChart<?, ?> historicChart;
+    @FXML
+    private LineChart<String,Double> imcLineChart;
+    
+    @FXML
+    private CategoryAxis weekAxis;
+
+    @FXML
+    private NumberAxis imcAxis;
 
 	@FXML
 	private Label idealWeightLabel;
@@ -170,10 +177,10 @@ public class DataController implements Initializable {
 		womanRadio.selectedProperty().addListener((o, ov, nv) -> onCalculateIndex());
 		manRadio.selectedProperty().addListener((o, ov, nv) -> onCalculateIndex());
 
-		profile.bind(InfoController.getProfile());
+		profile.bind(ProfileController.getProfile());
 		profile.addListener((o, ov, nv) -> onProfileChanged(o, ov, nv));
 
-		saveButton.setOnAction(e -> onSaveButtonAction(e));
+		saveButton.setOnAction(e -> onSaveButtonAction());
 
 		/**
 		 * Validadores para los distintos datos que recogeremos del usuario
@@ -199,24 +206,34 @@ public class DataController implements Initializable {
 		support.registerValidator(heighText, false, integerValidator);
 
 		saveButton.disableProperty().bind(support.invalidProperty());
+		
+		XYChart.Series<String,Double> serie= new XYChart.Series<>();
+		serie.setName("IMC");
+		
+		serie.getData().add(new XYChart.Data<>("Semana 1",21.0));
+		serie.getData().add(new XYChart.Data<>("Semana 2",16.0));
+		serie.getData().add(new XYChart.Data<>("Semana 3",23.0));
+		serie.getData().add(new XYChart.Data<>("Semana 4",14.0));
+		serie.getData().add(new XYChart.Data<>("Semana 5",19.0));
+		serie.getData().add(new XYChart.Data<>("Semana 6",28.0));
+		
+		imcAxis= new NumberAxis(10.0,30.0,1);
+	
+		imcLineChart.getData().add(serie);
 
 	}
 
 	/**
 	 * Método que vincula y desvincula los datos del usuario según el perfil que se haya escogido
-	 * @param o
-	 * @param ov
-	 * @param nv
+	 * @param o  Indica que es un valor de tipo observable
+	 * @param ov Antiguo valor que tenía el parámetro
+	 * @param nv Nuevo Valor que tiene el parámetro
 	 */
 	private void onProfileChanged(ObservableValue<? extends Profile> o, Profile ov, Profile nv) {
-
-		System.out.println("ov: " + ov);
-		System.out.println("nv: " + nv);
-
 		if (ov != null) {
-
+			
 			profile.unbind();
-			nameText.textProperty().unbindBidirectional(ov.nameProperty());
+			nameText.textProperty().unbind();
 			surnameText.textProperty().unbindBidirectional(ov.ageProperty());
 			Bindings.unbindBidirectional(ageText.textProperty(), ov.ageProperty());
 			Bindings.unbindBidirectional(weightText.textProperty(), ov.weightProperty());
@@ -225,8 +242,9 @@ public class DataController implements Initializable {
 
 		}
 		if (nv != null) {
-			profile.bind(InfoController.getProfile());
-			profileText.textProperty().bindBidirectional(profile.get().nameProfileProperty());
+			
+			profile.bind(ProfileController.getProfile());
+			profileText.textProperty().bindBidirectional(nv.nameProfileProperty());
 			nameText.textProperty().bindBidirectional(nv.nameProperty());
 			surnameText.textProperty().bindBidirectional(nv.surNameProperty());
 			Bindings.bindBidirectional(ageText.textProperty(), nv.ageProperty(), new NumberStringConverter());
@@ -246,9 +264,9 @@ public class DataController implements Initializable {
 
 	/**
 	 * Método que guarda un objeto de tipo Profile con los datos que el usuario ha introducido
-	 * @param e
+	 * 
 	 */
-	private void onSaveButtonAction(ActionEvent e) {
+	private void onSaveButtonAction() {
 
 		// Recogemos los datos
 		String profileName = profileText.textProperty().get();
@@ -260,7 +278,7 @@ public class DataController implements Initializable {
 		double imc = imcProperty.get();
 		int genderN = 1;
 		String image = avatarImageView.getImage().getUrl();
-		Gender genderG = Gender.HOMBRE;
+		Gender genderG =  Gender.HOMBRE;
 
 		if (manRadio.isSelected()) {
 			genderN = 1;
@@ -272,33 +290,83 @@ public class DataController implements Initializable {
 
 		}
 
+			
 	
-
-	
-
 		try {
-			String sql = "insert into Profile (name_profile,name,surname,age,weight,height,imc,gender,image_profile) values(?,?,?,?,?,?,?,?,?)";
-			PreparedStatement query = App.connection.prepareStatement(sql);
-			query.setString(1, profileName);
-			query.setString(2, name);
-			query.setString(3, surname);
-			query.setInt(4, age);
-			query.setInt(5, weight);
-			query.setInt(6, height);
-			query.setDouble(7, imc);
-			query.setInt(8, genderN);
-			query.setString(9, image);
-			query.executeUpdate();
+			String sql = "SELECT name_profile from Profile";
+			PreparedStatement queryCheck = App.connection.prepareStatement(sql);
+			ResultSet result = queryCheck.executeQuery();
+			while (result.next()) {
+				
+			if(profileName.equals(result.getString(1))) {
+				
+				Optional <ButtonType> confirm= Messages.confirmation("Se sobreescribirán los datos", "Se sobreescribirán los datos del perfil seleccionado");
+				if(confirm.get()==ButtonType.OK) {
+					
+					
+					String updateSql= "UPDATE Profile set name=?,surname=?,age=?,weight=?,height=?,imc=?,gender=?,image_profile=? where name_profile=?";
+					PreparedStatement queryUpdate = App.connection.prepareStatement(updateSql);
+					queryUpdate.setString(1, name);
+					queryUpdate.setString(2, surname);
+					queryUpdate.setInt(3, age);
+					queryUpdate.setInt(4, weight);
+					queryUpdate.setInt(5, height);
+					queryUpdate.setDouble(6, imc);
+					queryUpdate.setInt(7, genderN);
+					queryUpdate.setString(8, image);
+					queryUpdate.setString(9, profileName);
+					queryUpdate.executeUpdate();
 
-			InfoController.loadProfiles();
-			Utils.popup("Se ha guardado el perfil correctamente");
-			App.getMainController().getManageDietsTab().setDisable(false);
+					ProfileService.loadProfiles();
+					Utils.popup("Se ha actualizado el perfil correctamente");
+					App.getMainController().getManageDietsTab().setDisable(false);
+					
+				}
+				
+				
+					
+				}
+			
+			
+			else {
+				
+				try {
+					String sqlInsert = "insert into Profile (name_profile,name,surname,age,weight,height,imc,gender,image_profile) values(?,?,?,?,?,?,?,?,?)";
+					PreparedStatement query = App.connection.prepareStatement(sqlInsert);
+					query.setString(1, profileName);
+					query.setString(2, name);
+					query.setString(3, surname);
+					query.setInt(4, age);
+					query.setInt(5, weight);
+					query.setInt(6, height);
+					query.setDouble(7, imc);
+					query.setInt(8, genderN);
+					query.setString(9, image);
+					query.executeUpdate();
 
-		} catch (SQLException ex) {
-			Messages.error("Error al guardar el perfil ", ex.getMessage());
-		}
+					ProfileService.loadProfiles();
+					Utils.popup("Se ha guardado el perfil correctamente");
+					App.getMainController().getManageDietsTab().setDisable(false);
 
-	}
+				} catch (SQLException ex) {
+					Messages.error("Error al guardar el perfil ", "No se ha podido guardar el perfil seleccionado");
+				}
+				
+			}
+			
+			}
+			}
+			
+			
+		 catch (SQLException exc) {
+			Messages.error("Ha ocurrido un error", "No se ha podido procesar la petición");
+		
+
+		
+		 }
+			
+		 }
+	
 
 	/**
 	 * Método utilizado por el validador para comprobar si lo que está escrito en un TextField es un número o no
@@ -308,7 +376,7 @@ public class DataController implements Initializable {
 	private boolean checkNumber(String text) {
 
 		try {
-			int d = Integer.parseInt(text);
+			Integer.parseInt(text);
 			return true;
 		} catch (NumberFormatException nfe) {
 			return false;
@@ -341,8 +409,8 @@ public class DataController implements Initializable {
 			} else if (imcProperty.get() >= 25.0 && imcProperty.get() < 30.0) {
 				resProperty.set("Sobrepeso");
 				idealDietLabel.setText("Te recomendamos seguir una dieta hipocalórica");
-				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude a quemar" + "\n"
-						+ "más calorías de las que consumes");
+				exerciseLabel.setText("Lleva a cabo aquel ejercicio que te ayude" + "\n"
+						+ " a quemar más calorías de las que consumes");
 				imcImageView.setImage(new Image("images/myDataTab/over_weight.png"));
 			} else {
 				resProperty.set("Obeso");
@@ -371,11 +439,11 @@ public class DataController implements Initializable {
 			if (manRadio.isSelected()) {
 				idealWeight = Math.round(((0.75 * heightProperty.get()) - 62.5) * 100.00) / 100.00;
 				idealWeightLabel.textProperty()
-						.set("Tu peso ideal está entre " + idealWeight + "-" + (idealWeight + 5.00) + " kg");
+						.set("Tu peso ideal está entre " + (idealWeight-5.00) + "-" + (idealWeight + 5.00) + " kg");
 			} else if (womanRadio.isSelected()) {
 				idealWeight = Math.round(((0.675 * heightProperty.get()) - 56.25) * 100.00) / 100.00;
 				idealWeightLabel.textProperty()
-						.set("Tu peso ideal está entre " + idealWeight + "-" + (idealWeight + 5.00) + " kg");
+						.set("Tu peso ideal está entre " + (idealWeight-5.00) + "-" + (idealWeight + 5.00) + " kg");
 
 			}
 		}

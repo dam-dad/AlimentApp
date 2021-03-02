@@ -48,7 +48,7 @@
                   <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="previousButton" mnemonicParsing="false" onAction="#onPreviousButtonAction">
+                  <Button fx:id="previousButton" mnemonicParsing="false" onAction="#onPreviousButtonAction" styleClass="btn-add">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -59,7 +59,7 @@
                         <Insets bottom="10.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNextButtonAction" GridPane.columnIndex="4">
+                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNextButtonAction" styleClass="btn-add" GridPane.columnIndex="4">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,7 +70,7 @@
                         <Insets bottom="10.0" />
                      </GridPane.margin>
                   </Button>
-                  <Label fx:id="weekdayLabel" text="Label" GridPane.columnIndex="2">
+                  <Label fx:id="weekdayLabel" styleClass="label-subtitle" text="Label" GridPane.columnIndex="2">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -80,14 +80,14 @@
                   </Label>
                   <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Desayuno">
+                        <Label styleClass="label-subtitle" text="Desayuno">
                            <font>
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="breakfastAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onBreakfastAddButtonAction">
+                              <Button fx:id="breakfastAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onBreakfastAddButtonAction" styleClass="btn-add">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -96,7 +96,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="breakfastRemoveButton" mnemonicParsing="false" onAction="#onBreakfastRemoveButtonAction">
+                              <Button fx:id="breakfastRemoveButton" mnemonicParsing="false" onAction="#onBreakfastRemoveButtonAction" styleClass="btn-remove">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -110,14 +110,14 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Media-Mañana">
+                        <Label styleClass="label-subtitle" text="Media-Mañana">
                            <font>
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="midMorningAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onMidMorningAddButtonAction">
+                              <Button fx:id="midMorningAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onMidMorningAddButtonAction" styleClass="btn-add">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -126,7 +126,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="midMorningRemoveButton" mnemonicParsing="false" onAction="#onMidMorningRemoveButtonAction">
+                              <Button fx:id="midMorningRemoveButton" mnemonicParsing="false" onAction="#onMidMorningRemoveButtonAction" styleClass="btn-remove">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -140,14 +140,14 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Almuerzo">
+                        <Label styleClass="label-subtitle" text="Almuerzo">
                            <font>
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="lunchAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onLunchAddButtonAction">
+                              <Button fx:id="lunchAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onLunchAddButtonAction" styleClass="btn-add">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -156,7 +156,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="lunchRemoveButton" mnemonicParsing="false" onAction="#onLunchRemoveButtonAction">
+                              <Button fx:id="lunchRemoveButton" mnemonicParsing="false" onAction="#onLunchRemoveButtonAction" styleClass="btn-remove">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -170,14 +170,14 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Merienda">
+                        <Label styleClass="label-subtitle" text="Merienda">
                            <font>
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="snackAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onSnackAddButtonAction">
+                              <Button fx:id="snackAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onSnackAddButtonAction" styleClass="btn-add">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -186,7 +186,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="snackRemoveButton" mnemonicParsing="false" onAction="#onSnackRemoveButtonAction">
+                              <Button fx:id="snackRemoveButton" mnemonicParsing="false" onAction="#onSnackRemoveButtonAction" styleClass="btn-remove">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -200,14 +200,14 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="3.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Cena">
+                        <Label styleClass="label-subtitle" text="Cena">
                            <font>
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="dinnerAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onDinnerAddButtonAction">
+                              <Button fx:id="dinnerAddButton" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#onDinnerAddButtonAction" styleClass="btn-add">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -216,7 +216,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="dinnerRemoveButton" mnemonicParsing="false" onAction="#onDinnerRemoveButtonAction">
+                              <Button fx:id="dinnerRemoveButton" mnemonicParsing="false" onAction="#onDinnerRemoveButtonAction" styleClass="btn-remove">
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -265,27 +265,27 @@
                                  <children>
                                     <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label text="Kcal:">
+                                          <Label styleClass="label-subtitle" text="Kcal:">
                                              <font>
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Proteinas:">
+                                          <Label styleClass="label-subtitle" text="Proteinas:">
                                              <font>
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Hidratos:">
+                                          <Label styleClass="label-subtitle" text="Hidratos:">
                                              <font>
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Grasas:">
+                                          <Label styleClass="label-subtitle" text="Grasas:">
                                              <font>
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Fibras:">
+                                          <Label styleClass="label-subtitle" text="Fibras:">
                                              <font>
                                                 <Font name="System Bold Italic" size="18.0" />
                                              </font>
@@ -297,27 +297,27 @@
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label fx:id="kcalTotLabel" text="Label">
+                                          <Label fx:id="kcalTotLabel" styleClass="label-content" text="0">
                                              <font>
                                                 <Font name="System Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="proteinTotLabel" text="Label">
+                                          <Label fx:id="proteinTotLabel" styleClass="label-content" text="0">
                                              <font>
                                                 <Font name="System Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="hydratesTotLabel" text="Label">
+                                          <Label fx:id="hydratesTotLabel" styleClass="label-content" text="0">
                                              <font>
                                                 <Font name="System Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="fatsTotLabel" text="Label">
+                                          <Label fx:id="fatsTotLabel" styleClass="label-content" text="0">
                                              <font>
                                                 <Font name="System Italic" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="fibresTotLabel" text="Label">
+                                          <Label fx:id="fibresTotLabel" styleClass="label-content" text="0">
                                              <font>
                                                 <Font name="System Italic" size="18.0" />
                                              </font>
@@ -341,12 +341,12 @@
                   <Separator orientation="VERTICAL" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="SOMETIMES">
                      <children>
-                        <Button fx:id="loadExistingMenusButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLoadExistingMenusButtonAction" text="Cargar menús existentes">
+                        <Button fx:id="loadExistingMenusButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLoadExistingMenusButtonAction" styleClass="btn-add" text="Cargar menús existentes">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="saveDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveDietButtonAction" text="Guardar dieta" VBox.vgrow="ALWAYS">
+                        <Button fx:id="saveDietButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveDietButtonAction" styleClass="btn-add" text="Guardar dieta" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
