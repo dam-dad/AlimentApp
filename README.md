@@ -26,6 +26,7 @@ llevar a cabo la aplicación.
 * [Iconos de la aplicación]()
 * [Guía de usuario](GUIDE.md)
 * [JavaDoc](https://dam-dad.github.io/AlimentApp/)
+
 **Licencia**  
 GNU General Public License v3.0
 
