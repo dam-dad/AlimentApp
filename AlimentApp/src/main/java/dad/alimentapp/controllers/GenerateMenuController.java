@@ -173,11 +173,7 @@ public class GenerateMenuController implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void onGenerateButtonAction(ActionEvent event) {
-		
-	}
-
-	void onSaveMenuButtonAction(ActionEvent event) {
+    void onSaveMenuButtonAction(ActionEvent event) {
 		Menu menuName = new Menu();
 		List<Product> productList = new ArrayList<>();
 		productList = breakfastListView.getItems();
@@ -202,7 +198,7 @@ public class GenerateMenuController implements Initializable {
 		ManageDietController.loadDietsAndMenus();
 		Stage stage = (Stage) this.saveButton.getScene().getWindow();
 		stage.close();
-	}
+    }
 
 	/**
 	 * La función mostrará listas de productos, según lo que escogas en el combobox
