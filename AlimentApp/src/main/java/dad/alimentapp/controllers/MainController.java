@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Profile;
+import dad.alimentapp.utils.GeneratePDF;
 import dad.alimentapp.utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -25,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
 
 public class MainController implements Initializable {
 
@@ -96,8 +98,8 @@ public class MainController implements Initializable {
 	// Funciones menu
 
 	@FXML
-	void onGenerateReportMenuAction(ActionEvent event) {
-
+	void onGenerateReportMenuAction(ActionEvent event) throws JRException, IOException {
+		GeneratePDF.generatePdf();
 	}
 
 	@FXML
