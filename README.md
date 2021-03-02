@@ -25,7 +25,7 @@ llevar a cabo la aplicación.
 * [Fórmula para cálculo de peso ideal](https://www.vitonica.com/wellness/calcula-tu-peso-ideal)
 * [Iconos de la aplicación]()
 * [Guía de usuario](GUIDE.md)
-
+* [JavaDoc](https://dam-dad.github.io/AlimentApp/)
 **Licencia**  
 GNU General Public License v3.0
 
