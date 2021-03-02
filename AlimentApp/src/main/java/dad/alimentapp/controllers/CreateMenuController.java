@@ -366,8 +366,8 @@ public class CreateMenuController implements Initializable {
 		Stage stage = choice != null ? choice : manage;
 		try {
 			Stage productStage = new Stage();
-			productStage.setMinWidth(750);
-			productStage.setMinHeight(450);
+			productStage.setMinWidth(800);
+			productStage.setMinHeight(500);
 			productStage.setTitle("Productos");
 			productStage.getIcons().add(new Image("/images/logo.png"));
 			productStage.initModality(Modality.WINDOW_MODAL);
@@ -518,10 +518,10 @@ public class CreateMenuController implements Initializable {
 	 */
 	public void installTooltip(PieChart.Data d) {
 
-		String msg = String.format("%s : %s", d.getName(), d.getPieValue());
+		String msg = String.format("%s : %s", d.getName(), d.getPieValue() + "%");
 
 		Tooltip tooltip = new Tooltip(msg);
-		tooltip.setStyle("-fx-background-color: violet; -fx-text-fill: whitesmoke;");
+		tooltip.setStyle("-fx-background-color: #061f33; -fx-text-fill: #FFFFFF; -fx-font-family: Segoe UI Light;");
 
 		Tooltip.install(d.getNode(), tooltip);
 	}

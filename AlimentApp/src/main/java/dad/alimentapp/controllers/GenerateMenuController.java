@@ -173,6 +173,10 @@ public class GenerateMenuController implements Initializable {
 	 * @param event
 	 */
 	@FXML
+	void onGenerateButtonAction(ActionEvent event) {
+		
+	}
+
 	void onSaveMenuButtonAction(ActionEvent event) {
 		Menu menuName = new Menu();
 		List<Product> productList = new ArrayList<>();

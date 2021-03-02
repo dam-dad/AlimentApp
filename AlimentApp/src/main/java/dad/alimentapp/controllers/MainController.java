@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import dad.alimentapp.main.App;
 import dad.alimentapp.models.Profile;
+import dad.alimentapp.utils.GeneratePDF;
 import dad.alimentapp.utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -25,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * Esta clase "MainController" la utilizaremos para lanzar los diferentes
@@ -100,13 +102,12 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
-	void onGenerateReportMenuAction(ActionEvent event) {
-
+	void onGenerateReportMenuAction(ActionEvent event) throws JRException, IOException {
+		GeneratePDF.generatePdf();
 	}
 
 	/**
 	 * El metodo "onExitMenuAction" se encarga de cerrar la app, lanzando previamente un alert de confirmacion.
-	 * @author Antonio
 	 * @param event
 	 */
 	@FXML
@@ -116,7 +117,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "onLightThemeMenuAction" se encargar de cargar la hoja de estilos con un tema claro.
-	 * @author Antonio
 	 * @param event
 	 */
 	@FXML
@@ -128,7 +128,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "onDarkThemeMenuAction" se encargar de cargar la hoja de estilos con un tema oscuro.
-	 * @author Antonio
 	 * @param event
 	 */
 	@FXML
@@ -140,7 +139,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "onAboutAppMenuAction" se encarga de lanzar una nueva vista con informacion acerca de la app y sus desarrolladores.
-	 * @author Antonio
 	 * @param event
 	 */
 	@FXML
@@ -167,7 +165,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "onShowUserGuidesMenuAction" se encarga de abrir navegador y visualizarnos la guia de usuario de la app.
-	 * @author Antonio
 	 * @param event
 	 */
 	@FXML
@@ -197,7 +194,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "getProfileSelected" nos permite obtener el perfil del usuario que este cargado.
-	 * @author Antonio
 	 * @return retornamos el perfil del usuario seleccionado.
 	 */
 	public static Profile getProfileSelected() {
@@ -206,7 +202,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "setProfileSelected" nos permite asignarle el perfil del usuario que se seleccione en la vista principal.
-	 * @author Antonio
 	 * @param profileSelected Le pasamos por parametro el perfil del usuario seleccionado.
 	 */
 	public static void setProfileSelected(Profile profileSelected) {
@@ -215,7 +210,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "getStyleSheetActual" nos permite obtener el fichero de estilo que esta siendo usado por la app.
-	 * @author Antonio
 	 * @return retornamos el fichero de estilo que esta siendo usado por la app.
 	 */
 	public static String getStyleSheetActual() {
@@ -224,7 +218,6 @@ public class MainController implements Initializable {
 
 	/**
 	 * El metodo "setStyleSheetActual" nos permite definir una hoja de estilos y que toda la app tenga acceso.
-	 * @author Antonio
 	 * @param style le pasamos por parametros la ruta del fichero CSS que se va usando en la app.
 	 */
 	public static void setStyleSheetActual(String style) {
