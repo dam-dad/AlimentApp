@@ -170,7 +170,7 @@ public class MainController implements Initializable {
 	@FXML
 	void onShowUserGuidesMenuAction(ActionEvent event) {
 		try {
-			Desktop.getDesktop().browse(new URI("https://github.com/dam-dad/AlimentApp/blob/main/README.md"));
+			Desktop.getDesktop().browse(new URI("https://github.com/dam-dad/AlimentApp/blob/main/GUIDE.md"));
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
