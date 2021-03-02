@@ -148,3 +148,21 @@
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 12pt;
 }
+/* Pie chart */
+.chart-pie {
+    -fx-background-insets: 0;
+    -fx-border-width: 1px;
+}
+
+.chart-legend { 
+	-fx-background-color: transparent;
+	-fx-border-color: #232f3d;
+	-fx-border-width: 2px;
+	-fx-text-fill: #FFFFFF;
+	-fx-font-family: "Segoe UI Light";
+}
+.chart-pie-label, .chart-pie-label-line {
+	-fx-fill: #FFFFFF;
+	-fx-stroke: #FFFFFF;
+	-fx-font-family: "Segoe UI Light";
+}
