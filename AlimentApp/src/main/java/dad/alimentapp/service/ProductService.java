@@ -28,7 +28,7 @@ public class ProductService {
 	 * @param id paseremos el id del producto por parametros
 	 * @return retornaremos el producto
 	 */
-	private static Product getProduct(Integer id) {
+	public static Product getProduct(Integer id) {
 		Product product = null;
 		try {
 			String sql = "SELECT nombre, kcal, hydrates, fats, protein, fibres, image, id_origin, id_type FROM product WHERE id = ?";
